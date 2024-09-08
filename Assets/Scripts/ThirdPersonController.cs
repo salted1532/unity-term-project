@@ -15,7 +15,7 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded;
 
-    public int testint = 77;
+    public int testint = 66;
 
     private void Start()
     {
