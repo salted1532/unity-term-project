@@ -5,14 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ThirdPersonController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 이동 속도
+    public float moveSpeed = 30f; // 이동 속도
     public float turnSpeed = 700f; // 회전 속도
     public float jumpForce = 7f; // 점프 힘
     public Transform playerCamera; // 카메라의 Transform
-    private Vector3 cameraOffset = new Vector3(5 , 2.5f, 5); // 카메라의 오프셋, 수정된 부분
+    private Vector3 cameraOffset = new Vector3(5 , 1f, 5); // 카메라의 오프셋, 수정된 부분
     public float lookSensitivity = 2f; // 마우스 감도
 
     private Rigidbody rb;
+    [SerializeField]
     private bool isGrounded;
 
     public int testint = 66;
@@ -72,6 +73,7 @@ public class ThirdPersonController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
         }
     }
 
@@ -83,13 +85,13 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    /*private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
         }
-    }
+    }*/
 
     private void FollowPlayer()
     {
