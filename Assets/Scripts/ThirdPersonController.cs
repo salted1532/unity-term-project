@@ -5,18 +5,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ThirdPersonController : MonoBehaviour
 {
-    public float moveSpeed = 30f; // 이동 속도
+    public float moveSpeed = 5f; // 이동 속도
     public float turnSpeed = 700f; // 회전 속도
     public float jumpForce = 7f; // 점프 힘
     public Transform playerCamera; // 카메라의 Transform
     private Vector3 cameraOffset = new Vector3(5 , 1f, 5); // 카메라의 오프셋, 수정된 부분
-    public float lookSensitivity = 2f; // 마우스 감도
+    public float lookSensitivity = 300f; // 마우스 감도
 
     private Rigidbody rb;
     [SerializeField]
     private bool isGrounded;
 
     public int testint = 66;
+
+    [SerializeField]
+    private bool isAbleDash = false;
+    [SerializeField]
+    private bool isDashing = false;
+
+    private float timer;
 
     private void Start()
     {
@@ -33,6 +40,30 @@ public class ThirdPersonController : MonoBehaviour
         HandleMouseLook();
         MovePlayer();
         Jump();
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (isAbleDash == true)
+            {
+                isDashing = true;
+                OnDash();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            isAbleDash = true;
+        }
+
+        if (isAbleDash == true)
+        {
+
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                isAbleDash = false;
+                timer = 0f;
+            }
+        }
     }
 
     private void LateUpdate()
@@ -66,6 +97,24 @@ public class ThirdPersonController : MonoBehaviour
 
         // 이동을 적용합니다.
         rb.MovePosition(transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime);
+    }
+
+    private void OnDash() // 1
+    {
+        if (isAbleDash)
+        {
+            StartCoroutine(DashStart());
+        }
+    }
+
+    private IEnumerator DashStart()
+    {
+        rb.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+
+        isAbleDash = false;
+        isDashing = false;
+
+        yield return new WaitForSeconds(1f); // 1초
     }
 
     private void Jump()
