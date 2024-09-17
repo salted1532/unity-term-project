@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ThirdPersonController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 이동 속도
+    public float moveSpeed = 100f; // 이동 속도
     public float turnSpeed = 700f; // 회전 속도
-    public float jumpForce = 7f; // 점프 힘
+    public float jumpForce = 10f; // 점프 힘
     public Transform playerCamera; // 카메라의 Transform
     private Vector3 cameraOffset = new Vector3(5 , 1f, 5); // 카메라의 오프셋, 수정된 부분
     public float lookSensitivity = 300f; // 마우스 감도
@@ -15,8 +15,6 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private bool isGrounded;
-
-    public int testint = 66;
 
     [SerializeField]
     private bool isAbleDash = false;
@@ -58,7 +56,7 @@ public class ThirdPersonController : MonoBehaviour
         {
 
             timer += Time.deltaTime;
-            if (timer > 1f)
+            if (timer > 0.1f)
             {
                 isAbleDash = false;
                 timer = 0f;
@@ -93,7 +91,7 @@ public class ThirdPersonController : MonoBehaviour
 
         // 플레이어가 이동할 방향을 설정합니다.
         Vector3 moveDirection = transform.forward * vertical + transform.right * horizontal;
-        moveDirection.y = 0; // Y축 이동을 0으로 설정하여 수평 이동만 수행
+       // moveDirection.y = 0; // Y축 이동을 0으로 설정하여 수평 이동만 수행
 
         // 이동을 적용합니다.
         rb.MovePosition(transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime);
@@ -109,7 +107,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private IEnumerator DashStart()
     {
-        rb.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+        rb.AddForce(Vector3.forward * 0f, ForceMode.Impulse);
 
         isAbleDash = false;
         isDashing = false;
