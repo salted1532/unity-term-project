@@ -42,7 +42,6 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-
             Vector3 direction = Player.transform.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
@@ -50,24 +49,7 @@ public class EnemyAI : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), 3f);
 
-            Ray ray = new Ray(transform.position, direction);
-            RaycastHit hit;
-
-            float distance = Vector3.Distance(transform.position, Player.transform.position);
-
-            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 1f);
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                if (hit.collider.CompareTag("Player"))
-                {
-                    ShootBullet();
-                }
-                else
-                {
-
-                }
-            }
+             ShootBullet();
         }
     }
 
@@ -89,4 +71,12 @@ public class EnemyAI : MonoBehaviour
         alreadyAttacked = false;
         nav.isStopped = false;
     }
-}
+
+    public void PathFinding()
+    {
+        if (!alreadyAttacked) 
+        {
+            nav.SetDestination(Player.transform.position);
+        }
+    }
+ }
