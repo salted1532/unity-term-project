@@ -5,23 +5,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ThirdPersonController : MonoBehaviour
 {
-    public float moveSpeed = 100f; // 이동 속도
-    public float turnSpeed = 700f; // 회전 속도
-    public float jumpForce = 10f; // 점프 힘
+    [SerializeField]
+    private float moveSpeed = 10f; // 이동 속도 조정
+    [SerializeField]
+    private float turnSpeed = 700f; // 회전 속도
+    [SerializeField]
+    private float jumpForce = 10f; // 점프 힘
     public Transform playerCamera; // 카메라의 Transform
-    private Vector3 cameraOffset = new Vector3(5 , 1f, 5); // 카메라의 오프셋, 수정된 부분
+    private Vector3 cameraOffset = new Vector3(5, 1f, 5); // 카메라의 오프셋, 수정된 부분
     public float lookSensitivity = 300f; // 마우스 감도
 
     private Rigidbody rb;
     [SerializeField]
     private bool isGrounded;
 
-    [SerializeField]
-    private bool isAbleDash = false;
-    [SerializeField]
-    private bool isDashing = false;
-
-    private float timer;
+    private Vector3 moveDirection;
 
     private void Start()
     {
@@ -38,30 +36,6 @@ public class ThirdPersonController : MonoBehaviour
         HandleMouseLook();
         MovePlayer();
         Jump();
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            if (isAbleDash == true)
-            {
-                isDashing = true;
-                OnDash();
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            isAbleDash = true;
-        }
-
-        if (isAbleDash == true)
-        {
-
-            timer += Time.deltaTime;
-            if (timer > 0.1f)
-            {
-                isAbleDash = false;
-                timer = 0f;
-            }
-        }
     }
 
     private void LateUpdate()
@@ -90,29 +64,14 @@ public class ThirdPersonController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical"); // W, S, Up Arrow, Down Arrow
 
         // 플레이어가 이동할 방향을 설정합니다.
-        Vector3 moveDirection = transform.forward * vertical + transform.right * horizontal;
-       // moveDirection.y = 0; // Y축 이동을 0으로 설정하여 수평 이동만 수행
+        moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        // 카메라의 방향을 기준으로 이동 방향을 변환합니다.
+        moveDirection = playerCamera.TransformDirection(moveDirection);
+        moveDirection.y = 0; // 수평 이동만
 
         // 이동을 적용합니다.
-        rb.MovePosition(transform.position + moveDirection.normalized * moveSpeed * Time.deltaTime);
-    }
-
-    private void OnDash() // 1
-    {
-        if (isAbleDash)
-        {
-            StartCoroutine(DashStart());
-        }
-    }
-
-    private IEnumerator DashStart()
-    {
-        rb.AddForce(Vector3.forward * 0f, ForceMode.Impulse);
-
-        isAbleDash = false;
-        isDashing = false;
-
-        yield return new WaitForSeconds(1f); // 1초
+        rb.MovePosition(transform.position + moveDirection * moveSpeed * Time.deltaTime);
     }
 
     private void Jump()
@@ -131,14 +90,6 @@ public class ThirdPersonController : MonoBehaviour
             isGrounded = true;
         }
     }
-
-    /*private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }*/
 
     private void FollowPlayer()
     {
