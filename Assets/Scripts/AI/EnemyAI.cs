@@ -17,12 +17,14 @@ public class EnemyAI : MonoBehaviour
     public float bulletSpeed = 20f; // 총알 속도
     public float attackCooldown = 3f; // 공격 쿨다운 시간
 
-    public int waypointCount = 3;   // 웨이포인트 개수 (3개)
-    public float waypointRadius = 3f;  // 각 웨이포인트의 반경
+    private int waypointCount = 1;   // 웨이포인트 개수
+    private float waypointRadius = 5f;  // 각 웨이포인트의 반경
     private Vector3[] waypoints;  // 생성된 웨이포인트 배열
     private int currentWaypointIndex = 0;
 
     private int turnDirection;
+    private float waypointArrivalTime;
+    private float timeLimit = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +33,7 @@ public class EnemyAI : MonoBehaviour
         waypoints = new Vector3[waypointCount];
 
         // 적이 랜덤하게 왼쪽으로 돌지, 오른쪽으로 돌지 결정
-        turnDirection = Random.Range(0, 2) == 0 ? -1 : 1;
+        turnDirection = Random.Range(0, 4) == 0 ? -1 : 1;
 
         GenerateWaypoints();  // 첫 웨이포인트 세트 생성
         nav.SetDestination(waypoints[0]);
@@ -47,22 +49,17 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // 현재 웨이포인트에 도착했는지 확인
-        if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance)
+        // 현재 웨이포인트에 도착했거나 3초가 지나면
+        if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance || Time.time - waypointArrivalTime >= timeLimit)
         {
-            currentWaypointIndex++;
 
-            // 모든 웨이포인트에 도달했으면 플레이어로 직접 이동
-            if (currentWaypointIndex >= waypoints.Length)
-            {
-                nav.SetDestination(Player.transform.position);  // 플레이어로 이동
-            }
-            else
-            {
-                nav.SetDestination(waypoints[currentWaypointIndex]);  // 다음 웨이포인트로 이동
-            }
+            // 새로운 웨이포인트 생성 및 설정
+            GenerateWaypoints();
+            nav.SetDestination(waypoints[currentWaypointIndex]);
+
+            // 새로운 웨이포인트로 이동 시 시간을 초기화
+            waypointArrivalTime = Time.time;
         }
-
     }
 
     // 플레이어 주변에서 랜덤한 3개의 웨이포인트 생성
