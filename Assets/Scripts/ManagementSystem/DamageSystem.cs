@@ -39,7 +39,7 @@ public class DamageSystem : MonoBehaviour
         //죽었는지 확인
         if (CurrentHp <= 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

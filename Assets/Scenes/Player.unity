@@ -442,11 +442,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4499ac21965d0d4bac5cd532e785452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultWeaponMaxDistance: 50
   damage: 10
   DamageEvent:
     m_PersistentCalls:
       m_Calls: []
   PreFebBullet: {fileID: 6237113894052199299, guid: 986fa9d91bcf03449a8c18185937a0b4, type: 3}
+  DefaultCooldownTime: 0.35
 --- !u!4 &211467006
 Transform:
   m_ObjectHideFlags: 0
@@ -658,7 +660,7 @@ MonoBehaviour:
   MinGravity: 20
   jumpForce: 8
   dashSpeed: 24
-  DoubleJumpLock: 1
+  DoubleJumpLock: 0
   layerMask: 3
 --- !u!143 &609732384
 CharacterController:
