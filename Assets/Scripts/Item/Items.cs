@@ -11,6 +11,8 @@ public class Items : MonoBehaviour
 
     private Vector3 startPosition;
 
+    private int itemmanage = 0; //Switch문 이용해서 관리 
+
     void Start()
     {
         startPosition = transform.position;
@@ -28,7 +30,7 @@ public class Items : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //체력 회복 코드 구현
+            //코드 구현
             Destroy(gameObject);
         }
         else return;

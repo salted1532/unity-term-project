@@ -34,7 +34,7 @@ public class DamageSystem : MonoBehaviour
 
     }
 
-    private void Update()
+        private void Update()
     {
         //죽었는지 확인
         if (CurrentHp <= 0)
