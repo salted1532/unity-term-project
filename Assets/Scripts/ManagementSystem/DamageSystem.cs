@@ -7,12 +7,16 @@ using UnityEngine.UI;
 public class DamageSystem : MonoBehaviour
 {
     public float CurrentHp;
+    public float CurrentSp;
     public Slider Hpslider;
+    public Slider Spslider;
 
     public void Start()
     {
         Hpslider.maxValue = CurrentHp;
         Hpslider.value = CurrentHp;
+        Spslider.maxValue = 100;
+        Spslider.value = CurrentSp;
     }
     //데미지 받아오기 
     public void TakeDamage(float amount)
@@ -34,7 +38,27 @@ public class DamageSystem : MonoBehaviour
 
     }
 
-        private void Update()
+    public void GetHealth(float amount)
+    {
+        Debug.Log("회복 받음");
+
+        float GHealth = amount;
+        CurrentHp += GHealth;
+        Hpslider.value = CurrentHp;
+        Debug.Log(Hpslider.value);
+    }
+
+    public void GetShield(float amount)
+    {
+        Debug.Log("회복 받음");
+
+        float GShield = amount;
+        CurrentSp += GShield;
+        Spslider.value = CurrentSp;
+        Debug.Log(Spslider.value);
+    }
+
+    private void Update()
     {
         //죽었는지 확인
         if (CurrentHp <= 0)

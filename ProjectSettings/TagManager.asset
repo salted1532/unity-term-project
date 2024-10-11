@@ -4,23 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< Updated upstream
   - Ground
   - Item
-=======
-  - BGM
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - player
+  - 
   - Water
   - UI
   - 
   - 
   - YuME_TileMap
-  - Ground
+  - 
   - 
   - 
   - 

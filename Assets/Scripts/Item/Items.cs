@@ -11,11 +11,16 @@ public class Items : MonoBehaviour
 
     private Vector3 startPosition;
 
+    [SerializeField]
     private int itemmanage = 0; //Switch문 이용해서 관리 
+    //0 = 체력회복, 1 = 쉴드회복
+
+    private DamageSystem damageSystem;
 
     void Start()
     {
         startPosition = transform.position;
+        damageSystem = GameObject.Find("Player").GetComponent<DamageSystem>();  
     }
 
     void Update()
@@ -30,7 +35,14 @@ public class Items : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //코드 구현
+            if(itemmanage == 0)
+            {
+                damageSystem.GetHealth(10f);
+            }
+            if(itemmanage == 1)
+            {
+                damageSystem.GetShield(10f);
+            }
             Destroy(gameObject);
         }
         else return;
