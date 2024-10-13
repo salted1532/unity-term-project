@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Items : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class Items : MonoBehaviour
     public float floatAmplitude = 0.1f;
 
     public float rotationSpeed = 50.0f;
-
     private Vector3 startPosition;
 
     [SerializeField]
@@ -20,7 +20,7 @@ public class Items : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
-        damageSystem = GameObject.Find("Player").GetComponent<DamageSystem>();  
+        damageSystem = GameObject.Find("Player").GetComponent<DamageSystem>();
     }
 
     void Update()
@@ -31,19 +31,37 @@ public class Items : MonoBehaviour
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
     }
 
+    public int GetNum() { return itemmanage; }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if(itemmanage == 0)
-            {
-                damageSystem.GetHealth(10f);
-            }
-            if(itemmanage == 1)
-            {
-                damageSystem.GetShield(10f);
-            }
-            Destroy(gameObject);
+            switch(itemmanage)
+        {
+            case 0:
+                    damageSystem.GetHealth(10f);
+                    gameObject.SetActive(false);
+
+                    break;
+
+            case 1:
+                    damageSystem.GetShield(10f);
+                    gameObject.SetActive(false);
+
+
+                    break;
+
+            case 2:
+                    
+                    break;
+            case 3:
+                   
+                    break;
+
+            default:
+
+            break;
+        }
         }
         else return;
     }

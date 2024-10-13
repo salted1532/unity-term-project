@@ -6,9 +6,15 @@ using UnityEngine.Events;
 
 public class PlayerWeaponMgr : MonoBehaviour
 {
+    
     public UnityEvent WeaponAction;
 
     float curCooldownTime;
+
+    private void Awake()
+    {
+     
+    }
     private void Update()
     {
 

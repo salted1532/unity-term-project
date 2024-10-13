@@ -4,20 +4,19 @@ using UnityEngine;
 using System.Threading.Tasks;
 
 
-public class PlaverController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-
-
+    public PlayerWeaponMgr playerWeaponMgr;
+    public PlayerScanner playerScanner;
     public float MaxHP = 500;
     //cur == Current 현재의 라는 뜻
     float CurHP;
 
     public CharacterController playerControl;
     public Transform cam;
-    GameObject ScanObj;
 
     Vector3 originalPos;
-
+     
     private Vector3 movement = Vector3.zero;
     private Vector3 dir = Vector3.zero;
 
@@ -68,13 +67,17 @@ public class PlaverController : MonoBehaviour
     [SerializeField]
     int layerMask = 3;
 
+    float MaxSwapDelay;
+    float SwapDelayDeltaTime;
+
     private void Start()
     {
         originalPos = transform.position;
+        LookAtCam();
     }
     private  void Update()
     {
-        LookAtCam();
+        SwapWeaponListener();
         if (isDashing)
         {
             Dash();
@@ -90,6 +93,23 @@ public class PlaverController : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerState.PlayerCurPos = transform.position;
+    }
+    private void LateUpdate()
+    {
+        LookAtCam();
+    }
+
+    void SwapWeaponListener()
+    {
+        SwapDelayDeltaTime += Time.deltaTime;
+        if (MaxSwapDelay < SwapDelayDeltaTime)
+        {
+            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+            PlayerInventory.SwapWeapon(wheelInput);
+            SwapDelayDeltaTime = 0;
+
+        }
+
     }
     public void OnDamage(float Damage)
     {
@@ -476,5 +496,6 @@ public class PlaverController : MonoBehaviour
         }
 
     }
+
 }
 
