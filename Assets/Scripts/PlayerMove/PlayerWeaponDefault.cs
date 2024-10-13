@@ -18,14 +18,14 @@ public class PlayerWeaponDefault : MonoBehaviour
     {
         Debug.Log("히트스캔 진입!");
         RaycastHit hit; 
-        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, defaultWeaponMaxDistance))
+        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, defaultWeaponMaxDistance,7))
         {
             if(hit.collider != null)
             {
                 //damage function
                 DamageEvent?.Invoke(damage);
                 Instantiate(PreFebBullet);
-                Debug.Log("쏘기 성공!");
+                Debug.Log("맞추기 성공!");
                 Debug.Log("Hit " + hit.collider.name);
             }
         }
