@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public PlayerWeaponMgr playerWeaponMgr;
     public PlayerScanner playerScanner;
     public float MaxHP = 500;
-    //cur == Current ÇöÀçÀÇ ¶ó´Â ¶æ
+    //cur == Current ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
     float CurHP;
 
     public CharacterController playerControl;
@@ -329,6 +329,7 @@ public class PlayerController : MonoBehaviour
     {
         if (playerControl.isGrounded)
         {
+            SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
             VelocityY = jumpForce;
             startedJump = true;
             isJumpingFirst = true;
@@ -340,6 +341,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumpingFirst)
         {
+            SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
             VelocityY = jumpForce * 1.6f;
             startedJump = true;
             isJumpingFirst = false;
@@ -377,7 +379,7 @@ public class PlayerController : MonoBehaviour
     void Restart()
     {
         transform.position = originalPos;
-        Debug.Log("¸®¼Â!");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½!");
     }
 
     void InputKeyListEvent()
@@ -424,7 +426,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerGroundMove()
     {
-        //¹æÇâ ÆÄ¶ó¹ÌÅÍ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½
         float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
 
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -478,7 +480,7 @@ public class PlayerController : MonoBehaviour
     }
     void DashEnd()
     {
-        Debug.Log("´ë½¬ ³¡³²");
+        Debug.Log("ï¿½ë½¬ ï¿½ï¿½ï¿½ï¿½");
 
         isDashing = false;
         PlayerState.PlayerIsDashing = false ;

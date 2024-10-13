@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 496960998}
   - component: {fileID: 496960997}
   m_Layer: 5
-  m_Name: MasterSlidervalue (1)
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,8 +748,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1618887677}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: MusicSlider
+          m_TargetAssemblyTypeName: SlimUI.ModernMenu.UISettingsManager, Assembly-CSharp
+          m_MethodName: EffectSlider
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -759,8 +759,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 2145116986}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 1710185351}
+          m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckSFXVolume, Assembly-CSharp
           m_MethodName: UpdateVolume
           m_Mode: 1
           m_Arguments:
@@ -824,7 +824,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1618887677}
         m_TargetAssemblyTypeName: SlimUI.ModernMenu.UISettingsManager, Assembly-CSharp
-        m_MethodName: MusicSlider
+        m_MethodName: EffectSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -834,8 +834,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2145116986}
-        m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckMusicVolume, Assembly-CSharp
+      - m_Target: {fileID: 1710185351}
+        m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckSFXVolume, Assembly-CSharp
         m_MethodName: UpdateVolume
         m_Mode: 1
         m_Arguments:
@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 669243471}
   - component: {fileID: 669243470}
   m_Layer: 5
-  m_Name: MasterSlidervalue
+  m_Name: MasterSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1241,8 +1241,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1618887677}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: MusicSlider
+          m_TargetAssemblyTypeName: SlimUI.ModernMenu.UISettingsManager, Assembly-CSharp
+          m_MethodName: MasterSlider
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1252,8 +1252,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 2145116986}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 1710185352}
+          m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckMasterVolume, Assembly-CSharp
           m_MethodName: UpdateVolume
           m_Mode: 1
           m_Arguments:
@@ -1317,7 +1317,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1618887677}
         m_TargetAssemblyTypeName: SlimUI.ModernMenu.UISettingsManager, Assembly-CSharp
-        m_MethodName: MusicSlider
+        m_MethodName: MasterSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1327,8 +1327,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2145116986}
-        m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckMusicVolume, Assembly-CSharp
+      - m_Target: {fileID: 1710185352}
+        m_TargetAssemblyTypeName: SlimUI.ModernMenu.CheckMasterVolume, Assembly-CSharp
         m_MethodName: UpdateVolume
         m_Mode: 1
         m_Arguments:
@@ -2104,6 +2104,8 @@ GameObject:
   - component: {fileID: 1710185348}
   - component: {fileID: 1710185349}
   - component: {fileID: 1710185350}
+  - component: {fileID: 1710185351}
+  - component: {fileID: 1710185352}
   m_Layer: 0
   m_Name: SoundManger
   m_TagString: Untagged
@@ -2152,6 +2154,30 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710185347}
   m_Enabled: 1
+--- !u!114 &1710185351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710185347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f7ab2135dc14b45b2acef27ecb59ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1710185352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710185347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfccff72de4e634db2737ffeaf6aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1763102778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2472,7 @@ GameObject:
   - component: {fileID: 1822185516}
   - component: {fileID: 1822185515}
   m_Layer: 5
-  m_Name: MusicSlider (1)
+  m_Name: MusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2957,6 +2983,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 393724386806664306, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      propertyPath: effectSlider
+      value: 
+      objectReference: {fileID: 496960995}
+    - target: {fileID: 393724386806664306, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      propertyPath: masterSlider
+      value: 
+      objectReference: {fileID: 669243468}
+    - target: {fileID: 393724386806664306, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
       propertyPath: tooltipstext
       value: 
       objectReference: {fileID: 0}
@@ -3390,6 +3424,7 @@ PrefabInstance:
     - {fileID: 352037858392210800, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
     - {fileID: 352453050538138352, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
     - {fileID: 352423760116714556, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+    - {fileID: 352860444287884944, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6257439903888770042, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
       insertIndex: -1
@@ -3417,6 +3452,18 @@ PrefabInstance:
       addedObject: {fileID: 448356865}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 352711673037923416, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 353319853915849886, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 6183335970694796328, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8348478992732101241, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2844191079685055902, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 352915749616479018, guid: 0a68be1bd13d8694e8d8fe85574ac075, type: 3}

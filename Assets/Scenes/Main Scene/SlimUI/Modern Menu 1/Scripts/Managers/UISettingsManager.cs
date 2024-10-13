@@ -37,7 +37,10 @@ namespace SlimUI.ModernMenu{
 		public GameObject invertmousetext;
 
 		// sliders
+		public GameObject masterSlider;
 		public GameObject musicSlider;
+		public GameObject effectSlider;
+
 		public GameObject sensitivityXSlider;
 		public GameObject sensitivityYSlider;
 		public GameObject sensitivitySlider; 
@@ -55,14 +58,15 @@ namespace SlimUI.ModernMenu{
 		public void  Start (){
 			// check slider values
 			musicSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MusicVolume");
+			effectSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("SFXVolume");
+			masterSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MasterVolume");
+
 			sensitivityXSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("XSensitivity");
 			sensitivityYSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("YSensitivity");
 
 			sensitivitySlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("Sensitivity");
 
 			mouseSmoothSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MouseSmoothing");
-
-			SoundManager.Instance.InitVolumes(musicSlider.GetComponent<Slider>().value,0f);
 
 			// check full screen
 			if(Screen.fullScreen == true){
@@ -197,6 +201,14 @@ namespace SlimUI.ModernMenu{
 		public void MusicSlider (){
 			//PlayerPrefs.SetFloat("MusicVolume", sliderValue);
 			PlayerPrefs.SetFloat("MusicVolume", musicSlider.GetComponent<Slider>().value);
+		}
+
+		public void EffectSlider (){
+			PlayerPrefs.SetFloat("SFXVolume", effectSlider.GetComponent<Slider>().value);
+		}
+
+		public void MasterSlider (){
+			PlayerPrefs.SetFloat("MasterVolume", masterSlider.GetComponent<Slider>().value);
 		}
 
 		public void SensitivityXSlider (){

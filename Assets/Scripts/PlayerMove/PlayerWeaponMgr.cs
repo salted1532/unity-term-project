@@ -30,10 +30,11 @@ public class PlayerWeaponMgr : MonoBehaviour
     
     void Fire()
     {
-        Debug.Log("Äð Ã¼Å© ÁøÀÔ");
+        SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+        Debug.Log("ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½ï¿½");
         if (curCooldownTime > PlayerState.PlayerAttackMaxCooldownTime)
         {
-            Debug.Log("½î±â ÁøÀÔ");
+            Debug.Log("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             WeaponAction.Invoke();
             curCooldownTime = 0;
