@@ -26,7 +26,7 @@ public class PlayerWeaponDefault : MonoBehaviour
                 DamageEvent?.Invoke(damage);
                 Instantiate(PreFebBullet);
                 Debug.Log("½î±â ¼º°ø!");
-
+                Debug.Log("Hit " + hit.collider.name);
             }
         }
     }

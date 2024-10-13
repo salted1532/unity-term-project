@@ -64,6 +64,7 @@ public class DamageSystem : MonoBehaviour
         if (CurrentHp <= 0)
         {
             Destroy(gameObject);
+
         }
     }
 }
