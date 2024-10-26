@@ -12,4 +12,6 @@ public static class PlayerState
     {
         PlayerState.PlayerAttackMaxCooldownTime = _MaxCooldownTime;
     }
+
+
 }

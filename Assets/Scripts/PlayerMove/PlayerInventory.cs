@@ -6,8 +6,8 @@ public static class PlayerInventory
 {
     static int choiceIndex;
     
-    static int maxWeaponCount = 3;
-    static List<int> inventory = new List<int>();
+    static int maxWeaponCount = 4;
+    static List<int> inventory = new List<int>() {0 ,1};
 
     
     public static int GetCurWeaponCount()
@@ -23,7 +23,8 @@ public static class PlayerInventory
         return choiceIndex;
     }
     //현재 무기 int 리턴
-    public static int GetCurWeaponNum() { return inventory[choiceIndex]; }
+    public static int GetCurWeaponNum()
+    { return inventory[choiceIndex];}
 
     //선택 중인 무기 기준 정렬된 무기 int 배열 리턴
     public static int[] GetWeaponArray()
@@ -55,6 +56,7 @@ public static class PlayerInventory
         if (inventory.Count < maxWeaponCount && inventory.Count > 0)
         {
             inventory.Add(WeaponNum);
+            choiceIndex++;
         }
         else if (inventory.Count >= maxWeaponCount)
         {
@@ -62,20 +64,25 @@ public static class PlayerInventory
         }
     }
 
-    public static void SwapWeapon(float MouseScrollWheel)
+    public static bool SwapWeapon(float MouseScrollWheel)
     {
+        
+        if (MouseScrollWheel > 0 && (choiceIndex < inventory.Count -1))
+        {
+            // 휠을 밀어 돌렸을 때의 처리 ↑
+            ++choiceIndex;
+        Debug.Log("돌리고 나서 인덱스:" + choiceIndex);
+            return true;
+        }
 
-            if (MouseScrollWheel > 0 && !(choiceIndex == maxWeaponCount - 1))
-            {
-                // 휠을 밀어 돌렸을 때의 처리 ↑
-                ++choiceIndex;
-            }
-
-            else if (MouseScrollWheel < 0 && !(choiceIndex == 0))
+        else if (MouseScrollWheel < 0 && !(choiceIndex == 0))
             {
                 // 휠을 당겨 올렸을 때의 처리 ↓
                 --choiceIndex;
+            Debug.Log("돌리고 나서 인덱스:" + choiceIndex);
+            return true;
 
-            }
+        }
+        return false;
     }
 }

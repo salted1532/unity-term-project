@@ -6,14 +6,29 @@ using UnityEngine.Events;
 
 public class PlayerWeaponMgr : MonoBehaviour
 {
-    
-    public UnityEvent WeaponAction;
+
+    public PlayerWeaponDefault DefaultGun;
+    public PlayerWeaponShotGun ShotGun;
+
+    public bool isReLoading;
+
+    public int MaxBulletCount;
+
+    public int curBoulletCount;
+
+    public float maxReLodingTime;
+
+    public float curReLodingTime;
 
     float curCooldownTime;
 
     private void Awake()
     {
-     
+        MaxBulletCount = DefaultGun.MaxBulletCount;
+        maxReLodingTime = DefaultGun.maxReLodingTime; 
+        curBoulletCount = DefaultGun.curBoulletCount;
+        curReLodingTime = DefaultGun.curReLodingTime;
+        isReLoading = false;
     }
     private void Update()
     {
@@ -26,20 +41,68 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             curCooldownTime += Time.deltaTime;
         }
+        if (isReLoading)
+        {
+            ReRoadGun();
+        }
     }
     
     void Fire()
     {
-        SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
-        Debug.Log("ÔøΩÔøΩ √º≈© ÔøΩÔøΩÔøΩÔøΩ");
-        if (curCooldownTime > PlayerState.PlayerAttackMaxCooldownTime)
-        {
-            Debug.Log("ÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ");
 
-            WeaponAction.Invoke();
-            curCooldownTime = 0;
+        if (curCooldownTime > PlayerState.PlayerAttackMaxCooldownTime && !isReLoading)
+        {
+
+            curBoulletCount--;
+            if (curBoulletCount <= 0)
+            {
+                isReLoading = true;
+                Debug.Log("¿Á¿Â¿¸ Ω√¿€");
+
+            }
+            switch (PlayerInventory.GetCurWeaponNum())
+            {
+                case 0:
+                    SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+
+                    Debug.Log("ΩÓ±‚");
+                    DefaultGun.HitScan();
+                    curCooldownTime = 0;
+
+                    break;
+                case 1:
+                    SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+
+
+                    Debug.Log("ΩÓ±‚");
+                    ShotGun.HitScanShotGun();
+                    curCooldownTime = 0;
+
+                    break;
+                default:
+
+                    break;
+            }
+
+
+        }
+
+
+    }
+    void ReRoadGun()
+    {
+        if (curReLodingTime > maxReLodingTime)
+        {
+            curBoulletCount = MaxBulletCount;
+            isReLoading = false;
+            curReLodingTime = 0;
+            Debug.Log("¿Á¿Â¿¸ ≥°");
+        }
+        else
+        {
+            curReLodingTime += Time.deltaTime;
+            Debug.Log("¿Á¿Â¿¸ ¡ﬂ");
 
         }
     }
-
 }

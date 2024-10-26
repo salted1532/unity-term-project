@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour
     }
     private  void Update()
     {
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward *  15f, Color.red);
+           
         SwapWeaponListener();
         if (isDashing)
         {
@@ -105,7 +107,31 @@ public class PlayerController : MonoBehaviour
         if (MaxSwapDelay < SwapDelayDeltaTime)
         {
             float wheelInput = Input.GetAxis("Mouse ScrollWheel");
-            PlayerInventory.SwapWeapon(wheelInput);
+            if (PlayerInventory.SwapWeapon(wheelInput))
+            {
+                switch (PlayerInventory.GetCurWeaponNum())
+                {
+                    case 0:
+                        playerWeaponMgr.MaxBulletCount = playerWeaponMgr.DefaultGun.MaxBulletCount;
+                        playerWeaponMgr.maxReLodingTime = playerWeaponMgr.DefaultGun.maxReLodingTime;
+                        playerWeaponMgr.curBoulletCount = playerWeaponMgr.DefaultGun.curBoulletCount;
+                        playerWeaponMgr.curReLodingTime = playerWeaponMgr.DefaultGun.curReLodingTime;
+                        playerWeaponMgr.isReLoading = false;
+                        break;
+                    case 1:
+                        playerWeaponMgr.MaxBulletCount = playerWeaponMgr.ShotGun.MaxBulletCount;
+                        playerWeaponMgr.maxReLodingTime = playerWeaponMgr.ShotGun.maxReLodingTime;
+                        playerWeaponMgr.curBoulletCount = playerWeaponMgr.ShotGun.curBoulletCount;
+                        playerWeaponMgr.curReLodingTime = playerWeaponMgr.ShotGun.curReLodingTime;
+                        playerWeaponMgr.isReLoading = false;
+
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        break;
+                }
+            }
             SwapDelayDeltaTime = 0;
 
         }

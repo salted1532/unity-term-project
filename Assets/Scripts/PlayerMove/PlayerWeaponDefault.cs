@@ -4,6 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PlayerWeaponDefault : MonoBehaviour
 {
+    public bool isReLoading;
+
+    public int MaxBulletCount = 5;
+
+    public int curBoulletCount = 5;
+
+    public float maxReLodingTime = 2.4f;
+
+    public float curReLodingTime;
+
     public float defaultWeaponMaxDistance = 50f;
     public float damage = 10f;
     public UnityEvent<float> DamageEvent = new UnityEvent<float>();
@@ -16,18 +26,30 @@ public class PlayerWeaponDefault : MonoBehaviour
     }
     public void HitScan()
     {
-        Debug.Log("히트스캔 진입!");
+
         RaycastHit hit; 
-        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward,out hit, defaultWeaponMaxDistance,7))
+        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, defaultWeaponMaxDistance,7))
         {
-            if(hit.collider != null)
+                Debug.Log("히트된 물체" + hit.collider.name);
+
+                if (hit.collider != null)
             {
                 //damage function
                 DamageEvent?.Invoke(damage);
                 Instantiate(PreFebBullet);
-                Debug.Log("맞추기 성공!");
-                Debug.Log("Hit " + hit.collider.name);
+
+
+                curBoulletCount -= 1;
+                if (curBoulletCount <= 0)
+                {
+                    curBoulletCount = MaxBulletCount;
+
+                }
+
             }
         }
+
+
     }
+
 }

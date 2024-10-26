@@ -9,6 +9,7 @@ public class PlayerScanner : MonoBehaviour
     public int ScanWeaponNum = -1;
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.CompareTag("Item"))
         {
             curScanWeaponNum = other.gameObject.GetComponent<Items>().GetNum();
@@ -17,10 +18,10 @@ public class PlayerScanner : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Item"))
+        if (other.gameObject.CompareTag("Item"))
             Debug.Log("°¨ÁöÁß!");
 
-        if (other.CompareTag("Item") && Input.GetKeyDown(KeyCode.E))
+        if (other.gameObject.CompareTag("Item") && Input.GetKeyDown(KeyCode.E))
         {
             ScanWeaponNum = curScanWeaponNum;
 
