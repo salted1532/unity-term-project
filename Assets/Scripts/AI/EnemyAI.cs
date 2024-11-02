@@ -26,9 +26,6 @@ public class EnemyAI : MonoBehaviour
     private float waypointArrivalTime;
     private float timeLimit = 3f;
 
-    [SerializeField]
-    private int whatstageenemy = 0;
-
     public Animator animator;
 
     // Start is called before the first frame update

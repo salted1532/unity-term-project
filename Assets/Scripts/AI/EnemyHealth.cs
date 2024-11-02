@@ -10,11 +10,16 @@ public class EnemyHealth : MonoBehaviour
 
     public Animator animator;
 
+    public int WhatStageEnemy;
+
+    private StageControl stagecontrol;
+
     // Start is called before the first frame update
     void Start()
     {
         EnemyHpslider.maxValue = EnemyHp;
         EnemyHpslider.value = EnemyHp;
+        stagecontrol = GameObject.Find("StageManage").GetComponent<StageControl>();
     }
 
     // Update is called once per frame
@@ -44,7 +49,31 @@ public class EnemyHealth : MonoBehaviour
         //죽었는지 확인
         if (EnemyHp <= 0)
         {
-            animator.SetTrigger("Dead");
+            if (WhatStageEnemy == 1)
+            {
+                stagecontrol.howEnemyleft(1);
+                animator.SetTrigger("Dead");
+                Invoke(nameof(EnemyDead), 0.4f);
+            }
+            if (WhatStageEnemy == 2)
+            {
+                stagecontrol.howEnemyleft(2);
+                animator.SetTrigger("Dead");
+                Invoke(nameof(EnemyDead), 0.4f);
+            }
+            if (WhatStageEnemy == 3)
+            {
+                stagecontrol.howEnemyleft(3);
+                animator.SetTrigger("Dead");
+                Invoke(nameof(EnemyDead), 0.4f);
+            }
+            if (WhatStageEnemy == 4)
+            {
+                stagecontrol.howEnemyleft(4);
+                animator.SetTrigger("Dead");
+                Invoke(nameof(EnemyDead), 0.4f);
+            }
+            
         }
     }
 
