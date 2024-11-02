@@ -33,9 +33,10 @@ public class PlayerWeaponDefault : MonoBehaviour
                 Debug.Log("히트된 물체" + hit.collider.name);
 
                 if (hit.collider != null)
-            {
+                {
                 //damage function
-                DamageEvent?.Invoke(damage);
+                //DamageEvent?.Invoke(damage);
+                hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
                 Instantiate(PreFebBullet);
 
 

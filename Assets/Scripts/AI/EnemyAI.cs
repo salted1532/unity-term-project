@@ -24,7 +24,12 @@ public class EnemyAI : MonoBehaviour
 
     private int turnDirection;
     private float waypointArrivalTime;
-    private float timeLimit = 1.0f;
+    private float timeLimit = 3f;
+
+    [SerializeField]
+    private int whatstageenemy = 0;
+
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +42,6 @@ public class EnemyAI : MonoBehaviour
 
         GenerateWaypoints();  // 첫 웨이포인트 세트 생성
         nav.SetDestination(waypoints[0]);
-
     }
 
     // Update is called once per frame
@@ -53,12 +57,16 @@ public class EnemyAI : MonoBehaviour
         if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance || Time.time - waypointArrivalTime >= timeLimit)
         {
 
-            // 새로운 웨이포인트 생성 및 설정
-            GenerateWaypoints();
-            nav.SetDestination(waypoints[currentWaypointIndex]);
+            if (!alreadyAttacked)
+            {
+                animator.SetTrigger("Walk");
+                // 새로운 웨이포인트 생성 및 설정
+                GenerateWaypoints();
+                nav.SetDestination(waypoints[currentWaypointIndex]);
 
-            // 새로운 웨이포인트로 이동 시 시간을 초기화
-            waypointArrivalTime = Time.time;
+                // 새로운 웨이포인트로 이동 시 시간을 초기화
+                waypointArrivalTime = Time.time;
+            }
         }
     }
 
@@ -101,6 +109,7 @@ public class EnemyAI : MonoBehaviour
     public void Attack()
     {
         nav.isStopped = true;
+        animator.SetTrigger("Idle");
 
         if (!alreadyAttacked)
         {
@@ -111,14 +120,19 @@ public class EnemyAI : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), 3f);
 
-             ShootBullet();
+            animator.SetTrigger("Attack");
+            //ShootBullet();
         }
     }
 
-    private void ShootBullet()
+    public void ShootBullet()
     {
+        Vector3 direction = Player.transform.position - transform.position;
+        direction.y -= 2;  // Y 값에 -2 적용
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
         // 총알 오브젝트를 firePoint 위치에서 소환
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, targetRotation);
 
         // 총알에 Rigidbody 컴포넌트가 있다면, 앞으로 발사
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
@@ -130,6 +144,9 @@ public class EnemyAI : MonoBehaviour
 
     private void ResetAttack()
     {
+        Vector3 direction = Player.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
         alreadyAttacked = false;
         nav.isStopped = false;
     }
