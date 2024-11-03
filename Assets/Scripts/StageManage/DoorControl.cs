@@ -85,7 +85,6 @@ public class DoorControl : MonoBehaviour
                 // 문이 열릴 목표 위치 설정
                 door1OpenPosition = door1ClosedPosition + new Vector3(-6, 0, 0);
                 door2OpenPosition = door2ClosedPosition + new Vector3(6, 0, 0);
-
                 // Door1과 Door2를 닫힌 위치로 이동
                 Door1.transform.position = Vector3.Lerp(Door1.transform.position, door1ClosedPosition, Time.deltaTime * speed);
                 Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2ClosedPosition, Time.deltaTime * speed);

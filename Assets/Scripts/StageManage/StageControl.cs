@@ -15,6 +15,9 @@ public class StageControl : MonoBehaviour
     void Start()
     {
         Enemyleft.Add(3);
+        Enemyleft.Add(0);
+        Enemyleft.Add(0);
+        Enemyleft.Add(0);
         Doors[0].GetComponent<DoorControl>();
     }
 
@@ -25,6 +28,18 @@ public class StageControl : MonoBehaviour
         {
             Doors[0].GetComponent<DoorControl>().StageClear();
         }
+        if (Stage2 == true)
+        {
+            Doors[1].GetComponent<DoorControl>().StageClear();
+        }
+        if (Stage3 == true)
+        {
+            Doors[2].GetComponent<DoorControl>().StageClear();
+        }
+        if (Stage4 == true)
+        {
+            Doors[3].GetComponent<DoorControl>().StageClear();
+        }
     }
 
     public void howEnemyleft(int a)
@@ -34,6 +49,21 @@ public class StageControl : MonoBehaviour
         {
             Debug.Log("1스테이지 클리어");
             Stage1 = true;
+        }
+        if (Enemyleft[1] == 0)
+        {
+            Debug.Log("2스테이지 클리어");
+            Stage2 = true;
+        }
+        if (Enemyleft[2] == 0)
+        {
+            Debug.Log("3스테이지 클리어");
+            Stage3 = true;
+        }
+        if (Enemyleft[3] == 0)
+        {
+            Debug.Log("4스테이지 클리어");
+            Stage4 = true;
         }
     }
 }
