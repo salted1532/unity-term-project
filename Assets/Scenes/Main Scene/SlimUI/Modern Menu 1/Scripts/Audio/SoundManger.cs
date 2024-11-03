@@ -19,7 +19,7 @@ public class SoundManager : Singleton<SoundManager>
     [SerializeField] private AudioMixer mAudioMixer;
 
     //옵션에서 설정된 현재 배경음악과 효과 사운드의 불륨이다. 효과는 BGM을 제외한 모든 소리의 불륨을 담당한다.
-    private float mCurrentBGMVolume, mCurrentEffectVolume;
+    public float mCurrentBGMVolume, mCurrentEffectVolume;
 
     /// <summary>
     /// 클립들을 담는 딕셔너리
@@ -42,6 +42,7 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         mInstantiatedSounds = new List<TemporarySoundPlayer>();
+        InitVolumes(1,1,1);
     }
 
     /// <summary>
@@ -117,11 +118,11 @@ public class SoundManager : Singleton<SoundManager>
     /// <param name="attachToTarget"></param>
     /// <param name="minDistance"></param>
     /// <param name="maxDistance"></param>
-    public void PlaySound3D(string clipName, Transform audioTarget, float delay = 0f, bool isLoop = false, SoundType type = SoundType.EFFECT, bool attachToTarget = true, float minDistance = 0.0f, float maxDistance = 50.0f)
+    public void PlaySound3D(string clipName, GameObject audioTarget, float minDistance = 0.0f, float maxDistance = 25.0f, float delay = 0f, bool isLoop = false, SoundType type = SoundType.EFFECT, bool attachToTarget = true)
     {
         GameObject obj = new GameObject("TemporarySoundPlayer 3D");
         obj.transform.localPosition = audioTarget.transform.position;
-        if (attachToTarget) { obj.transform.parent = audioTarget; }
+        if (attachToTarget) { obj.transform.parent = audioTarget.transform; }
 
         TemporarySoundPlayer soundPlayer = obj.AddComponent<TemporarySoundPlayer>();
 

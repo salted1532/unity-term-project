@@ -7,19 +7,20 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject gameObject;
 
     private NavMeshAgent nav;
 
     private bool alreadyAttacked = false;
 
-    public GameObject bulletPrefab; // ¹ß»çÇÒ ÃÑ¾Ë ÇÁ¸®ÆÕ
-    public Transform firePoint; // ÃÑ¾ËÀÌ ¹ß»çµÉ À§Ä¡
-    public float bulletSpeed = 20f; // ÃÑ¾Ë ¼Óµµ
-    public float attackCooldown = 3f; // °ø°Ý Äð´Ù¿î ½Ã°£
+    public GameObject bulletPrefab; // ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Transform firePoint; // ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ ï¿½ï¿½Ä¡
+    public float bulletSpeed = 20f; // ï¿½Ñ¾ï¿½ ï¿½Óµï¿½
+    public float attackCooldown = 3f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½Ã°ï¿½
 
-    private int waypointCount = 1;   // ¿þÀÌÆ÷ÀÎÆ® °³¼ö
-    private float waypointRadius = 5f;  // °¢ ¿þÀÌÆ÷ÀÎÆ®ÀÇ ¹Ý°æ
-    private Vector3[] waypoints;  // »ý¼ºµÈ ¿þÀÌÆ÷ÀÎÆ® ¹è¿­
+    private int waypointCount = 1;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+    private float waypointRadius = 5f;  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ý°ï¿½
+    private Vector3[] waypoints;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½è¿­
     private int currentWaypointIndex = 0;
 
     private int turnDirection;
@@ -28,68 +29,77 @@ public class EnemyAI : MonoBehaviour
 
     public Animator animator;
 
+    private float currentTime = 0f;
+    private int randomSoundTime;
+
     // Start is called before the first frame update
     void Start()
     {
+        randomSoundTime = Random.Range(4,8);
         nav = GetComponent<NavMeshAgent>();
         waypoints = new Vector3[waypointCount];
 
-        // ÀûÀÌ ·£´ýÇÏ°Ô ¿ÞÂÊÀ¸·Î µ¹Áö, ¿À¸¥ÂÊÀ¸·Î µ¹Áö °áÁ¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         turnDirection = Random.Range(0, 4) == 0 ? -1 : 1;
 
-        GenerateWaypoints();  // Ã¹ ¿þÀÌÆ÷ÀÎÆ® ¼¼Æ® »ý¼º
+        GenerateWaypoints();  // Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         nav.SetDestination(waypoints[0]);
     }
 
     // Update is called once per frame
     void Update()
     {
+        currentTime += Time.deltaTime;
+        if(currentTime>randomSoundTime) {
+            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_attack_" + Random.Range(1,7), gameObject);
+            currentTime = 0;
+        }
         if (Player == null)
         {
-            Debug.LogWarning("ÇÃ·¹ÀÌ¾î°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogWarning("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
             return;
         }
 
-        // ÇöÀç ¿þÀÌÆ÷ÀÎÆ®¿¡ µµÂøÇß°Å³ª 3ÃÊ°¡ Áö³ª¸é
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß°Å³ï¿½ 3ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance || Time.time - waypointArrivalTime >= timeLimit)
         {
 
             if (!alreadyAttacked)
             {
                 animator.SetTrigger("Walk");
-                // »õ·Î¿î ¿þÀÌÆ÷ÀÎÆ® »ý¼º ¹× ¼³Á¤
+                // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 GenerateWaypoints();
                 nav.SetDestination(waypoints[currentWaypointIndex]);
 
-                // »õ·Î¿î ¿þÀÌÆ÷ÀÎÆ®·Î ÀÌµ¿ ½Ã ½Ã°£À» ÃÊ±âÈ­
+                // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
                 waypointArrivalTime = Time.time;
             }
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î ÁÖº¯¿¡¼­ ·£´ýÇÑ 3°³ÀÇ ¿þÀÌÆ÷ÀÎÆ® »ý¼º
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Öºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     void GenerateWaypoints()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);  // Àû°ú ÇÃ·¹ÀÌ¾î »çÀÌ °Å¸®
-        Vector3 directionToPlayer = (Player.transform.position - transform.position).normalized;  // Àû¿¡¼­ ÇÃ·¹ÀÌ¾î·Î ÇâÇÏ´Â ¹æÇâ
+        float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+        Vector3 directionToPlayer = (Player.transform.position - transform.position).normalized;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         for (int i = 0; i < waypointCount; i++)
         {
-            // Àû°ú ÇÃ·¹ÀÌ¾î »çÀÌÀÇ 1/3, 2/3 ÁöÁ¡ ±ÙÃ³¿¡ ¿þÀÌÆ÷ÀÎÆ® »ý¼º
-            float fraction = (i + 1) / (float)(waypointCount + 1);  // 1/3, 2/3 µîÀÇ ºñÀ² °è»ê
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1/3, 2/3 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+            float fraction = (i + 1) / (float)(waypointCount + 1);  // 1/3, 2/3 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             Vector3 baseWaypointPosition = transform.position + directionToPlayer * (distanceToPlayer * fraction);
 
-            // ¹æÇâ¿¡ µû¶ó ¿þÀÌÆ÷ÀÎÆ®¸¦ ÀûÀýÈ÷ È¸Àü½ÃÅ´ (¿ÞÂÊ/¿À¸¥ÂÊ)
+            // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½Å´ (ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
             Vector3 perpendicularOffset = Vector3.Cross(Vector3.up, directionToPlayer) * waypointRadius * turnDirection;
 
-            // ÇØ´ç ÁöÁ¡¿¡¼­ ·£´ýÇÑ ¹Ý°æ ³» ÁÂÇ¥ ¼±ÅÃ
+            // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
             Vector3 randomOffset = Random.insideUnitSphere * waypointRadius;
-            randomOffset.y = 0;  // YÃàÀº º¯°æÇÏÁö ¾ÊÀ½ (2D Æò¸é ÀÌµ¿)
+            randomOffset.y = 0;  // Yï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (2D ï¿½ï¿½ï¿½ ï¿½Ìµï¿½)
 
-            // ÃÖÁ¾ ¿þÀÌÆ÷ÀÎÆ® À§Ä¡
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ä¡
             Vector3 finalWaypointPosition = baseWaypointPosition + perpendicularOffset + randomOffset;
 
-            // NavMesh »óÀÇ À¯È¿ÇÑ À§Ä¡·Î ¼³Á¤
+            // NavMesh ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             NavMeshHit hit;
             if (NavMesh.SamplePosition(finalWaypointPosition, out hit, waypointRadius, NavMesh.AllAreas))
             {
@@ -97,7 +107,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                waypoints[i] = baseWaypointPosition;  // À¯È¿ÇÏÁö ¾ÊÀ¸¸é ±âº» À§Ä¡ »ç¿ë
+                waypoints[i] = baseWaypointPosition;  // ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
             }
         }
     }
@@ -124,18 +134,19 @@ public class EnemyAI : MonoBehaviour
 
     public void ShootBullet()
     {
+        SoundManager.Instance.PlaySound3D("FireCast", gameObject);
         Vector3 direction = Player.transform.position - transform.position;
-        direction.y -= 2;  // Y °ª¿¡ -2 Àû¿ë
+        direction.y -= 2;  // Y ï¿½ï¿½ï¿½ï¿½ -2 ï¿½ï¿½ï¿½ï¿½
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
-        // ÃÑ¾Ë ¿ÀºêÁ§Æ®¸¦ firePoint À§Ä¡¿¡¼­ ¼ÒÈ¯
+        // ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ firePoint ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, targetRotation);
 
-        // ÃÑ¾Ë¿¡ Rigidbody ÄÄÆ÷³ÍÆ®°¡ ÀÖ´Ù¸é, ¾ÕÀ¸·Î ¹ß»ç
+        // ï¿½Ñ¾Ë¿ï¿½ Rigidbody ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.velocity = firePoint.forward * bulletSpeed; // ¾Õ ¹æÇâÀ¸·Î ¹ß»ç
+            rb.velocity = firePoint.forward * bulletSpeed; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
         }
     }
 

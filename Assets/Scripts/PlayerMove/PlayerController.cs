@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     Vector3 originalPos;
      
-    private Vector3 movement = Vector3.zero;
+    public Vector3 movement = Vector3.zero;
     private Vector3 dir = Vector3.zero;
 
     private List<KeyCode> pressedKeysX = new List<KeyCode>();

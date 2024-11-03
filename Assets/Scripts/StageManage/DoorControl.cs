@@ -8,14 +8,14 @@ public class DoorControl : MonoBehaviour
     private Vector3 door1ClosedPosition, door2ClosedPosition;
     private bool isOpening = false;
     private bool isClosing = false;
-    private float speed = 2.0f; // ¹®ÀÌ ¿­¸®°í ´ÝÈ÷´Â ¼Óµµ
+    private float speed = 2.0f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
 
     public bool RightAngle;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ÃÊ±â À§Ä¡ ¼³Á¤
+        // ï¿½Ê±ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         door1ClosedPosition = Door1.transform.position;
         door2ClosedPosition = Door2.transform.position;
     }
@@ -27,15 +27,15 @@ public class DoorControl : MonoBehaviour
         {
             if(RightAngle == false)
             {
-                // ¹®ÀÌ ¿­¸± ¸ñÇ¥ À§Ä¡ ¼³Á¤
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
                 door1OpenPosition = door1ClosedPosition + new Vector3(0, 0, 6);
                 door2OpenPosition = door2ClosedPosition + new Vector3(0, 0, -6);
 
-                // Door1°ú Door2¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+                // Door1ï¿½ï¿½ Door2ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
                 Door1.transform.position = Vector3.Lerp(Door1.transform.position, door1OpenPosition, Time.deltaTime * speed);
                 Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2OpenPosition, Time.deltaTime * speed);
 
-                // µµ´Þ ¿©ºÎ È®ÀÎ ÈÄ Á¤Áö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (Vector3.Distance(Door1.transform.position, door1OpenPosition) < 0.01f &&
                     Vector3.Distance(Door2.transform.position, door2OpenPosition) < 0.01f)
                 {
@@ -44,15 +44,15 @@ public class DoorControl : MonoBehaviour
             }
             else
             {
-                // ¹®ÀÌ ¿­¸± ¸ñÇ¥ À§Ä¡ ¼³Á¤
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
                 door1OpenPosition = door1ClosedPosition + new Vector3(-6, 0, 0);
                 door2OpenPosition = door2ClosedPosition + new Vector3(6, 0, 0);
 
-                // Door1°ú Door2¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+                // Door1ï¿½ï¿½ Door2ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
                 Door1.transform.position = Vector3.Lerp(Door1.transform.position, door1OpenPosition, Time.deltaTime * speed);
                 Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2OpenPosition, Time.deltaTime * speed);
 
-                // µµ´Þ ¿©ºÎ È®ÀÎ ÈÄ Á¤Áö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (Vector3.Distance(Door1.transform.position, door1OpenPosition) < 0.01f &&
                     Vector3.Distance(Door2.transform.position, door2OpenPosition) < 0.01f)
                 {
@@ -65,15 +65,15 @@ public class DoorControl : MonoBehaviour
         {
             if (RightAngle == false)
             {
-                // ¹®ÀÌ ¿­¸± ¸ñÇ¥ À§Ä¡ ¼³Á¤
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
                 door1OpenPosition = door1ClosedPosition + new Vector3(0, 0, 6);
                 door2OpenPosition = door2ClosedPosition + new Vector3(0, 0, -6);
 
-                // Door1°ú Door2¸¦ ´ÝÈù À§Ä¡·Î ÀÌµ¿
+                // Door1ï¿½ï¿½ Door2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
                 Door1.transform.position = Vector3.Lerp(Door1.transform.position, door1ClosedPosition, Time.deltaTime * speed);
                 Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2ClosedPosition, Time.deltaTime * speed);
 
-                // µµ´Þ ¿©ºÎ È®ÀÎ ÈÄ Á¤Áö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (Vector3.Distance(Door1.transform.position, door1ClosedPosition) < 0.01f &&
                     Vector3.Distance(Door2.transform.position, door2ClosedPosition) < 0.01f)
                 {
@@ -82,14 +82,14 @@ public class DoorControl : MonoBehaviour
             }
             else
             {
-                // ¹®ÀÌ ¿­¸± ¸ñÇ¥ À§Ä¡ ¼³Á¤
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
                 door1OpenPosition = door1ClosedPosition + new Vector3(-6, 0, 0);
                 door2OpenPosition = door2ClosedPosition + new Vector3(6, 0, 0);
-                // Door1°ú Door2¸¦ ´ÝÈù À§Ä¡·Î ÀÌµ¿
+                // Door1ï¿½ï¿½ Door2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
                 Door1.transform.position = Vector3.Lerp(Door1.transform.position, door1ClosedPosition, Time.deltaTime * speed);
                 Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2ClosedPosition, Time.deltaTime * speed);
 
-                // µµ´Þ ¿©ºÎ È®ÀÎ ÈÄ Á¤Áö
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (Vector3.Distance(Door1.transform.position, door1ClosedPosition) < 0.01f &&
                     Vector3.Distance(Door2.transform.position, door2ClosedPosition) < 0.01f)
                 {
@@ -107,9 +107,10 @@ public class DoorControl : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // ÇÃ·¹ÀÌ¾î°¡ Ãæµ¹ÇÒ ¶§ ¹® ¿­±â
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (other.gameObject.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySound3D("heavy_metal_move1", Door1);
             isOpening = true;
             isClosing = false;
         }
@@ -117,9 +118,10 @@ public class DoorControl : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        // ÇÃ·¹ÀÌ¾î°¡ Ãæµ¹ ¿µ¿ª¿¡¼­ ³ª°¥ ¶§ ¹® ´Ý±â
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý±ï¿½
         if (other.gameObject.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySound3D("heavy_metal_move1", Door1);
             isOpening = false;
             isClosing = true;
         }
