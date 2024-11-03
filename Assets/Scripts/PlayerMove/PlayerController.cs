@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
+     Animator anim;
+
     public PlayerWeaponMgr playerWeaponMgr;
     public PlayerScanner playerScanner;
     public float MaxHP = 500;
-    //cur == Current ������ ��� ��
+    //cur == Current
     float CurHP;
 
     public CharacterController playerControl;
@@ -70,6 +72,10 @@ public class PlayerController : MonoBehaviour
     float MaxSwapDelay;
     float SwapDelayDeltaTime;
 
+    private void Awake()
+    {
+        anim = gameObject.GetComponent<Animator>(); 
+    }
     private void Start()
     {
         originalPos = transform.position;
@@ -522,6 +528,12 @@ public class PlayerController : MonoBehaviour
         {
             canDoubleJump = false;
         }
+
+    }
+    void SetAnimPlay(bool _isIdle,bool _isRun,bool _isShot)
+    {
+        anim.SetBool("IsIdle", _isIdle);
+        anim.SetBool("IsRun", _isRun);
 
     }
 
