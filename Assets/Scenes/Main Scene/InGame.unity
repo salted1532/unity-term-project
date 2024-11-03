@@ -29660,6 +29660,7 @@ MonoBehaviour:
   MaxHP: 500
   playerControl: {fileID: 304659623}
   cam: {fileID: 963194228}
+  movement: {x: 0, y: 0, z: 0}
   deltaSpeed: 1.8
   MaxSpeed: 6
   dashDuration: 0.3
@@ -36408,6 +36409,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f5cbef1303167544a858f5e1623856ca, type: 3}
   - {fileID: 8300000, guid: 880c72701767eb54aa99dd654efa4bee, type: 3}
   - {fileID: 8300000, guid: 59db7ae4fb7ca2445acc4d72c72b8b06, type: 3}
+  - {fileID: 8300000, guid: 77ee8de3666414248aa1538843278a12, type: 3}
 --- !u!4 &433220566
 Transform:
   m_ObjectHideFlags: 0
