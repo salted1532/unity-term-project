@@ -8,7 +8,7 @@ public static class PlayerState
     public static bool PlayerIsDashing;
 
 
-    static void SetMaxCooldownTIme(float _MaxCooldownTime)
+    public static void SetMaxCooldownTIme(float _MaxCooldownTime)
     {
         PlayerState.PlayerAttackMaxCooldownTime = _MaxCooldownTime;
     }

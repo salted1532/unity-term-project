@@ -7,7 +7,7 @@ public static class PlayerInventory
     static int choiceIndex;
     
     static int maxWeaponCount = 4;
-    static List<int> inventory = new List<int>() {0 ,1};
+    static List<int> inventory = new List<int>() {0 ,1,2,3};
 
     
     public static int GetCurWeaponCount()

@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float MaxSpeed = 6f;
 
-
     [SerializeField]
     public float dashDuration = 0.5f;    
     [SerializeField]
@@ -72,9 +71,11 @@ public class PlayerController : MonoBehaviour
     float MaxSwapDelay;
     float SwapDelayDeltaTime;
 
+    Vector3[] RayTestArr = new Vector3[10];
     private void Awake()
     {
-        anim = gameObject.GetComponent<Animator>(); 
+        anim = gameObject.GetComponent<Animator>();
+        RayTest();
     }
     private void Start()
     {
@@ -96,7 +97,26 @@ public class PlayerController : MonoBehaviour
         }
 
 
+        AnimPlay();
+        //ShotGun Test 
+        for (int i = 0; i < RayTestArr.Length - 1; ++i)
+        {
+            Debug.DrawRay(Camera.main.transform.position, RayTestArr[i]*10f, Color.red);
 
+        }
+    }
+    void RayTest()
+    {
+        for (int i = 0; i < RayTestArr.Length-1; ++i)
+        {
+            // 랜덤한 각도로 회전하여 레이 방향 설정
+            Vector2 randomCircle = Random.insideUnitCircle * 0.12f;
+            Vector3 spreadDirection = Camera.main.transform.forward +
+                                      transform.right * randomCircle.x +
+                                      transform.up * randomCircle.y;
+            RayTestArr[i] = spreadDirection;
+
+        }
     }
     private void FixedUpdate()
     {
@@ -115,28 +135,7 @@ public class PlayerController : MonoBehaviour
             float wheelInput = Input.GetAxis("Mouse ScrollWheel");
             if (PlayerInventory.SwapWeapon(wheelInput))
             {
-                switch (PlayerInventory.GetCurWeaponNum())
-                {
-                    case 0:
-                        playerWeaponMgr.MaxBulletCount = playerWeaponMgr.DefaultGun.MaxBulletCount;
-                        playerWeaponMgr.maxReLodingTime = playerWeaponMgr.DefaultGun.maxReLodingTime;
-                        playerWeaponMgr.curBoulletCount = playerWeaponMgr.DefaultGun.curBoulletCount;
-                        playerWeaponMgr.curReLodingTime = playerWeaponMgr.DefaultGun.curReLodingTime;
-                        playerWeaponMgr.isReLoading = false;
-                        break;
-                    case 1:
-                        playerWeaponMgr.MaxBulletCount = playerWeaponMgr.ShotGun.MaxBulletCount;
-                        playerWeaponMgr.maxReLodingTime = playerWeaponMgr.ShotGun.maxReLodingTime;
-                        playerWeaponMgr.curBoulletCount = playerWeaponMgr.ShotGun.curBoulletCount;
-                        playerWeaponMgr.curReLodingTime = playerWeaponMgr.ShotGun.curReLodingTime;
-                        playerWeaponMgr.isReLoading = false;
-
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        break;
-                }
+                playerWeaponMgr.SetCurWeaponData();
             }
             SwapDelayDeltaTime = 0;
 
@@ -530,10 +529,11 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    void SetAnimPlay(bool _isIdle,bool _isRun,bool _isShot)
+    void AnimPlay()
     {
-        anim.SetBool("IsIdle", _isIdle);
-        anim.SetBool("IsRun", _isRun);
+
+        anim.SetBool("IsIdle", (movement != Vector3.zero) ? false : true);
+        anim.SetBool("IsRun", (movement == Vector3.zero) ? false : true);
 
     }
 

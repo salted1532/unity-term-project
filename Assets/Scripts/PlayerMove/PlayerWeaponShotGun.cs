@@ -19,9 +19,9 @@ public class PlayerWeaponShotGun : MonoBehaviour
     public float damage = 8f;
     public UnityEvent<float> DamageEvent = new UnityEvent<float>();
     public GameObject PreFebBullet;
-    public float ShotGunCooldownTime = 0.65f;
+    public float CooldownTime = 0.65f;
     int ShotBulletCount = 10;
-    float spreadRadius = 0.5f;
+    float spreadRadius = 1.3f;
     public float spreadAngle = 10f;    // 분포 각도
     public void HitScanShotGun()
     {
