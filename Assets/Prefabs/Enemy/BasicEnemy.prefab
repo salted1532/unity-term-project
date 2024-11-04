@@ -1476,11 +1476,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  gameObject: {fileID: 0}
   bulletPrefab: {fileID: 7380272194754254151, guid: a59a30671da3d8841bbcdaaa7b92a4d5, type: 3}
   firePoint: {fileID: 3281046271499803343}
   bulletSpeed: 20
   attackCooldown: 3
-  whatstageenemy: 0
   animator: {fileID: 5789488274580925042}
 --- !u!195 &8851197806484376656
 NavMeshAgent:
@@ -1542,6 +1542,7 @@ MonoBehaviour:
   EnemyHp: 20
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
+  WhatStageEnemy: 0
 --- !u!1 &6714774075403206328
 GameObject:
   m_ObjectHideFlags: 0
