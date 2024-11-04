@@ -15,7 +15,7 @@ public class StageControl : MonoBehaviour
     void Start()
     {
         Enemyleft.Add(3);
-        Enemyleft.Add(0);
+        Enemyleft.Add(6);
         Enemyleft.Add(0);
         Enemyleft.Add(0);
         Doors[0].GetComponent<DoorControl>();
