@@ -11,12 +11,15 @@ public class DamageSystem : MonoBehaviour
     public Slider Hpslider;
     public Slider Spslider;
 
+    public GameObject TakeDamageImage;
+
     public void Start()
     {
         Hpslider.maxValue = CurrentHp;
         Hpslider.value = CurrentHp;
         Spslider.maxValue = 100;
         Spslider.value = CurrentSp;
+        TakeDamageImage.SetActive(false);
     }
     //데미지 받아오기 
     public void TakeDamage(float amount)
@@ -34,10 +37,20 @@ public class DamageSystem : MonoBehaviour
             CurrentHp -= 1;
         }
         Hpslider.value = CurrentHp;
+        TakeDamageEffect();
         Debug.Log(Hpslider.value);
 
     }
 
+    public void TakeDamageEffect()
+    {
+        TakeDamageImage.SetActive(true);
+        Invoke(nameof(TakeDamageEffectoff), 1f);
+    }
+    public void TakeDamageEffectoff()
+    {
+        TakeDamageImage.SetActive(false);
+    }
     public void GetHealth(float amount)
     {
         Debug.Log("회복 받음");
