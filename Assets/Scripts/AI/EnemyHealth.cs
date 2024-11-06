@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
     }
     public void EnemyTakeDamage(float amount)
     {
-        Debug.Log("µ¥¹ÌÁö ¹ÞÀ½");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         float TDamge = amount;
 
@@ -46,9 +46,10 @@ public class EnemyHealth : MonoBehaviour
         }
         EnemyHpslider.value = EnemyHp;
         Debug.Log(EnemyHpslider.value);
-        //Á×¾ú´ÂÁö È®ÀÎ
+        //ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (EnemyHp <= 0)
         {
+            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
             if (WhatStageEnemy == 1)
             {
                 stagecontrol.howEnemyleft(1);

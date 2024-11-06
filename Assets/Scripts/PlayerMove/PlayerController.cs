@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
     float SwapDelayDeltaTime;
 
     Vector3[] RayTestArr = new Vector3[10];
+
+    private float currentTime = 0f;
+    bool isjumping;
+    public bool isground;
+
     private void Awake()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -82,8 +87,25 @@ public class PlayerController : MonoBehaviour
         originalPos = transform.position;
         LookAtCam();
     }
-    private  void Update()
+    private void Update()
     {
+        isground = IsCheckGrounded();
+        currentTime += Time.deltaTime;
+        if(IsWalking())
+        {
+            if(SoundManager.Instance.IsSoundInLoop("concrete1") == false)
+            {
+                SoundManager.Instance.PlaySound3D("concrete1", gameObject, 0, 25, true);
+            }
+        }
+        else
+        {
+            if(SoundManager.Instance.IsSoundInLoop("concrete1") == true)
+            {
+                SoundManager.Instance.StopLoopSound("concrete1");
+            }
+        }
+
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward *  15f, Color.red);
            
         SwapWeaponListener();
@@ -161,9 +183,6 @@ public class PlayerController : MonoBehaviour
 
     void ControlPlayer()
     {
-        
-
-
             if (!isCallJump && !canDoubleJump && !isJumpingFirst && Input.GetButtonDown("Jump"))
             {
                 Jump();
@@ -300,6 +319,48 @@ public class PlayerController : MonoBehaviour
         else return false;
     }
 
+    bool IsFallingForMove()
+    {
+        if (!playerControl.isGrounded && VelocityY < -1)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    bool IsJumPing()
+    {
+        if (!playerControl.isGrounded && VelocityY > 1)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    
+    public bool IsCheckGrounded()
+    {
+        if (playerControl.isGrounded) return true;
+        
+        var ray = new Ray(this.transform.position + Vector3.up * 0.1f, Vector3.down);
+        var maxDistance = 1.5f;
+
+        //Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * maxDistance, Color.red);
+        return Physics.Raycast(ray, maxDistance);
+    }
+
+    bool IsWalking()
+    {
+        if(IsFallingForMove() || !(IsCheckGrounded()) || (movement.x == 0 && movement.z == 0))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     //Apply gravity to the character
     void Gravity()
     {
@@ -365,6 +426,7 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = true;
             canDoubleJump = true;
+            isjumping = true;
         }
 
     }
@@ -377,6 +439,7 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = false;
             canDoubleJump = false;
+            isjumping = true;
         }
     }
      

@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public GameObject Player;
-    public GameObject gameObject;
 
     private NavMeshAgent nav;
 
@@ -30,12 +29,12 @@ public class EnemyAI : MonoBehaviour
     public Animator animator;
 
     private float currentTime = 0f;
-    private int randomSoundTime;
+    private double randomSoundTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        randomSoundTime = Random.Range(4,8);
+        randomSoundTime = Random.Range(40,80) * 0.1;
         nav = GetComponent<NavMeshAgent>();
         waypoints = new Vector3[waypointCount];
 
@@ -51,7 +50,7 @@ public class EnemyAI : MonoBehaviour
     {
         currentTime += Time.deltaTime;
         if(currentTime>randomSoundTime) {
-            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_attack_" + Random.Range(1,7), gameObject);
+            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_attack_" + Random.Range(1,7), gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
             currentTime = 0;
         }
         if (Player == null)

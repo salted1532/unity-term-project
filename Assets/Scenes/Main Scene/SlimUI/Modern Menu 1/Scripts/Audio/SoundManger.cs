@@ -8,6 +8,7 @@ public enum SoundType
 {
     BGM,
     EFFECT,
+    MONSTER_SOUND,
     MASTER,
 }
 
@@ -68,6 +69,18 @@ public class SoundManager : Singleton<SoundManager>
         mInstantiatedSounds.Add(soundPlayer);
     }
 
+    public bool IsSoundInLoop(string clipName)
+    {
+        foreach(TemporarySoundPlayer audioPlayer in mInstantiatedSounds)
+        {
+            if(audioPlayer.ClipName == clipName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /// <summary>
     /// 루프 사운드 중 리스트에 있는 오브젝트를 이름으로 찾아 제거한다.
     /// </summary>
@@ -85,6 +98,19 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         Debug.LogWarning(clipName + "을 찾을 수 없습니다.");
+    }
+
+    public void StopLoopSoundAfterEnd(string clipName)
+    {
+        foreach(TemporarySoundPlayer audioPlayer in mInstantiatedSounds)
+        {
+            if(audioPlayer.ClipName == clipName)
+            {
+                mInstantiatedSounds.Remove(audioPlayer);
+                Destroy(audioPlayer.gameObject);
+                return;
+            }
+        }
     }
 
     /// <summary>
@@ -118,7 +144,7 @@ public class SoundManager : Singleton<SoundManager>
     /// <param name="attachToTarget"></param>
     /// <param name="minDistance"></param>
     /// <param name="maxDistance"></param>
-    public void PlaySound3D(string clipName, GameObject audioTarget, float minDistance = 0.0f, float maxDistance = 25.0f, float delay = 0f, bool isLoop = false, SoundType type = SoundType.EFFECT, bool attachToTarget = true)
+    public void PlaySound3D(string clipName, GameObject audioTarget, float minDistance = 0.0f, float maxDistance = 25.0f, bool isLoop = false, SoundType type = SoundType.EFFECT, float delay = 0f, bool attachToTarget = true)
     {
         GameObject obj = new GameObject("TemporarySoundPlayer 3D");
         obj.transform.localPosition = audioTarget.transform.position;
