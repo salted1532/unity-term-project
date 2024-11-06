@@ -106,8 +106,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward *  15f, Color.red);
-           
+        
         SwapWeaponListener();
         if (isDashing)
         {
@@ -126,6 +125,8 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(Camera.main.transform.position, RayTestArr[i]*10f, Color.red);
 
         }
+        Debug.Log(playerControl.isGrounded);
+        
     }
     void RayTest()
     {
@@ -143,10 +144,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerState.PlayerCurPos = transform.position;
-    }
-    private void LateUpdate()
-    {
         LookAtCam();
+
     }
 
     void SwapWeaponListener()
@@ -434,6 +433,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isJumpingFirst)
         {
+            Debug.Log("더블 점프!");
             SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
             VelocityY = jumpForce * 1.6f;
             startedJump = true;
@@ -581,15 +581,15 @@ public class PlayerController : MonoBehaviour
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (playerControl.isGrounded && isJumpingFirst)
+        /*if (playercontrol.isgrounded && isjumpingfirst)
         {
-            isJumpingFirst = false;
+            isjumpingfirst = false;
 
         }
-        if(playerControl.isGrounded && canDoubleJump)
+        if(playercontrol.isgrounded && candoublejump)
         {
-            canDoubleJump = false;
-        }
+            candoublejump = false;
+        }*/
 
     }
     void AnimPlay()

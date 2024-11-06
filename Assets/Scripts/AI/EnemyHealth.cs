@@ -49,7 +49,7 @@ public class EnemyHealth : MonoBehaviour
         //�׾����� Ȯ��
         if (EnemyHp <= 0)
         {
-            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
+            //SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
             if (WhatStageEnemy == 1)
             {
                 stagecontrol.howEnemyleft(1);

@@ -4,10 +4,14 @@ using UnityEngine;
 
 public static class PlayerInventory 
 {
+    public static readonly int DEFULAT_W = 0;
+    public static readonly int SHOTGUN_W = 1;
+    public static readonly int RIFLE_W = 2;
+    public static readonly int PLASMA_W = 3;
     static int choiceIndex;
     
     static int maxWeaponCount = 4;
-    static List<int> inventory = new List<int>() {0 ,1,2,3};
+    static List<int> inventory = new List<int>() { DEFULAT_W, SHOTGUN_W, RIFLE_W, PLASMA_W };
 
     
     public static int GetCurWeaponCount()
