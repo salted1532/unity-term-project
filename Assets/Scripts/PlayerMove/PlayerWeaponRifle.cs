@@ -34,7 +34,10 @@ public class PlayerWeaponRifle : MonoBehaviour
             {
                 //damage function
                 //DamageEvent?.Invoke(damage);
-                hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                }
                 Instantiate(PreFebBullet);
 
 

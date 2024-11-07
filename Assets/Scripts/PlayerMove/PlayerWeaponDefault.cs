@@ -30,13 +30,16 @@ public class PlayerWeaponDefault : MonoBehaviour
         RaycastHit hit; 
         if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, defaultWeaponMaxDistance,7))
         {
-                Debug.Log("히트된 물체" + hit.collider.name);
+                Debug.Log("히트된 물체 : " + hit.collider.name);
 
                 if (hit.collider != null)
                 {
                 //damage function
                 //DamageEvent?.Invoke(damage);
-                hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                }
                 Instantiate(PreFebBullet);
 
 

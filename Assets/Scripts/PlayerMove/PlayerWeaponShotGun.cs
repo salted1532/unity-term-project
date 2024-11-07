@@ -39,6 +39,10 @@ public class PlayerWeaponShotGun : MonoBehaviour
                 {
 
                     //damage function
+                    if (hit.collider.CompareTag("Enemy"))
+                    {
+                        hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+                    }
                     DamageEvent?.Invoke(damage);
 
 

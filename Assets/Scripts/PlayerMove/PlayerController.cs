@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(Camera.main.transform.position, RayTestArr[i]*10f, Color.red);
 
         }
-        Debug.Log(playerControl.isGrounded);
+        //Debug.Log(playerControl.isGrounded);
         
     }
     void RayTest()
