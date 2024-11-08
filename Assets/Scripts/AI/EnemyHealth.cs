@@ -20,6 +20,26 @@ public class EnemyHealth : MonoBehaviour
         EnemyHpslider.maxValue = EnemyHp;
         EnemyHpslider.value = EnemyHp;
         stagecontrol = GameObject.Find("StageManage").GetComponent<StageControl>();
+        if (stagecontrol != null)
+        {
+            if(WhatStageEnemy == 1)
+            {
+                stagecontrol.stage1EnemyObj.Add(gameObject);
+            }
+            if (WhatStageEnemy == 2)
+            {
+                stagecontrol.stage2EnemyObj.Add(gameObject);
+            }
+            if (WhatStageEnemy == 3)
+            {
+                stagecontrol.stage3EnemyObj.Add(gameObject);
+            }
+            if (WhatStageEnemy == 4)
+            {
+                stagecontrol.stage4EnemyObj.Add(gameObject);
+            }
+
+        }
     }
 
     // Update is called once per frame
