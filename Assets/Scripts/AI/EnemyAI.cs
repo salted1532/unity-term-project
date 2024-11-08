@@ -12,14 +12,14 @@ public class EnemyAI : MonoBehaviour
 
     private bool alreadyAttacked = false;
 
-    public GameObject bulletPrefab; // �߻��� �Ѿ� ������
-    public Transform firePoint; // �Ѿ��� �߻�� ��ġ
-    public float bulletSpeed = 20f; // �Ѿ� �ӵ�
-    public float attackCooldown = 3f; // ���� ��ٿ� �ð�
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public float bulletSpeed = 20f;
+    public float attackCooldown = 3f;
 
-    private int waypointCount = 1;   // ��������Ʈ ����
-    private float waypointRadius = 5f;  // �� ��������Ʈ�� �ݰ�
-    private Vector3[] waypoints;  // ������ ��������Ʈ �迭
+    private int waypointCount = 1;
+    private float waypointRadius = 5f;
+    private Vector3[] waypoints;
     private int currentWaypointIndex = 0;
 
     private int turnDirection;
@@ -38,10 +38,9 @@ public class EnemyAI : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         waypoints = new Vector3[waypointCount];
 
-        // ���� �����ϰ� �������� ����, ���������� ���� ����
         turnDirection = Random.Range(0, 4) == 0 ? -1 : 1;
 
-        GenerateWaypoints();  // ù ��������Ʈ ��Ʈ ����
+        GenerateWaypoints();
         nav.SetDestination(waypoints[0]);
     }
 
@@ -55,50 +54,48 @@ public class EnemyAI : MonoBehaviour
         }
         if (Player == null)
         {
-            Debug.LogWarning("�÷��̾ �������� �ʾҽ��ϴ�.");
+            Debug.LogWarning("Enemy can't find Player!!");
             return;
         }
 
-        // ���� ��������Ʈ�� �����߰ų� 3�ʰ� ������
         if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance || Time.time - waypointArrivalTime >= timeLimit)
         {
 
             if (!alreadyAttacked)
             {
                 animator.SetTrigger("Walk");
-                // ���ο� ��������Ʈ ���� �� ����
+
                 GenerateWaypoints();
                 nav.SetDestination(waypoints[currentWaypointIndex]);
 
-                // ���ο� ��������Ʈ�� �̵� �� �ð��� �ʱ�ȭ
+
                 waypointArrivalTime = Time.time;
             }
         }
     }
 
-    // �÷��̾� �ֺ����� ������ 3���� ��������Ʈ ����
     void GenerateWaypoints()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);  // ���� �÷��̾� ���� �Ÿ�
-        Vector3 directionToPlayer = (Player.transform.position - transform.position).normalized;  // ������ �÷��̾�� ���ϴ� ����
+        float distanceToPlayer = Vector3.Distance(transform.position, Player.transform.position);
+        Vector3 directionToPlayer = (Player.transform.position - transform.position).normalized;
 
         for (int i = 0; i < waypointCount; i++)
         {
-            // ���� �÷��̾� ������ 1/3, 2/3 ���� ��ó�� ��������Ʈ ����
-            float fraction = (i + 1) / (float)(waypointCount + 1);  // 1/3, 2/3 ���� ���� ���
+
+            float fraction = (i + 1) / (float)(waypointCount + 1);
             Vector3 baseWaypointPosition = transform.position + directionToPlayer * (distanceToPlayer * fraction);
 
-            // ���⿡ ���� ��������Ʈ�� ������ ȸ����Ŵ (����/������)
+
             Vector3 perpendicularOffset = Vector3.Cross(Vector3.up, directionToPlayer) * waypointRadius * turnDirection;
 
-            // �ش� �������� ������ �ݰ� �� ��ǥ ����
-            Vector3 randomOffset = Random.insideUnitSphere * waypointRadius;
-            randomOffset.y = 0;  // Y���� �������� ���� (2D ��� �̵�)
 
-            // ���� ��������Ʈ ��ġ
+            Vector3 randomOffset = Random.insideUnitSphere * waypointRadius;
+            randomOffset.y = 0;  
+
+
             Vector3 finalWaypointPosition = baseWaypointPosition + perpendicularOffset + randomOffset;
 
-            // NavMesh ���� ��ȿ�� ��ġ�� ����
+
             NavMeshHit hit;
             if (NavMesh.SamplePosition(finalWaypointPosition, out hit, waypointRadius, NavMesh.AllAreas))
             {
@@ -106,7 +103,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                waypoints[i] = baseWaypointPosition;  // ��ȿ���� ������ �⺻ ��ġ ���
+                waypoints[i] = baseWaypointPosition;  
             }
         }
     }
@@ -135,17 +132,17 @@ public class EnemyAI : MonoBehaviour
     {
         SoundManager.Instance.PlaySound3D("FireCast", gameObject);
         Vector3 direction = Player.transform.position - transform.position;
-        direction.y -= 2;  // Y ���� -2 ����
+        direction.y -= 2;  
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
-        // �Ѿ� ������Ʈ�� firePoint ��ġ���� ��ȯ
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, targetRotation);
 
-        // �Ѿ˿� Rigidbody ������Ʈ�� �ִٸ�, ������ �߻�
+
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.velocity = firePoint.forward * bulletSpeed; // �� �������� �߻�
+            rb.velocity = firePoint.forward * bulletSpeed;
         }
     }
 

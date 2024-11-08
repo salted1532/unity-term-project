@@ -20,6 +20,10 @@ public class DamageSystem : MonoBehaviour
         Spslider.maxValue = 100;
         Spslider.value = CurrentSp;
         TakeDamageImage.SetActive(false);
+
+        // 마우스를 화면 가운데에 고정시키고 숨기기
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
     //데미지 받아오기 
     public void TakeDamage(float amount)
