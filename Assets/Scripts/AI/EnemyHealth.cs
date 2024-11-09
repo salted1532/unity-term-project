@@ -14,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
 
     private StageControl stagecontrol;
 
+    public GameObject BloodParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +98,12 @@ public class EnemyHealth : MonoBehaviour
             }
             
         }
+
+        Vector3 direction =transform.position;
+        direction.y += 2;
+
+        GameObject Bloodeffect = Instantiate(BloodParticle, direction, transform.rotation);
+        Destroy(Bloodeffect, 0.2f);
     }
 
     public void EnemyDead()

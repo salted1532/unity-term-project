@@ -1476,7 +1476,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  gameObject: {fileID: 0}
   bulletPrefab: {fileID: 7380272194754254151, guid: a59a30671da3d8841bbcdaaa7b92a4d5, type: 3}
   firePoint: {fileID: 3281046271499803343}
   bulletSpeed: 20
@@ -1543,6 +1542,7 @@ MonoBehaviour:
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
+  BloodParticle: {fileID: 9036208454832375646, guid: c6d0d5af84eb2654099440e7441588c1, type: 3}
 --- !u!1 &6714774075403206328
 GameObject:
   m_ObjectHideFlags: 0
