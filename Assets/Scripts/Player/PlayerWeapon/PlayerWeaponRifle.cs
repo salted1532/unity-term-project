@@ -20,7 +20,7 @@ public class PlayerWeaponRifle : MonoBehaviour
     public UnityEvent<float> DamageEvent = new UnityEvent<float>();
     public GameObject PreFebBullet;
     public float CooldownTime = 0.2f;
-    public void HitScanShotGun()
+    public void HitScanRifle()
     {
 
 

@@ -14,6 +14,11 @@ public class PlayerWeaponMgr : MonoBehaviour
     public PlayerWeaponRifle RifleGun;
     public PlayerWeaponPlasmaGun PlasmaGun;
 
+    public GameObject DefaultGunObj;
+    public GameObject ShotGunObj;
+    public GameObject RifleGunObj;
+    public GameObject PlasmaGunObj;
+
     public bool isReLoading;
 
     public int MaxBulletCount;
@@ -28,11 +33,20 @@ public class PlayerWeaponMgr : MonoBehaviour
 
     private void Awake()
     {
+        DefaultGunObj.SetActive(true);
+        ShotGunObj.SetActive(false);
+        RifleGunObj.SetActive(false);
+        PlasmaGunObj.SetActive(false);
+
         MaxBulletCount = DefaultGun.MaxBulletCount;
         maxReLodingTime = DefaultGun.maxReLodingTime; 
         curBoulletCount = DefaultGun.curBoulletCount;
         curReLodingTime = DefaultGun.curReLodingTime;
         isReLoading = false;
+    }
+    private void Start()
+    {
+
     }
     private void Update()
     {
@@ -78,7 +92,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                 case 0:
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
-                    Debug.Log("ΩÓ±‚");
+                    Debug.Log("±‚∫ª√— ΩÓ±‚");
                     DefaultGun.HitScan();
                     curCooldownTime = 0;
 
@@ -87,7 +101,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("ΩÓ±‚");
+                    Debug.Log("º¶∞« ΩÓ±‚");
                     ShotGun.HitScanShotGun();
                     curCooldownTime = 0;
 
@@ -97,8 +111,8 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("ΩÓ±‚");
-                    RifleGun.HitScanShotGun();
+                    Debug.Log("∂Û¿Ã«√ ΩÓ±‚");
+                    RifleGun.HitScanRifle();
                     curCooldownTime = 0;
                     break;
 
@@ -106,7 +120,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("ΩÓ±‚");
+                    Debug.Log("«√∂Û¡Ó∏∂ ΩÓ±‚");
                     PlasmaGun.CreatePlasma();
                     curCooldownTime = 0;
                     break;
@@ -145,6 +159,7 @@ public class PlayerWeaponMgr : MonoBehaviour
     }
     public void SetCurWeaponData()
     {
+        SetCurWeaponObj(PlayerInventory.GetCurWeaponNum());
         switch (PlayerInventory.GetCurWeaponNum())
         {
             case 0:
@@ -189,5 +204,38 @@ public class PlayerWeaponMgr : MonoBehaviour
             default:
                 break;
         }
+    }
+   void SetCurWeaponObj(int WeaponNum)
+    {
+        switch (WeaponNum)
+        {
+            case 0:
+                DefaultGunObj.SetActive(true);
+                ShotGunObj.SetActive(false);
+                RifleGunObj.SetActive(false);
+                PlasmaGunObj.SetActive(false);
+                break;
+            case 1:
+                DefaultGunObj.SetActive(false);
+                ShotGunObj.SetActive(true);
+                RifleGunObj.SetActive(false);
+                PlasmaGunObj.SetActive(false);
+                break;
+            case 2:
+                DefaultGunObj.SetActive(false);
+                ShotGunObj.SetActive(false);
+                RifleGunObj.SetActive(true);
+                PlasmaGunObj.SetActive(false);
+                break;
+            case 3:
+                DefaultGunObj.SetActive(false);
+                ShotGunObj.SetActive(false);
+                RifleGunObj.SetActive(false);
+                PlasmaGunObj.SetActive(true);
+                break;
+            default: break;
+
+        }
+
     }
 }

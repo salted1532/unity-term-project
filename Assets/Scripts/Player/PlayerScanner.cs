@@ -5,6 +5,7 @@ using static UnityEditor.Progress;
 
 public class PlayerScanner : MonoBehaviour
 {
+    public PlayerWeaponMgr playerWeaponMgr;
     float delayTime;
     public bool ChangeTrigger;
     public int curScanWeaponNum = -1;
@@ -37,6 +38,8 @@ public class PlayerScanner : MonoBehaviour
                 {
                     Debug.Log(i + "칸째 무기 번호: " +arr[i]);
                 }
+                //현재 무기 세팅
+                playerWeaponMgr.SetCurWeaponData();
             }
         }
     }
@@ -60,7 +63,7 @@ public class PlayerScanner : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+
         if (other.CompareTag("Item"))
         {
             curScanWeaponNum = other.gameObject.GetComponent<Items>().GetNum();

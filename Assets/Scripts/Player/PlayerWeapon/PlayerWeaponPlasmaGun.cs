@@ -16,8 +16,7 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
     public float curReLodingTime;
 
     public float ShotGunMaxDistance = 50f;
-    public float damage = 30f;
-    public UnityEvent<float> DamageEvent = new UnityEvent<float>();
+
     public GameObject PreFebBullet;
     public float CooldownTime = 1.3f;
     public void CreatePlasma()
@@ -30,7 +29,7 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
             curBoulletCount = MaxBulletCount;
 
         }
-        Debug.Log("샷건 총알 발사 성공!");
+        Debug.Log("플라즈마 총알 발사 성공!");
 
     }
 
