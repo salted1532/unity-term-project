@@ -22,7 +22,8 @@ public class StageControl : MonoBehaviour
         Enemyleft.Add(6);
         Enemyleft.Add(9);
         Enemyleft.Add(1);
-        Doors[0].GetComponent<DoorControl>();
+ 
+
         for (int i =0; i< stage1EnemyObj.Count; i++)
         {
             stage1EnemyObj[i].SetActive(false);
@@ -98,6 +99,32 @@ public class StageControl : MonoBehaviour
         if (Stage4 == true)
         {
             Doors[3].GetComponent<DoorControl>().StageClear();
+        }
+    }
+
+    public void howEnemyleft(int a)
+    {
+        Enemyleft[a - 1] -= 1;
+        
+        if (Enemyleft[0] == 0)
+        {
+            Debug.Log("1�������� Ŭ����");
+            Stage1 = true;
+        }
+        if (Enemyleft[1] == 0)
+        {
+            Debug.Log("2�������� Ŭ����");
+            Stage2 = true;
+        }
+        if (Enemyleft[2] == 0)
+        {
+            Debug.Log("3�������� Ŭ����");
+            Stage3 = true;
+        }
+        if (Enemyleft[3] == 0)
+        {
+            Debug.Log("4�������� Ŭ����");
+            Stage4 = true;
         }
     }
 
