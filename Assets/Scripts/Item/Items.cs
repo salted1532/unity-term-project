@@ -38,28 +38,19 @@ public class Items : MonoBehaviour
         {
             switch(itemmanage)
         {
-            case 0:
+            case 10:
                     damageSystem.GetHealth(10f);
                     gameObject.SetActive(false);
 
-                    break;
+            break;
 
-            case 1:
+            case 20:
                     damageSystem.GetShield(10f);
                     gameObject.SetActive(false);
 
-
-                    break;
-
-            case 2:
-                    
-                    break;
-            case 3:
-                   
-                    break;
+            break;
 
             default:
-
             break;
         }
         }

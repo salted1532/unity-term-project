@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Enemy
   - Wall
+  - bullet
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - stage
   - Item
   - YuME_TileMap
-  - 
+  - Player
   - 
   - 
   - 

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public static class PlayerInventory 
 {
-    public static readonly int DEFULAT_W = 0;
-    public static readonly int SHOTGUN_W = 1;
-    public static readonly int RIFLE_W = 2;
-    public static readonly int PLASMA_W = 3;
+
     static int choiceIndex;
     
     static int maxWeaponCount = 4;
-    static List<int> inventory = new List<int>() { DEFULAT_W, SHOTGUN_W, RIFLE_W, PLASMA_W };
+    static List<int> inventory = new List<int>() { PlayerWeaponNum.DEFULAT };
 
-    
+    public static void ReSetInventory()
+    {
+        choiceIndex = 0;
+        inventory = new List<int>() { PlayerWeaponNum.DEFULAT };
+    }
     public static int GetCurWeaponCount()
     {
         return inventory.Count;
@@ -39,9 +40,10 @@ public static class PlayerInventory
         }
         int[] arr = new int[inventory.Count];
 
-        for(int i = 0; i < inventory.Count - 1; ++i)
+        for (int i = 0; i < inventory.Count; ++i)
         {
-            int curIndex = (choiceIndex + i < inventory.Count -1) ? choiceIndex + i: choiceIndex + i - inventory.Count;
+            int curIndex = (choiceIndex + i) % inventory.Count;
+
             arr[i] = inventory[curIndex];
         }
         return arr;

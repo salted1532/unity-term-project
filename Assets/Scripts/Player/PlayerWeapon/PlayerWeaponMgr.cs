@@ -61,7 +61,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             IsShoting = false;
 
         }
-        //anim.SetBool("IsShot", IsShoting);
+        anim.SetBool("IsShot", IsShoting);
 
     }
 

@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         originalPos = transform.position;
         LookAtCam();
+        PlayerInventory.ReSetInventory();
     }
     private void Update()
     {
@@ -466,7 +467,8 @@ public class PlayerController : MonoBehaviour
 
     void LookAtCam()
     {
-        transform.rotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);
+        Quaternion targetRotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1000f * Time.deltaTime);
 
     }
 
