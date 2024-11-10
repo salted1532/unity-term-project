@@ -14,6 +14,7 @@ public class StageControl : MonoBehaviour
     public bool Stage1 = false, Stage2 = false, Stage3 = false, Stage4 = false;
 
     public GameObject[] Doors;
+    private FightMusicControl fightmusic;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,8 @@ public class StageControl : MonoBehaviour
         {
             stage4EnemyObj[i].SetActive(false);
         }
+
+        fightmusic = GameObject.Find("FightMusic").GetComponent<FightMusicControl>();
     }
 
     // Update is called once per frame
@@ -77,6 +80,12 @@ public class StageControl : MonoBehaviour
         }
     }
 
+    void StartNormalMusic()
+    {
+        fightmusic.StopAllSound();
+        SoundManager.Instance.PlaySound2D("hl2_song2", 0f, true, SoundType.BGM);
+    }
+
     public void howEnemyleft(int a)
     {
         Enemyleft[a - 1] -= 1;
@@ -85,21 +94,25 @@ public class StageControl : MonoBehaviour
         {
             Debug.Log("1�������� Ŭ����");
             Stage1 = true;
+            StartNormalMusic();
         }
         if (Enemyleft[1] == 0)
         {
             Debug.Log("2�������� Ŭ����");
             Stage2 = true;
+            StartNormalMusic();
         }
         if (Enemyleft[2] == 0)
         {
             Debug.Log("3�������� Ŭ����");
             Stage3 = true;
+            StartNormalMusic();
         }
         if (Enemyleft[3] == 0)
         {
             Debug.Log("4�������� Ŭ����");
             Stage4 = true;
+            StartNormalMusic();
         }
     }
 

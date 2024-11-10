@@ -31,7 +31,17 @@ public class FightMusicControl : MonoBehaviour
         
     }
 
-    void StopSounds()
+    public void Set_isFightStart(bool value)
+    {
+        isFightStart = value;
+    }
+
+    public bool Get_isFightStart()
+    {
+        return isFightStart;
+    }
+
+    public void StopAllSound()
     {
         if(SoundManager.Instance.IsSoundInLoop("hl2_song2") == true)
         {
@@ -41,16 +51,6 @@ public class FightMusicControl : MonoBehaviour
         {
             SoundManager.Instance.StopLoopSound("hl1_song10");
         }
-    }
-
-    public void Set_isFightStart(bool value)
-    {
-        isFightStart = value;
-    }
-
-    public bool Get_isFightStart()
-    {
-        return isFightStart;
     }
 
     void OnTriggerEnter(Collider other)
@@ -67,7 +67,7 @@ public class FightMusicControl : MonoBehaviour
                 {
                     if(fightmusic.Get_isFightStart() == true)
                     {
-                        StopSounds();
+                        StopAllSound();
                         SoundManager.Instance.PlaySound2D("hl2_song2", 0f, true, SoundType.BGM);
                         fightmusic.Set_isFightStart(false);
                     }
@@ -76,7 +76,7 @@ public class FightMusicControl : MonoBehaviour
                 {
                     if(isFightStart == false)
                     {
-                        StopSounds();
+                        StopAllSound();
                         SoundManager.Instance.PlaySound2D("hl1_song10", 0f, true, SoundType.BGM);
                         isFightStart = true;
                     }
