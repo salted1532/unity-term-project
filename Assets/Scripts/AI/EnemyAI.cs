@@ -31,6 +31,8 @@ public class EnemyAI : MonoBehaviour
     private float currentTime = 0f;
     private double randomSoundTime;
 
+    public int whatEnemyis = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -124,7 +126,11 @@ public class EnemyAI : MonoBehaviour
             Invoke(nameof(ResetAttack), 3f);
 
             animator.SetTrigger("Attack");
-            //ShootBullet();
+            if(whatEnemyis == 1)
+            {
+                ShootBullet();
+            }
+
         }
     }
 

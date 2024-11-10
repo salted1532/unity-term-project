@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6612827293101641497}
   - component: {fileID: 6251009566444028718}
+  - component: {fileID: 9099504837639806897}
   m_Layer: 0
   m_Name: Body_mesh
   m_TagString: Untagged
@@ -123,6 +124,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.5390854, y: 3.5599914, z: 0.00001335144}
     m_Extent: {x: 22.755043, y: 10.979193, z: 29.795275}
   m_DirtyAABB: 0
+--- !u!114 &9099504837639806897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70377268696366033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3b2196e6ea747478ccd2c657c2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overlayColor: {r: 0.51957947, g: 0.514151, b: 1, a: 0}
 --- !u!1 &176616230807439259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1538,7 @@ MonoBehaviour:
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
+  BloodParticle: {fileID: 0}
 --- !u!114 &-9188668647191763310
 MonoBehaviour:
   m_ObjectHideFlags: 0
