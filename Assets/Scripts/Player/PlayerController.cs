@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
         if (playerControl.isGrounded) return true;
         
         var ray = new Ray(this.transform.position + Vector3.up * 0.1f, Vector3.down);
-        var maxDistance = 1.5f;
+        var maxDistance = 3f;
 
         //Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * maxDistance, Color.red);
         return Physics.Raycast(ray, maxDistance);

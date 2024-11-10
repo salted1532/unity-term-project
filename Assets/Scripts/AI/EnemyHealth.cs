@@ -71,7 +71,6 @@ public class EnemyHealth : MonoBehaviour
         //�׾����� Ȯ��
         if (EnemyHp <= 0)
         {
-            //SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
             if (WhatStageEnemy == 1)
             {
                 stagecontrol.howEnemyleft(1);
@@ -96,7 +95,7 @@ public class EnemyHealth : MonoBehaviour
                 animator.SetTrigger("Dead");
                 Invoke(nameof(EnemyDead), 0.4f);
             }
-            
+            SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
         }
 
         Vector3 direction =transform.position;

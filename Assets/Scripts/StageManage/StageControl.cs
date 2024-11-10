@@ -46,22 +46,22 @@ public class StageControl : MonoBehaviour
     {
         if (Enemyleft[0] == 0)
         {
-            Debug.Log("1½ºÅ×ÀÌÁö Å¬¸®¾î");
+            Debug.Log("1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             Stage1 = true;
         }
         if (Enemyleft[1] == 0)
         {
-            Debug.Log("2½ºÅ×ÀÌÁö Å¬¸®¾î");
+            Debug.Log("2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             Stage2 = true;
         }
         if (Enemyleft[2] == 0)
         {
-            Debug.Log("3½ºÅ×ÀÌÁö Å¬¸®¾î");
+            Debug.Log("3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             Stage3 = true;
         }
         if (Enemyleft[3] == 0)
         {
-            Debug.Log("4½ºÅ×ÀÌÁö Å¬¸®¾î");
+            Debug.Log("4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             Stage4 = true;
         }
     }
@@ -109,6 +109,18 @@ public class StageControl : MonoBehaviour
             {
                 stage1EnemyObj[i].SetActive(true);
             }
+        }
+    }
+
+    public bool IsStageClear(int stage)
+    {
+        if(Enemyleft[stage-1] == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

@@ -43,7 +43,6 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         mInstantiatedSounds = new List<TemporarySoundPlayer>();
-        InitVolumes(1,1,1);
     }
 
     /// <summary>
