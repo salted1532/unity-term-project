@@ -51,27 +51,18 @@ public class StageControl : MonoBehaviour
         if (Stage1 == true)
         {
             Doors[0].GetComponent<DoorControl>().StageClear();
-            for (int i = 0; i < stage2EnemyObj.Count; i++)
-            {
-                stage2EnemyObj[i].SetActive(true);
-            }
+
         }
         if (Stage2 == true)
         {
             Doors[1].GetComponent<DoorControl>().StageClear();
-            for (int i = 0; i < stage3EnemyObj.Count; i++)
-            {
-                stage3EnemyObj[i].SetActive(true);
-            }
+
 
         }
         if (Stage3 == true)
         {
             Doors[2].GetComponent<DoorControl>().StageClear();
-            for (int i = 0; i < stage4EnemyObj.Count; i++)
-            {
-                stage4EnemyObj[i].SetActive(true);
-            }
+
 
         }
         if (Stage4 == true)
@@ -93,19 +84,44 @@ public class StageControl : MonoBehaviour
         if (Enemyleft[0] == 0)
         {
             Debug.Log("1�������� Ŭ����");
+            if (Stage1 == false)
+            {
+                for (int i = 0; i < stage2EnemyObj.Count; i++)
+                {
+                    stage2EnemyObj[i].SetActive(true);
+                }
+            }
             Stage1 = true;
+
             StartNormalMusic();
         }
         if (Enemyleft[1] == 0)
         {
             Debug.Log("2�������� Ŭ����");
+            if (Stage2 == false)
+            {
+                for (int i = 0; i < stage3EnemyObj.Count; i++)
+                {
+                    stage3EnemyObj[i].SetActive(true);
+                }
+            }
             Stage2 = true;
+
+
             StartNormalMusic();
         }
         if (Enemyleft[2] == 0)
         {
             Debug.Log("3�������� Ŭ����");
+            if (Stage3 == false)
+            {
+                for (int i = 0; i < stage4EnemyObj.Count; i++)
+                {
+                    stage4EnemyObj[i].SetActive(true);
+                }
+            }
             Stage3 = true;
+
             StartNormalMusic();
         }
         if (Enemyleft[3] == 0)

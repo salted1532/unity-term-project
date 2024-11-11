@@ -6,7 +6,9 @@ public class DoorControl : MonoBehaviour
     public GameObject Door1, Door2;
     private Vector3 door1OpenPosition, door2OpenPosition;
     private Vector3 door1ClosedPosition, door2ClosedPosition;
+    [SerializeField]
     private bool isOpening = false;
+    [SerializeField]
     private bool isClosing = false;
     private float speed = 2.0f; // ���� ������ ������ �ӵ�
 
@@ -23,7 +25,7 @@ public class DoorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOpening)
+        if (isOpening == true)
         {
             if(RightAngle == false)
             {
@@ -42,7 +44,7 @@ public class DoorControl : MonoBehaviour
                     isOpening = false;
                 }
             }
-            else
+            else if(RightAngle == true)
             {
                 // ���� ���� ��ǥ ��ġ ����
                 door1OpenPosition = door1ClosedPosition + new Vector3(-6, 0, 0);
