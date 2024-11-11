@@ -2141,6 +2141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mAudioMixer: {fileID: 24100000, guid: 204ae77320b536d459d12c2126255a73, type: 2}
+  mCurrentBGMVolume: 0
+  mCurrentEffectVolume: 0
   mPreloadClips:
   - {fileID: 8300000, guid: 1e7a587164fcbef45b40536469e6c432, type: 3}
   - {fileID: 8300000, guid: 37c9133889e2bfc4296ead93a281acc2, type: 3}

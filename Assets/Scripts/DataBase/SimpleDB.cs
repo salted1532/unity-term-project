@@ -228,6 +228,8 @@ public class SimpleDB : MonoBehaviour
         {
             Clearpage.SetActive(true);
             isClear = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

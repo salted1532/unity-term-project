@@ -142,7 +142,7 @@ namespace SlimUI.ModernMenu{
 		}
 
 		public void LoadScene(){
-			SceneManager.LoadScene("InGame");
+			SceneManager.LoadScene("SampleScene");
 		}
 
 		public void  DisablePlayCampaign(){
