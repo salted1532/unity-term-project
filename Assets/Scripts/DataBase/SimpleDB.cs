@@ -28,14 +28,22 @@ public class SimpleDB : MonoBehaviour
 
     void Start()
     {
-        Rankpage.SetActive(false);
-        Clearpage.SetActive(false);
+        if(Rankpage != null)
+        {
+            Rankpage.SetActive(false);
+        }
+        if (Clearpage != null) {
+
+            Clearpage.SetActive(false);
+        }
 
         clearTime = 0;
 
         CreateDB();
-
-        Displayuserdata();
+        if (userlist != null)
+        {
+            Displayuserdata();
+        }
     }
 
     void Update()
@@ -44,7 +52,10 @@ public class SimpleDB : MonoBehaviour
         {
             clearTime += Time.deltaTime;
 
-            cleatimer.text = clearTime.ToString();
+            if (cleatimer != null)
+            {
+                cleatimer.text = clearTime.ToString();
+            }
         }
     }
 
@@ -119,7 +130,9 @@ public class SimpleDB : MonoBehaviour
 
     public void Displayuserdata()
     {
+
         userlist.text = "";
+
 
         using (var connection = new SqliteConnection(dbName))
         {
@@ -161,7 +174,10 @@ public class SimpleDB : MonoBehaviour
 
     public void RankpageOn()
     {
-        Rankpage.SetActive(true);
+        if (Rankpage != null)
+        {
+            Rankpage.SetActive(true);
+        }
         Ranklist.text = "";
 
         using (var connection = new SqliteConnection(dbName))
@@ -190,7 +206,11 @@ public class SimpleDB : MonoBehaviour
 
     public void DateSelectOn()
     {
-        Rankpage.SetActive(true);
+        if(Rankpage != null)
+        {
+            Rankpage.SetActive(true);
+        }
+
         Ranklist.text = "";
 
         using (var connection = new SqliteConnection(dbName))
