@@ -13,7 +13,7 @@ public static class PlayerInventory
     public static void ReSetInventory()
     {
         choiceIndex = 0;
-        inventory = new List<int>() { PlayerWeaponNum.DEFULAT };
+        inventory = new List<int>() { PlayerWeaponNum.DEFULAT,PlayerWeaponNum.SHOTGUN,PlayerWeaponNum.RIFLE,PlayerWeaponNum.PLASMA };
     }
     public static int GetCurWeaponCount()
     {
