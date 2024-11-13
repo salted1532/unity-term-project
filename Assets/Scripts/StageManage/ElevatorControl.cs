@@ -30,7 +30,7 @@ public class ElevatorControl : MonoBehaviour
     public void moveplayerpos()
     {
         Player.transform.position = movepos.transform.position;
-        if(Player.transform.position == movepos.transform.position)
+        if(Player.transform.position != movepos.transform.position)
         {
             moveplayerpos();
         }

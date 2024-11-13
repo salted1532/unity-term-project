@@ -122,7 +122,7 @@ MonoBehaviour:
   floatSpeed: 1
   floatAmplitude: 0.5
   rotationSpeed: 50
-  itemmanage: 0
+  itemmanage: 10
 --- !u!1001 &2839298069089338114
 PrefabInstance:
   m_ObjectHideFlags: 0
