@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using MagicPigGames;
+using UnityEngine.Events;
 
 public class DamageSystem : MonoBehaviour
 {
@@ -16,15 +17,7 @@ public class DamageSystem : MonoBehaviour
     public GameObject HealthBar;
     public GameObject ShieldBar;
 
-    public void SetHealth(float amount)
-    {
-        HealthBar.GetComponent<ProgressBarInspectorTest>().progress = (amount/100);
-    }
-
-    public void SetShield(float amount)
-    {
-        ShieldBar.GetComponent<ProgressBarInspectorTest>().progress = (CurrentSp/100);
-    }
+    public UnityEvent PlayerDead;
 
     public void Start()
     {
@@ -40,6 +33,21 @@ public class DamageSystem : MonoBehaviour
         // ���콺�� ȭ�� ����� ������Ű�� �����
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void KillPlayer()
+    {
+        TakeDamage(100);
+    }
+
+    public void SetHealth(float amount)
+    {
+        HealthBar.GetComponent<ProgressBarInspectorTest>().progress = (amount/100);
+    }
+
+    public void SetShield(float amount)
+    {
+        ShieldBar.GetComponent<ProgressBarInspectorTest>().progress = (amount/100);
     }
 
     //������ �޾ƿ��� 
@@ -61,7 +69,6 @@ public class DamageSystem : MonoBehaviour
         SetHealth(CurrentHp);
         TakeDamageEffect();
         Debug.Log(Hpslider.value);
-
     }
 
     public void TakeDamageEffect()
@@ -100,7 +107,7 @@ public class DamageSystem : MonoBehaviour
         //�׾����� Ȯ��
         if (CurrentHp <= 0)
         {
-            Destroy(gameObject);
+            PlayerDead.Invoke();
         }
     }
 }
