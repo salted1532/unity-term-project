@@ -7,6 +7,8 @@ public class ElevatorControl : MonoBehaviour
     public GameObject Player;
     public GameObject movepos;
 
+    private bool istpon = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,20 +21,16 @@ public class ElevatorControl : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Invoke(nameof(moveplayerpos), 3f);
+            Invoke(nameof(moveplayerpos), 0.1f);
         }
     }
 
     public void moveplayerpos()
     {
-        Player.transform.position = movepos.transform.position;
-        if(Player.transform.position != movepos.transform.position)
-        {
-            moveplayerpos();
-        }
+        Player.transform.position = new Vector3(227, 26, -105);
     }
 }
