@@ -201,11 +201,11 @@ public class PlayerController : MonoBehaviour
             }
             PlayerMove();
 
-            if (transform.position.y < -1.3)
+            /*if (transform.position.y < -1.3)
             {
                 Restart();
                 return;
-            }
+            }*/
 
 
             playerControl.Move(new Vector3(0, VelocityY, 0) * Time.deltaTime);
