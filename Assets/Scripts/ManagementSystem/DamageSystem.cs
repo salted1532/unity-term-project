@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using MagicPigGames;
 
 public class DamageSystem : MonoBehaviour
 {
@@ -12,6 +13,18 @@ public class DamageSystem : MonoBehaviour
     public Slider Spslider;
 
     public GameObject TakeDamageImage;
+    public GameObject HealthBar;
+    public GameObject ShieldBar;
+
+    public void SetHealth(float amount)
+    {
+        HealthBar.GetComponent<ProgressBarInspectorTest>().progress = (amount/100);
+    }
+
+    public void SetShield(float amount)
+    {
+        ShieldBar.GetComponent<ProgressBarInspectorTest>().progress = (CurrentSp/100);
+    }
 
     public void Start()
     {
@@ -21,14 +34,18 @@ public class DamageSystem : MonoBehaviour
         Spslider.value = CurrentSp;
         TakeDamageImage.SetActive(false);
 
-        // ¸¶¿ì½º¸¦ È­¸é °¡¿îµ¥¿¡ °íÁ¤½ÃÅ°°í ¼û±â±â
+        SetHealth(CurrentHp);
+        SetShield(CurrentSp);
+
+        // ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½îµ¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    //µ¥¹ÌÁö ¹Þ¾Æ¿À±â 
+
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ 
     public void TakeDamage(float amount)
     {
-        Debug.Log("µ¥¹ÌÁö ¹ÞÀ½");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         float TDamge = amount;
 
@@ -41,6 +58,7 @@ public class DamageSystem : MonoBehaviour
             CurrentHp -= 1;
         }
         Hpslider.value = CurrentHp;
+        SetHealth(CurrentHp);
         TakeDamageEffect();
         Debug.Log(Hpslider.value);
 
@@ -57,31 +75,32 @@ public class DamageSystem : MonoBehaviour
     }
     public void GetHealth(float amount)
     {
-        Debug.Log("È¸º¹ ¹ÞÀ½");
+        Debug.Log("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         float GHealth = amount;
         CurrentHp += GHealth;
+        SetHealth(CurrentHp);
         Hpslider.value = CurrentHp;
         Debug.Log(Hpslider.value);
     }
 
     public void GetShield(float amount)
     {
-        Debug.Log("È¸º¹ ¹ÞÀ½");
+        Debug.Log("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         float GShield = amount;
         CurrentSp += GShield;
         Spslider.value = CurrentSp;
+        SetShield(CurrentSp);
         Debug.Log(Spslider.value);
     }
 
     private void Update()
     {
-        //Á×¾ú´ÂÁö È®ÀÎ
+        //ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (CurrentHp <= 0)
         {
             Destroy(gameObject);
-
         }
     }
 }
