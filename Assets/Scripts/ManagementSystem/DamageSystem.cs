@@ -33,6 +33,8 @@ public class DamageSystem : MonoBehaviour
         // ���콺�� ȭ�� ����� ������Ű�� �����
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //Invoke("KillPlayer", 1f);
     }
 
     public void KillPlayer()
