@@ -18,6 +18,7 @@ public class DamageSystem : MonoBehaviour
     public GameObject ShieldBar;
 
     public UnityEvent PlayerDead;
+    public bool isEventActive = false;
 
     public void Start()
     {
@@ -39,7 +40,8 @@ public class DamageSystem : MonoBehaviour
 
     public void KillPlayer()
     {
-        TakeDamage(100);
+        //Time.timeScale = 0;
+        //TakeDamage(100);
     }
 
     public void SetHealth(float amount)
@@ -109,7 +111,11 @@ public class DamageSystem : MonoBehaviour
         //�׾����� Ȯ��
         if (CurrentHp <= 0)
         {
-            PlayerDead.Invoke();
+            if(isEventActive == false)
+            {
+                isEventActive = true;
+                PlayerDead.Invoke();
+            }
         }
     }
 }

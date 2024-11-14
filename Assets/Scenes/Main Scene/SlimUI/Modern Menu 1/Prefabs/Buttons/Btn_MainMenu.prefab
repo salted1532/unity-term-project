@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5206892685566439831}
   - component: {fileID: 5407840496720808303}
-  - component: {fileID: 5209478328010258261}
   - component: {fileID: 5389521700824258581}
   - component: {fileID: 5429289958580070962}
   m_Layer: 0
@@ -81,14 +80,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!222 &5209478328010258261
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5429289958580070961}
-  m_CullTransparentMesh: 0
 --- !u!114 &5389521700824258581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +122,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -210,6 +201,7 @@ GameObject:
   - component: {fileID: 5388222474218088325}
   - component: {fileID: 5388172141496654257}
   - component: {fileID: 5429341922959870820}
+  - component: {fileID: 6654084359744005334}
   m_Layer: 5
   m_Name: Btn_MainMenu
   m_TagString: Untagged
@@ -375,3 +367,15 @@ MonoBehaviour:
   themeController: {fileID: 11400000, guid: e00c7d2bc58a2424b8dc09ecdafdb067, type: 2}
   hasImage: 1
   isText: 0
+--- !u!225 &6654084359744005334
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5429341922959870843}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

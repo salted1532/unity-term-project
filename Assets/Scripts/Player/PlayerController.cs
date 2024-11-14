@@ -1,7 +1,8 @@
 
 using System.Collections.Generic;
-using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Events;
 
 
 public class PlayerController : MonoBehaviour
@@ -76,6 +77,8 @@ public class PlayerController : MonoBehaviour
     private float currentTime = 0f;
     bool isjumping;
     public bool isground;
+
+    public UnityEvent ChangePauseState;
 
     private void Awake()
     {
@@ -230,6 +233,10 @@ public class PlayerController : MonoBehaviour
                 DashStart();
             }
 
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                ChangePause();
+            }
     }
 
     void PlayerMove()
@@ -499,7 +506,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             pressedKeysX.Add(KeyCode.D);
-
         }
 
         // Check for key up events
@@ -604,5 +610,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void ChangePause()
+    {
+        ChangePauseState.Invoke();
+    }
 }
 
