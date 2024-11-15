@@ -13,6 +13,7 @@ public class EnemyBossAi : MonoBehaviour
     private bool alreadyAttacked = false;
 
     public GameObject bulletPrefab;
+    public GameObject spawnpos;
     public Transform firePoint;
     public float bulletSpeed = 20f;
     public float attackCooldown = 0f;
@@ -34,8 +35,11 @@ public class EnemyBossAi : MonoBehaviour
     private int generateCount = 0;
 
     private float Patterncooltime = 0f;
+    [SerializeField]
     private bool Pattern1On = false;
+    [SerializeField]
     private bool Pattern2On = false;
+    [SerializeField]
     private int randomindex = 0;
 
     public GameObject SpawnEnemy;
@@ -120,11 +124,16 @@ public class EnemyBossAi : MonoBehaviour
                     waypointArrivalTime = Time.time;
                 }
             }
-            else if (Pattern1On == false && Pattern2On == false)
+            else if (Pattern2On == true)
             {
                 nav.speed = 50f;
 
                 SpawnMobsPattern();
+                Invoke(nameof(SpawnMobsPattern), 1f);
+                Invoke(nameof(SpawnMobsPattern), 2f);
+
+                Pattern2On = false;
+                Patterncooltime = 0f;
             }
 
         }
@@ -273,9 +282,11 @@ public class EnemyBossAi : MonoBehaviour
 
     public void SpawnMobsPattern()
     {
-        GameObject Enemy = Instantiate(SpawnEnemy, transform.position, transform.rotation);
-        Pattern1On = false;
-        Pattern2On = false;
-        Patterncooltime = 0f;
+        Debug.Log("SpawnMobsPattern called");
+        GameObject Enemy = Instantiate(SpawnEnemy, spawnpos.transform.position, transform.rotation);
+        EnemyAI enemyScript = Enemy.GetComponent<EnemyAI>();
+        enemyScript.Player = this.Player;
+        if (Enemy != null) Debug.Log("Enemy spawned successfully");
+        else Debug.LogError("Failed to spawn enemy");
     }
 }
