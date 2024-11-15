@@ -90,6 +90,10 @@ public class DamageSystem : MonoBehaviour
 
         float GHealth = amount;
         CurrentHp += GHealth;
+        if (CurrentHp > 100)
+        {
+            CurrentHp = 100;
+        }
         SetHealth(CurrentHp);
         Hpslider.value = CurrentHp;
         Debug.Log(Hpslider.value);
@@ -101,6 +105,10 @@ public class DamageSystem : MonoBehaviour
 
         float GShield = amount;
         CurrentSp += GShield;
+        if (CurrentSp > 100)
+        {
+            CurrentSp = 100;
+        }
         Spslider.value = CurrentSp;
         SetShield(CurrentSp);
         Debug.Log(Spslider.value);
