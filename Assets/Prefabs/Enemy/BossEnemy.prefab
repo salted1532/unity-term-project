@@ -1538,7 +1538,7 @@ MonoBehaviour:
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
-  BloodParticle: {fileID: 0}
+  BloodParticle: {fileID: 9036208454832375646, guid: c6d0d5af84eb2654099440e7441588c1, type: 3}
 --- !u!114 &-9188668647191763310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,6 +1557,7 @@ MonoBehaviour:
   bulletSpeed: 20
   attackCooldown: 3
   animator: {fileID: 5789488274580925042}
+  SpawnEnemy: {fileID: 6696977629824968390, guid: 2205c8b0f1d2496439ca8b6203fb0428, type: 3}
 --- !u!1 &6714774075403206328
 GameObject:
   m_ObjectHideFlags: 0

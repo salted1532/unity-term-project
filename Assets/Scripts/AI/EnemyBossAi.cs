@@ -34,7 +34,11 @@ public class EnemyBossAi : MonoBehaviour
     private int generateCount = 0;
 
     private float Patterncooltime = 0f;
-    private bool PatternOn = false;
+    private bool Pattern1On = false;
+    private bool Pattern2On = false;
+    private int randomindex = 0;
+
+    public GameObject SpawnEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -68,12 +72,25 @@ public class EnemyBossAi : MonoBehaviour
 
         if(Patterncooltime > 5f)
         {
-            PatternOn = true;
+
+            randomindex = Random.Range(0, 2);
+
+            Debug.Log(randomindex);
+            if(randomindex == 1 )
+            {
+                Pattern1On = true;
+            }
+            else if (randomindex == 0)
+            {
+                Pattern2On = true;
+            }
+            Patterncooltime = 0f;
+
         }
 
         if (!nav.pathPending && nav.remainingDistance <= nav.stoppingDistance )//|| Time.time - waypointArrivalTime >= timeLimit)
         {
-            if(PatternOn == false)
+            if(Pattern1On == false && Pattern2On == false)
             {
                 if (!alreadyAttacked)
                 {
@@ -89,7 +106,7 @@ public class EnemyBossAi : MonoBehaviour
                     waypointArrivalTime = Time.time;
                 }
             }
-            else if(PatternOn == true) 
+            else if(Pattern1On == true) 
             {
                 if (!alreadyAttacked)
                 {
@@ -102,6 +119,12 @@ public class EnemyBossAi : MonoBehaviour
 
                     waypointArrivalTime = Time.time;
                 }
+            }
+            else if (Pattern1On == false && Pattern2On == false)
+            {
+                nav.speed = 50f;
+
+                SpawnMobsPattern();
             }
 
         }
@@ -187,7 +210,7 @@ public class EnemyBossAi : MonoBehaviour
 
             generateCount = 0;
 
-            PatternOn = false;
+            Pattern1On = false;
             Patterncooltime = 0f;
         }
     }
@@ -246,5 +269,13 @@ public class EnemyBossAi : MonoBehaviour
         {
             nav.SetDestination(Player.transform.position);
         }
+    }
+
+    public void SpawnMobsPattern()
+    {
+        GameObject Enemy = Instantiate(SpawnEnemy, transform.position, transform.rotation);
+        Pattern1On = false;
+        Pattern2On = false;
+        Patterncooltime = 0f;
     }
 }
