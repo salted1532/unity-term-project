@@ -5,18 +5,14 @@ namespace Krivodeling.UI.Effects.Examples
     public class UIBlurWithCanvasGroup : MonoBehaviour
     {
         private UIBlur _uiBlur;
-        private CanvasGroup _canvasGroup;
+        public CanvasGroup _canvasGroup;
         public bool isPause = false;
         public GameObject Blur;
 
         private void Start()
         {
             SetComponents();
-            
-
-            _uiBlur.OnBeginBlur.AddListener(OnBeginBlur);
-            _uiBlur.OnBlurChanged.AddListener(OnBlurChanged);
-            _uiBlur.OnEndBlur.AddListener(OnEndBlur);
+            gameObject.SetActive(true);
         }
 
         private void SetComponents()
@@ -32,12 +28,14 @@ namespace Krivodeling.UI.Effects.Examples
             {
                 Blur.GetComponent<UIBlur>().Intensity = 0.5f;
                 _canvasGroup.blocksRaycasts = true;
+                _canvasGroup.interactable = true;
                 _canvasGroup.alpha = 1;
             }
             else
             {
                 Blur.GetComponent<UIBlur>().Intensity = 0f;
                 _canvasGroup.blocksRaycasts = false;
+                _canvasGroup.interactable = false;
                 _canvasGroup.alpha = 0;
             }
         }

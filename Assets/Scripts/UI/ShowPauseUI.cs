@@ -6,10 +6,10 @@ public class ShowPauseUI : MonoBehaviour
 {
     public bool isPause = false;
 
-    public GameObject MainMenuButton;
-
     void Start()
     {
+        gameObject.SetActive(true);
+        Debug.Log(isPause);
     }
 
     void Update()
@@ -23,14 +23,13 @@ public class ShowPauseUI : MonoBehaviour
 
         if(isPause == true)
         {
-            MainMenuButton.SetActive(true);
+            gameObject.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
         else
         {
-            MainMenuButton.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked; 
             Time.timeScale = 1;

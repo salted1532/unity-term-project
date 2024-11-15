@@ -35,13 +35,13 @@ public class DamageSystem : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        //Invoke("KillPlayer", 1f);
+        Invoke("KillPlayer", 1f);
     }
 
     public void KillPlayer()
     {
         //Time.timeScale = 0;
-        //TakeDamage(100);
+        TakeDamage(100);
     }
 
     public void SetHealth(float amount)
