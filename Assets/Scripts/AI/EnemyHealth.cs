@@ -71,6 +71,11 @@ public class EnemyHealth : MonoBehaviour
         //�׾����� Ȯ��
         if (EnemyHp <= 0)
         {
+            if (WhatStageEnemy == 0)
+            {
+                animator.SetTrigger("Dead");
+                Invoke(nameof(EnemyDead), 0.4f);
+            }
             if (WhatStageEnemy == 1)
             {
                 stagecontrol.howEnemyleft(1);
