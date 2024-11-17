@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
+
 
 
 public class PlayerWeaponMgr : MonoBehaviour
@@ -14,10 +15,18 @@ public class PlayerWeaponMgr : MonoBehaviour
     public PlayerWeaponRifle RifleGun;
     public PlayerWeaponPlasmaGun PlasmaGun;
 
+    public GameObject[] WeaponUIArr1;
+    public GameObject[] WeaponUIArr2;
+    public GameObject[] WeaponUIArr3;
+    public GameObject[] WeaponUIArr4;
+
     public GameObject DefaultGunObj;
     public GameObject ShotGunObj;
     public GameObject RifleGunObj;
     public GameObject PlasmaGunObj;
+
+    public GameObject[][] WeaponObjArr;
+
 
     public bool isReLoading;
 
@@ -46,6 +55,11 @@ public class PlayerWeaponMgr : MonoBehaviour
     }
     private void Start()
     {
+        WeaponObjArr = new GameObject[4][];
+        WeaponObjArr[0] = WeaponUIArr1;
+        WeaponObjArr[1] = WeaponUIArr2;
+        WeaponObjArr[2] = WeaponUIArr3;
+        WeaponObjArr[3] = WeaponUIArr4;
 
     }
     private void Update()
@@ -159,6 +173,16 @@ public class PlayerWeaponMgr : MonoBehaviour
     }
     public void SetCurWeaponData()
     {
+        int[] arr = PlayerInventory.GetWeaponArray();
+        for (int i = 0; WeaponObjArr.Length > i; i++)
+        {
+            for (int j = 0; WeaponObjArr[0].Length > j; j++)
+            {
+                if(WeaponObjArr[i][j] != null)
+                WeaponObjArr[i][j].SetActive(false);
+            }
+
+        }
         SetCurWeaponObj(PlayerInventory.GetCurWeaponNum());
         switch (PlayerInventory.GetCurWeaponNum())
         {
@@ -204,6 +228,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             default:
                 break;
         }
+
     }
    void SetCurWeaponObj(int WeaponNum)
     {
@@ -236,6 +261,12 @@ public class PlayerWeaponMgr : MonoBehaviour
             default: break;
 
         }
+        int[] arr = PlayerInventory.GetWeaponArray();
+        for (int i = 0;arr.Length > i; i++)
+        {
 
+                WeaponObjArr[i][arr[i]].SetActive(true);
+
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     int layerMask = 3;
-
+    [SerializeField]
     float MaxSwapDelay;
     float SwapDelayDeltaTime;
 
@@ -178,8 +179,9 @@ public class PlayerController : MonoBehaviour
             if (PlayerInventory.SwapWeapon(wheelInput))
             {
                 playerWeaponMgr.SetCurWeaponData();
+                SwapDelayDeltaTime = 0;
+
             }
-            SwapDelayDeltaTime = 0;
 
         }
 
