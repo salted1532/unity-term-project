@@ -1521,6 +1521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70680a839426fe428328a66bc68d3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWeaponMgr: {fileID: 0}
   ChangeTrigger: 0
   curScanWeaponNum: -1
   LastScanWeaponNum: -1
@@ -2564,6 +2565,9 @@ MonoBehaviour:
   DoubleJumpLock: 0
   layerMask: 3
   isground: 0
+  ChangePauseState:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!143 &1438524036
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2741,7 +2745,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 1
+    m_MaxSpeed: 2
     m_AccelTime: 0.14
     m_DecelTime: 0.05
     m_InputAxisName: Mouse Y
@@ -2765,7 +2769,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 350
+    m_MaxSpeed: 300
     m_AccelTime: 0.1
     m_DecelTime: 0.05
     m_InputAxisName: Mouse X
@@ -2887,6 +2891,10 @@ MonoBehaviour:
   ShotGun: {fileID: 211467007}
   RifleGun: {fileID: 211467009}
   PlasmaGun: {fileID: 211467008}
+  DefaultGunObj: {fileID: 0}
+  ShotGunObj: {fileID: 0}
+  RifleGunObj: {fileID: 0}
+  PlasmaGunObj: {fileID: 0}
   isReLoading: 0
   MaxBulletCount: 0
   curBoulletCount: 0

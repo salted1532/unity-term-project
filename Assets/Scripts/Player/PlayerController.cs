@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,9 @@ using UnityEngine.Events;
 public class PlayerController : MonoBehaviour
 {
      Animator anim;
+
+    public CinemachineFreeLook freeLookCamera;
+    private float targetFOV;
 
     public PlayerWeaponMgr playerWeaponMgr;
     public PlayerScanner playerScanner;
@@ -17,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController playerControl;
     public Transform cam;
-
     Vector3 originalPos;
      
     public Vector3 movement = Vector3.zero;
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private List<KeyCode> pressedKeysX = new List<KeyCode>();
     private List<KeyCode> pressedKeysZ = new List<KeyCode>();
+
     [SerializeField]
     float deltaSpeed = 1.8f;
     [SerializeField]
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
     bool startDash;
     bool canDash;
     bool isDashing;
+    bool isZoomIn;
 
     bool canDoubleJump;
     [SerializeField]
@@ -92,9 +97,12 @@ public class PlayerController : MonoBehaviour
         originalPos = transform.position;
         LookAtCam();
         PlayerInventory.ReSetInventory();
+        targetFOV = freeLookCamera.m_Lens.FieldOfView;
     }
     private void Update()
     {
+
+        
         isground = IsCheckGrounded();
         currentTime += Time.deltaTime;
         if(IsWalking())
@@ -122,7 +130,7 @@ public class PlayerController : MonoBehaviour
         {
             ControlPlayer();
         }
-
+        zoomInCam();
 
         AnimPlay();
         //ShotGun Test 
@@ -149,9 +157,16 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        PlayerState.PlayerCurPos = transform.position;
-        LookAtCam();
 
+ 
+
+    }
+    private void LateUpdate()
+    {
+
+        PlayerState.PlayerCurPos = transform.position;
+
+        LookAtCam();
     }
 
     void SwapWeaponListener()
@@ -188,6 +203,17 @@ public class PlayerController : MonoBehaviour
 
     void ControlPlayer()
     {
+        if ( isJumpingFirst &&  playerControl.isGrounded)
+        {
+            isJumpingFirst = false;
+
+        }
+        if (canDoubleJump && playerControl.isGrounded )
+        {
+            canDoubleJump = false;
+        }
+        if (isCallJump == false) 
+        {
             if (!isCallJump && !canDoubleJump && !isJumpingFirst && Input.GetButtonDown("Jump"))
             {
                 Jump();
@@ -196,6 +222,7 @@ public class PlayerController : MonoBehaviour
             {
                 DoubleJump();
             }
+        }
             if (isCallJump && playerControl.isGrounded)                            //callbackJump
             {
                 Jump();
@@ -477,8 +504,34 @@ public class PlayerController : MonoBehaviour
     void LookAtCam()
     {
         Quaternion targetRotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+        transform.rotation = targetRotation; 
 
+    }
+
+    void zoomInCam()
+    {
+        if (Input.GetMouseButtonDown(1) && !isZoomIn)
+        {
+            targetFOV = 8f;
+            freeLookCamera.m_XAxis.m_MaxSpeed /= 2f;
+            freeLookCamera.m_YAxis.m_MaxSpeed /= 2f;
+
+            isZoomIn = true;
+        }
+        else if (Input.GetMouseButtonDown(1) && isZoomIn)
+        {
+            targetFOV = 40f;
+            freeLookCamera.m_YAxis.m_MaxSpeed *= 2f;
+
+            freeLookCamera.m_XAxis.m_MaxSpeed *= 2f;
+
+            isZoomIn = false;
+        }
+        if(freeLookCamera.m_Lens.FieldOfView != targetFOV)
+        {
+            freeLookCamera.m_Lens.FieldOfView = Mathf.Lerp(freeLookCamera.m_Lens.FieldOfView, targetFOV, Time.deltaTime * 10f);
+
+        }
     }
 
     void Restart()
@@ -589,19 +642,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         PlayerState.PlayerIsDashing = false ;
     }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        /*if (playercontrol.isgrounded && isjumpingfirst)
-        {
-            isjumpingfirst = false;
 
-        }
-        if(playercontrol.isgrounded && candoublejump)
-        {
-            candoublejump = false;
-        }*/
-
-    }
     void AnimPlay()
     {
 
