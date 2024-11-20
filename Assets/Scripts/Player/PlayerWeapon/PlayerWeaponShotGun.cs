@@ -18,7 +18,7 @@ public class PlayerWeaponShotGun : MonoBehaviour
     public float ShotGunMaxDistance = 50f;
     public float damage = 8f;
     public UnityEvent<float> DamageEvent = new UnityEvent<float>();
-    public GameObject PreFebBullet;
+    public Transform bulletT;
     public float CooldownTime = 0.65f;
     int ShotBulletCount = 10;
     float spreadRadius = 1.3f;
@@ -35,7 +35,7 @@ public class PlayerWeaponShotGun : MonoBehaviour
                                           transform.up * randomCircle.y;
 
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.transform.position, spreadDirection, out hit, ShotGunMaxDistance, 7))
+                if (Physics.Raycast(bulletT.position, spreadDirection, out hit, ShotGunMaxDistance, 7))
                 {
 
                     //damage function
