@@ -111,13 +111,11 @@ public class StageControl1 : MonoBehaviour
         {
             Debug.Log("3�������� Ŭ����");
             Stage3 = true;
-            SetNextStage(3);
         }
         if (Enemyleft[3] == 0 && Stage4 == false)
         {
             Debug.Log("4�������� Ŭ����");
             Stage4 = true;
-            SetNextStage(4);
         }
     }
 

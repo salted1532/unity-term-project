@@ -92,58 +92,58 @@ public class StageControl : MonoBehaviour
         SoundManager.Instance.PlaySound2D("hl2_song2", 0f, true, SoundType.BGM);
     }
 
+    public void SetNextStage(int stage)
+    {
+        if (stage == 1)
+        {
+            StartNormalMusic();
+        }
+        if (stage == 2)
+        {
+            for (int i = 0; i < stage3EnemyObj.Count; i++)
+            {
+                stage3EnemyObj[i].SetActive(true);
+            }
+            StartNormalMusic();
+        }
+        if (stage == 3)
+        {
+            for (int i = 0; i < stage4EnemyObj.Count; i++)
+            {
+                stage4EnemyObj[i].SetActive(true);
+            }
+            StartNormalMusic();
+        }
+        if (stage == 4)
+        {
+            StartNormalMusic();
+        }
+    }
+
     public void howEnemyleft(int a)
     {
         Enemyleft[a - 1] -= 1;
-        
-        if (Enemyleft[0] == 0)
+
+        if (Enemyleft[0] == 0 && Stage1 == false)
         {
-            Debug.Log("1�������� Ŭ����");
-            if (Stage1 == false)
+            for (int i = 0; i < stage2EnemyObj.Count; i++)
             {
-                for (int i = 0; i < stage2EnemyObj.Count; i++)
-                {
-                    stage2EnemyObj[i].SetActive(true);
-                }
+                stage2EnemyObj[i].SetActive(true);
             }
             Stage1 = true;
-
-            StartNormalMusic();
+            SetNextStage(1);
         }
-        if (Enemyleft[1] == 0)
+        if (Enemyleft[1] == 0 && Stage2 == false)
         {
-            Debug.Log("2�������� Ŭ����");
-            if (Stage2 == false)
-            {
-                for (int i = 0; i < stage3EnemyObj.Count; i++)
-                {
-                    stage3EnemyObj[i].SetActive(true);
-                }
-            }
             Stage2 = true;
-
-
-            StartNormalMusic();
         }
-        if (Enemyleft[2] == 0)
+        if (Enemyleft[2] == 0 && Stage3 == false)
         {
-            Debug.Log("3�������� Ŭ����");
-            if (Stage3 == false)
-            {
-                for (int i = 0; i < stage4EnemyObj.Count; i++)
-                {
-                    stage4EnemyObj[i].SetActive(true);
-                }
-            }
             Stage3 = true;
-
-            StartNormalMusic();
         }
-        if (Enemyleft[3] == 0)
+        if (Enemyleft[3] == 0 && Stage4 == false)
         {
-            Debug.Log("4�������� Ŭ����");
             Stage4 = true;
-            StartNormalMusic();
         }
     }
 
