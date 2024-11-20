@@ -16,6 +16,8 @@ public class StageControl : MonoBehaviour
     public GameObject[] Doors;
     private FightMusicControl fightmusic;
 
+    public bool GameStart = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,24 +25,6 @@ public class StageControl : MonoBehaviour
         Enemyleft.Add(6);
         Enemyleft.Add(9);
         Enemyleft.Add(1);
- 
-
-        for (int i =0; i< stage1EnemyObj.Count; i++)
-        {
-            stage1EnemyObj[i].SetActive(false);
-        }
-        for (int i = 0; i < stage2EnemyObj.Count; i++)
-        {
-            stage2EnemyObj[i].SetActive(false);
-        }
-        for (int i = 0; i < stage3EnemyObj.Count; i++)
-        {
-            stage3EnemyObj[i].SetActive(false);
-        }
-        for (int i = 0; i < stage4EnemyObj.Count; i++)
-        {
-            stage4EnemyObj[i].SetActive(false);
-        }
 
         fightmusic = GameObject.Find("FightMusic").GetComponent<FightMusicControl>();
     }
@@ -69,6 +53,37 @@ public class StageControl : MonoBehaviour
         {
             Doors[3].GetComponent<DoorControl>().StageClear();
         }
+
+        if(GameStart == false)
+        {
+            for (int i = 0; i < stage1EnemyObj.Count; i++)
+            {
+                stage1EnemyObj[i].SetActive(false);
+            }
+        }
+        if (Stage1 == false) 
+        {
+            for (int i = 0; i < stage2EnemyObj.Count; i++)
+            {
+                stage2EnemyObj[i].SetActive(false);
+            }
+        }
+        if (Stage2 == false)
+        {
+            for (int i = 0; i < stage3EnemyObj.Count; i++)
+            {
+                stage3EnemyObj[i].SetActive(false);
+            }
+        }
+        if (Stage3 == false)
+        {
+            for (int i = 0; i < stage4EnemyObj.Count; i++)
+            {
+                stage4EnemyObj[i].SetActive(false);
+            }
+
+        }
+
     }
 
     void StartNormalMusic()
@@ -139,6 +154,7 @@ public class StageControl : MonoBehaviour
             for (int i = 0; i < stage1EnemyObj.Count; i++)
             {
                 stage1EnemyObj[i].SetActive(true);
+                GameStart = true;
             }
         }
     }

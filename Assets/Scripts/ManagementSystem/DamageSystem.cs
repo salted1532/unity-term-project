@@ -48,12 +48,20 @@ public class DamageSystem : MonoBehaviour
 
         if (TDamge > 0)
         {
-            CurrentHp -= TDamge;
+            if(CurrentSp <= 0)
+            {
+                CurrentHp -= TDamge;
+            }
+            else if((CurrentSp - TDamge) >= 0) {
+                 CurrentSp -= TDamge;
+            }
+
         }
         if (TDamge < 0)
         {
             CurrentHp -= 1;
         }
+        Spslider.value = CurrentSp;
         Hpslider.value = CurrentHp;
         TakeDamageEffect();
         Debug.Log(Hpslider.value);
