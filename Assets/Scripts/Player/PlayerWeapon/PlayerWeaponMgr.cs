@@ -58,10 +58,10 @@ public class PlayerWeaponMgr : MonoBehaviour
     private void Start()
     {
         WeaponObjArr = new GameObject[4][];
-        WeaponObjArr[0] = WeaponUIArr1;
-        WeaponObjArr[1] = WeaponUIArr2;
-        WeaponObjArr[2] = WeaponUIArr3;
-        WeaponObjArr[3] = WeaponUIArr4;
+        WeaponObjArr[0] = WeaponUIArr4;
+        WeaponObjArr[1] = WeaponUIArr1;
+        WeaponObjArr[2] = WeaponUIArr2;
+        WeaponObjArr[3] = WeaponUIArr3;
 
     }
     private void Update()

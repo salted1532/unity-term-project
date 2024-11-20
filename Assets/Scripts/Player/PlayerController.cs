@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public CharacterController playerControl;
     public Transform cam;
+    public Transform Aim;
+    public Transform Aim2;
     Vector3 originalPos;
      
     public Vector3 movement = Vector3.zero;
@@ -142,12 +144,7 @@ public class PlayerController : MonoBehaviour
         zoomInCam();
 
         AnimPlay();
-        //ShotGun Test 
-        for (int i = 0; i < RayTestArr.Length - 1; ++i)
-        {
-            Debug.DrawRay(Camera.main.transform.position, RayTestArr[i]*10f, Color.red);
 
-        }
         //Debug.Log(playerControl.isGrounded);
         
     }
@@ -507,7 +504,8 @@ public class PlayerController : MonoBehaviour
     void LookAtCam()
     {
         Quaternion targetRotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);
-        transform.rotation = targetRotation; 
+        transform.rotation = targetRotation;
+       
 
     }
 
