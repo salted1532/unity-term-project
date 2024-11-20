@@ -6,10 +6,12 @@ public class ShowPauseUI : MonoBehaviour
 {
     public bool isPause = false;
     public GameObject Player;
+    public GameObject SettingScreen;
 
     void Start()
     {
         gameObject.SetActive(true);
+        SettingScreen.SetActive(false);
         Debug.Log(isPause);
     }
 
@@ -39,5 +41,15 @@ public class ShowPauseUI : MonoBehaviour
 
             Time.timeScale = 1;
         }
+    }
+
+    public void DisableSettingScreen()
+    {
+        SettingScreen.SetActive(false);
+    }
+
+    public void EnableSettingScreen()
+    {
+        SettingScreen.SetActive(true);
     }
 }
