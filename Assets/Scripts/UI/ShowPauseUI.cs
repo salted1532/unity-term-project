@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShowPauseUI : MonoBehaviour
 {
     public bool isPause = false;
+    public GameObject Player;
 
     void Start()
     {
@@ -26,12 +27,16 @@ public class ShowPauseUI : MonoBehaviour
             gameObject.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            Player.GetComponent<PlayerController>().SetController(false);
+
             Time.timeScale = 0;
         }
         else
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked; 
+            Player.GetComponent<PlayerController>().SetController(true);
+
             Time.timeScale = 1;
         }
     }

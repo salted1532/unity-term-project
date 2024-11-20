@@ -10,6 +10,7 @@ public class GameOver : MonoBehaviour
     public GameObject BloodImage;
     public GameObject MainMenuButton;
     public GameObject BlackScreen;
+    public GameObject Player;
 
     public CanvasGroup canvasGroup;
 
@@ -94,6 +95,7 @@ public class GameOver : MonoBehaviour
     public void GameOverEvent()
     {
         gameObject.SetActive(true);
+        Player.GetComponent<PlayerController>().DisablePlayer();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Invoke("HideBloodImage",0.5f);

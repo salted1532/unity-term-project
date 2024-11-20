@@ -40,6 +40,8 @@ public class PlayerWeaponMgr : MonoBehaviour
 
     float curCooldownTime;
 
+    public GameObject Player;
+
     private void Awake()
     {
         DefaultGunObj.SetActive(true);
@@ -64,6 +66,11 @@ public class PlayerWeaponMgr : MonoBehaviour
     }
     private void Update()
     {
+        if(Player.GetComponent<PlayerController>().GetController() == false)
+        {
+            return;
+        }
+
         IsShoting = false;
 
         if (Input.GetMouseButtonDown(0) && !PlayerState.PlayerIsDashing && PlayerInventory.GetCurWeaponNum() != 2)
@@ -106,7 +113,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                 case 0:
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
-                    Debug.Log("±âº»ÃÑ ½î±â");
+                    Debug.Log("ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½");
                     DefaultGun.HitScan();
                     curCooldownTime = 0;
 
@@ -115,7 +122,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("¼¦°Ç ½î±â");
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
                     ShotGun.HitScanShotGun();
                     curCooldownTime = 0;
 
@@ -125,7 +132,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("¶óÀÌÇÃ ½î±â");
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
                     RifleGun.HitScanRifle();
                     curCooldownTime = 0;
                     break;
@@ -134,7 +141,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("ÇÃ¶óÁî¸¶ ½î±â");
+                    Debug.Log("ï¿½Ã¶ï¿½ï¿½î¸¶ ï¿½ï¿½ï¿½");
                     PlasmaGun.CreatePlasma();
                     curCooldownTime = 0;
                     break;
@@ -146,7 +153,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             if (curBoulletCount <= 0)
             {
                 isReLoading = true;
-                Debug.Log("ÀçÀåÀü ½ÃÀÛ");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             }
             curBoulletCount--;
@@ -162,12 +169,12 @@ public class PlayerWeaponMgr : MonoBehaviour
             curBoulletCount = MaxBulletCount;
             isReLoading = false;
             curReLodingTime = 0;
-            Debug.Log("ÀçÀåÀü ³¡");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         }
         else
         {
             curReLodingTime += Time.deltaTime;
-            Debug.Log("ÀçÀåÀü Áß");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
 
         }
     }

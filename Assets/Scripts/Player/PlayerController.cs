@@ -81,8 +81,8 @@ public class PlayerController : MonoBehaviour
     Vector3[] RayTestArr = new Vector3[10];
 
     private float currentTime = 0f;
-    bool isjumping;
     public bool isground;
+    public bool isControllerActive;
 
     public UnityEvent ChangePauseState;
 
@@ -99,10 +99,18 @@ public class PlayerController : MonoBehaviour
         LookAtCam();
         PlayerInventory.ReSetInventory();
         targetFOV = freeLookCamera.m_Lens.FieldOfView;
+        isControllerActive = true;
     }
     private void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ChangePause();
+        }
+        if(isControllerActive == false)
+        {
+            return;
+        }
         
         isground = IsCheckGrounded();
         currentTime += Time.deltaTime;
@@ -260,11 +268,6 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 DashStart();
-            }
-
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                ChangePause();
             }
     }
 
@@ -464,7 +467,6 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = true;
             canDoubleJump = true;
-            isjumping = true;
         }
 
     }
@@ -478,7 +480,6 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = false;
             canDoubleJump = false;
-            isjumping = true;
         }
     }
      
@@ -656,6 +657,21 @@ public class PlayerController : MonoBehaviour
     public void ChangePause()
     {
         ChangePauseState.Invoke();
+    }
+
+    public bool GetController()
+    {
+        return isControllerActive;
+    }
+
+    public void SetController(bool value)
+    {
+        isControllerActive = value;
+    }
+
+    public void DisablePlayer()
+    {
+        gameObject.SetActive(false);
     }
 }
 
