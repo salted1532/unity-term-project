@@ -77,10 +77,10 @@ public class EnemyBossAi : MonoBehaviour
         if(Patterncooltime > 5f)
         {
 
-            randomindex = Random.Range(0, 2);
+            randomindex = Random.Range(0, 3);
 
             Debug.Log(randomindex);
-            if(randomindex == 1 )
+            if(randomindex == 1 || randomindex == 2)
             {
                 Pattern1On = true;
             }
@@ -98,7 +98,7 @@ public class EnemyBossAi : MonoBehaviour
             {
                 if (!alreadyAttacked)
                 {
-                    nav.speed = 3.5f;
+                    nav.speed = 50f;
 
                     animator.SetTrigger("Walk");
 
@@ -114,7 +114,7 @@ public class EnemyBossAi : MonoBehaviour
             {
                 if (!alreadyAttacked)
                 {
-                    nav.speed = 50f;
+                    nav.speed = 100f;
 
                     animator.SetTrigger("Walk");
 
@@ -249,7 +249,7 @@ public class EnemyBossAi : MonoBehaviour
     {
         SoundManager.Instance.PlaySound3D("FireCast", gameObject);
         Vector3 direction = Player.transform.position - transform.position;
-        direction.y -= 2;
+        direction.y -= 5;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
 

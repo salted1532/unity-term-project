@@ -1452,7 +1452,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 50
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71375bdcc54fa3c49afaeef6632306a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHp: 20
+  EnemyHp: 200
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   spawnpos: {fileID: 1501781333440671380}
   firePoint: {fileID: 3281046271499803343}
   bulletSpeed: 20
-  attackCooldown: 3
+  attackCooldown: 0
   animator: {fileID: 5789488274580925042}
   Pattern1On: 0
   Pattern2On: 0

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float EnemyHp = 20f;
+    public float EnemyHp;
+    
     public Slider EnemyHpslider;
 
     public Animator animator;
