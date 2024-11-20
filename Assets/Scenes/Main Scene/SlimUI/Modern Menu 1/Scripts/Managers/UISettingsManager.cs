@@ -200,7 +200,7 @@ namespace SlimUI.ModernMenu{
 
 		public void MusicSlider (){
 			//PlayerPrefs.SetFloat("MusicVolume", sliderValue);
-			PlayerPrefs.SetFloat("MusicVolume", musicSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.MASTER, masterSlider.GetComponent<Slider>().value);
 		}
 
 		public void EffectSlider (){

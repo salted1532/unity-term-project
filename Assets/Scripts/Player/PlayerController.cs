@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
 
     private float currentTime = 0f;
     public bool isground;
+    public bool IsJumping;
     public bool isControllerActive;
 
     public UnityEvent ChangePauseState;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
         PlayerInventory.ReSetInventory();
         targetFOV = freeLookCamera.m_Lens.FieldOfView;
         isControllerActive = true;
+        IsJumping = false;
     }
     private void Update()
     {
@@ -266,6 +268,10 @@ public class PlayerController : MonoBehaviour
             {
                 DashStart();
             }
+            if(IsJumping == true && playerControl.isGrounded == true)
+            {
+                IsJumping = false;
+            }
     }
 
     void PlayerMove()
@@ -359,7 +365,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsFallingForMove()
     {
-        if (!playerControl.isGrounded && VelocityY < -1)
+        if (!playerControl.isGrounded && VelocityY < -2)
         {
             return true;
         }
@@ -389,7 +395,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsWalking()
     {
-        if(IsFallingForMove() || !(IsCheckGrounded()) || (movement.x == 0 && movement.z == 0))
+        if(IsFallingForMove() || !(IsCheckGrounded()) || IsJumping == true || (movement.x == 0 && movement.z == 0))
         {
             return false;
         }
@@ -464,6 +470,7 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = true;
             canDoubleJump = true;
+            IsJumping = true;
         }
 
     }
@@ -477,6 +484,7 @@ public class PlayerController : MonoBehaviour
             startedJump = true;
             isJumpingFirst = false;
             canDoubleJump = false;
+            IsJumping = true;
         }
     }
      
