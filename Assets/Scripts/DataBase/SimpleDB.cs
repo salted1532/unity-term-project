@@ -6,6 +6,7 @@ using System.Data;
 using Mono.Data.Sqlite;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SimpleDB : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class SimpleDB : MonoBehaviour
 
     private bool isAscendingOrder = true;
     private bool isAscendingRankOrder = true;
+
+    public float countdownTime = 1f; // 타이머 시간 (초)
+
+    private bool isTimerRunning = false; // 타이머 상태 확인 변수
 
     void Start()
     {
@@ -93,8 +98,12 @@ public class SimpleDB : MonoBehaviour
         }
 
         UpdateRanks();
-        Displayuserdata();
         clearTime = 0;
+
+        Time.timeScale = 1;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void UpdateRanks()
@@ -133,7 +142,6 @@ public class SimpleDB : MonoBehaviour
 
     public void Displayuserdata()
     {
-
         userlist.text = "";
 
 
