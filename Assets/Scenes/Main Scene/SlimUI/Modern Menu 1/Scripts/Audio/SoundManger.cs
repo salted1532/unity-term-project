@@ -172,7 +172,7 @@ public class SoundManager : Singleton<SoundManager>
         if(value <= 0){
             value = 0.001f;
         }
-        mAudioMixer.SetFloat(type.ToString(), Mathf.Log10(value) * 20);
+        mAudioMixer.SetFloat(type.ToString(), (Mathf.Log10(value) * 20)-10);
     }
 
     /// <summary>

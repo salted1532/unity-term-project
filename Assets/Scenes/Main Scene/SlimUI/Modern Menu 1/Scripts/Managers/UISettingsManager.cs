@@ -199,16 +199,15 @@ namespace SlimUI.ModernMenu{
 		}
 
 		public void MusicSlider (){
-			//PlayerPrefs.SetFloat("MusicVolume", sliderValue);
-			SoundManager.Instance.SetVolume(SoundType.MASTER, masterSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.BGM, musicSlider.GetComponent<Slider>().value);
 		}
 
 		public void EffectSlider (){
-			PlayerPrefs.SetFloat("SFXVolume", effectSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.EFFECT, effectSlider.GetComponent<Slider>().value);
 		}
 
 		public void MasterSlider (){
-			PlayerPrefs.SetFloat("MasterVolume", masterSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.MASTER, masterSlider.GetComponent<Slider>().value);
 		}
 
 		public void SensitivityXSlider (){
