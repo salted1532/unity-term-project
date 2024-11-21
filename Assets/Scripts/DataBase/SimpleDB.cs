@@ -26,9 +26,12 @@ public class SimpleDB : MonoBehaviour
 
     private bool isClear = false;
 
+    private bool isAscendingOrder = true;
+    private bool isAscendingRankOrder = true;
+
     void Start()
     {
-        if(Rankpage != null)
+        if (Rankpage != null)
         {
             Rankpage.SetActive(false);
         }
@@ -206,7 +209,7 @@ public class SimpleDB : MonoBehaviour
 
     public void DateSelectOn()
     {
-        if(Rankpage != null)
+        if (Rankpage != null)
         {
             Rankpage.SetActive(true);
         }
@@ -219,22 +222,124 @@ public class SimpleDB : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM userdata ORDER BY cleardate;";
+                // 정렬 순서를 토글하여 쿼리를 동적으로 설정
+                if (isAscendingOrder)
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY cleardate ASC;";
+                }
+                else
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY cleardate DESC;";
+                }
 
                 using (IDataReader reader = command.ExecuteReader())
                 {
                     int i = 1;
                     while (reader.Read())
                     {
-                        Ranklist.text += "Rank: " + reader["rank"] + "\tID: " + reader["id"] + "\tcleartime: " + reader["cleartime"] + "초" + "\tReview: " + reader["review"] + "\tDate: " + reader["cleardate"] + "\n";
+                        Ranklist.text += "Rank: " + reader["rank"] +
+                                            "\tID: " + reader["id"] +
+                                            "\tcleartime: " + reader["cleartime"] + "초" +
+                                            "\tReview: " + reader["review"] +
+                                            "\tDate: " + reader["cleardate"] + "\n";
                         i++;
                     }
 
                     reader.Close();
                 }
             }
+
             connection.Close();
         }
+
+        // 정렬 순서를 토글
+        isAscendingOrder = !isAscendingOrder;
+    }
+
+    public void Searchid()
+    {
+        Ranklist.text = ""; // 이전 내용 초기화
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                // 특정 ID로 검색하는 쿼리
+                command.CommandText = "SELECT * FROM userdata WHERE id = @id ORDER BY rank;";
+                command.Parameters.AddWithValue("@id", idInput.text);
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    int i = 1; // 순위를 위한 카운터
+                    while (reader.Read())
+                    {
+                        // Ranklist에 검색된 데이터 추가
+                        Ranklist.text += i + " 등 " + "\tID: " + reader["id"] + "\tcleartime: " + reader["cleartime"] + "초" + "\tReview: " + reader["review"] + "\tDate: " + reader["cleardate"] + "\n";
+                        i++;
+                    }
+
+                    // 검색 결과가 없을 때 메시지 출력
+                    if (i == 1)
+                    {
+                        Ranklist.text = "검색 결과가 없습니다.";
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+    }
+
+    public void RankSelect()
+    {
+        if (Rankpage != null)
+        {
+            Rankpage.SetActive(true);
+        }
+        Ranklist.text = "";
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                // 등수 정렬 순서를 토글하여 쿼리 설정
+                if (isAscendingRankOrder)
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY rank ASC;";
+                }
+                else
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY rank DESC;";
+                }
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    int i = 1;
+                    while (reader.Read())
+                    {
+                        Ranklist.text += reader["rank"] + " 등 " +
+                                         "\tID: " + reader["id"] +
+                                         "\tcleartime: " + reader["cleartime"] + "초" +
+                                         "\tReview: " + reader["review"] +
+                                         "\tDate: " + reader["cleardate"] + "\n";
+                        i++;
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        // 정렬 순서를 토글
+        isAscendingRankOrder = !isAscendingRankOrder;
     }
 
     public void RankpageOff()
