@@ -72,14 +72,6 @@ namespace SlimUI.ModernMenu{
         public TMP_Text loadPromptText;
 		public KeyCode userPromptKey;
 
-		[Header("SFX")]
-        [Tooltip("The GameObject holding the Audio Source component for the HOVER SOUND")]
-        public AudioSource hoverSound;
-        [Tooltip("The GameObject holding the Audio Source component for the AUDIO SLIDER")]
-        public AudioSource sliderSound;
-        [Tooltip("The GameObject holding the Audio Source component for the SWOOSH SOUND when switching to the Settings Screen")]
-        public AudioSource swooshSound;
-
 		void Start(){
 			CameraObject = transform.GetComponent<Animator>();
 

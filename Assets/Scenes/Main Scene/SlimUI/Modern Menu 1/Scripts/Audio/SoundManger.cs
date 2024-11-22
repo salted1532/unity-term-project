@@ -51,8 +51,6 @@ public class SoundManager : Singleton<SoundManager>
 
         mInstantiatedSounds = new List<TemporarySoundPlayer>();
 
-        Debug.Log("ACTIVE");
-        Debug.Log(SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue());
         InitVolumes(SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue(),SoundDataObject.GetComponent<SoundDataManager>().GetBGMValue(),SoundDataObject.GetComponent<SoundDataManager>().GetEffectValue());
     }
 
