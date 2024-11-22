@@ -17,28 +17,29 @@ public class PlayerWeaponRifle : MonoBehaviour
 
     public float ShotGunMaxDistance = 50f;
     public float damage = 3.5f;
-    public UnityEvent<float> DamageEvent = new UnityEvent<float>();
+    public Transform bulletT;
+    public GameObject bulletMarks;
     public GameObject PreFebBullet;
     public float CooldownTime = 0.2f;
     public void HitScanRifle()
     {
 
-
+        Debug.Log("발사");
+        Instantiate(PreFebBullet, bulletT);
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 500f, 7))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 500f, ~((1 << 7) | (1 << 9))))
         {
             Debug.Log("히트된 물체" + hit.collider.name);
 
             if (hit.collider != null)
             {
-                //damage function
-                //DamageEvent?.Invoke(damage);
+                Instantiate(bulletMarks, hit.point, Quaternion.LookRotation(hit.normal));
                 if (hit.collider.CompareTag("Enemy"))
                 {
                     hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
                 }
-                Instantiate(PreFebBullet);
+
 
 
                 curBoulletCount -= 1;

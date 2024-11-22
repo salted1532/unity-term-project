@@ -524,6 +524,7 @@ public class PlayerController : MonoBehaviour
             freeLookCamera.m_YAxis.m_MaxSpeed /= 2f;
 
             isZoomIn = true;
+            PlayerState.PlayerIsZooming = true;
         }
         else if (Input.GetMouseButtonDown(1) && isZoomIn)
         {
@@ -533,10 +534,12 @@ public class PlayerController : MonoBehaviour
             freeLookCamera.m_XAxis.m_MaxSpeed *= 2f;
 
             isZoomIn = false;
+            PlayerState.PlayerIsZooming = false;
+
         }
-        if(freeLookCamera.m_Lens.FieldOfView != targetFOV)
+        if (freeLookCamera.m_Lens.FieldOfView != targetFOV)
         {
-            freeLookCamera.m_Lens.FieldOfView = Mathf.Lerp(freeLookCamera.m_Lens.FieldOfView, targetFOV, Time.deltaTime * 10f);
+            freeLookCamera.m_Lens.FieldOfView = Mathf.Lerp(freeLookCamera.m_Lens.FieldOfView, targetFOV,  Time.deltaTime * ((freeLookCamera.m_Lens.FieldOfView < targetFOV) ? 100f:10f));
 
         }
     }

@@ -113,7 +113,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                 case 0:
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
-                    Debug.Log("�⺻�� ���");
+                    
                     DefaultGun.HitScan();
                     curCooldownTime = 0;
 
@@ -122,7 +122,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("���� ���");
+                   
                     ShotGun.HitScanShotGun();
                     curCooldownTime = 0;
 
@@ -132,7 +132,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("������ ���");
+                   
                     RifleGun.HitScanRifle();
                     curCooldownTime = 0;
                     break;
@@ -141,7 +141,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
 
 
-                    Debug.Log("�ö�� ���");
+                   
                     PlasmaGun.CreatePlasma();
                     curCooldownTime = 0;
                     break;
@@ -153,7 +153,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             if (curBoulletCount <= 0)
             {
                 isReLoading = true;
-                Debug.Log("������ ����");
+                
 
             }
             curBoulletCount--;
@@ -169,12 +169,12 @@ public class PlayerWeaponMgr : MonoBehaviour
             curBoulletCount = MaxBulletCount;
             isReLoading = false;
             curReLodingTime = 0;
-            Debug.Log("������ ��");
+            
         }
         else
         {
             curReLodingTime += Time.deltaTime;
-            Debug.Log("������ ��");
+            
 
         }
     }

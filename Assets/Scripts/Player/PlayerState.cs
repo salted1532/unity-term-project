@@ -6,6 +6,7 @@ public static class PlayerState
     public static float PlayerDashMaxCooldownTime =1f;
     public static Vector3 PlayerCurPos;
     public static bool PlayerIsDashing;
+    public static bool PlayerIsZooming;
 
 
     public static void SetMaxCooldownTIme(float _MaxCooldownTime)

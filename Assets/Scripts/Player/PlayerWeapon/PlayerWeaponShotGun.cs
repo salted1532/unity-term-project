@@ -1,8 +1,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditorInternal.ReorderableList;
 public class PlayerWeaponShotGun : MonoBehaviour
 {
     public bool isReLoading;
@@ -15,35 +17,39 @@ public class PlayerWeaponShotGun : MonoBehaviour
 
     public float curReLodingTime;
 
-    public float ShotGunMaxDistance = 50f;
+    public float ShotGunMaxDistance = 100f;
     public float damage = 8f;
-    public UnityEvent<float> DamageEvent = new UnityEvent<float>();
+    public GameObject PreFebBullet;
+    public GameObject bulletMarks;  
     public Transform bulletT;
     public float CooldownTime = 0.65f;
     int ShotBulletCount = 10;
-    float spreadRadius = 1.3f;
+    float spreadRadius = PlayerState.PlayerIsZooming ? 300f : 450f;
     public float spreadAngle = 10f;    // 분포 각도
     public void HitScanShotGun()
     {
+        Debug.Log("발사");
+        Instantiate(PreFebBullet, bulletT);
 
-            for (int i = 0; i < ShotBulletCount; ++i)
+        for (int i = 0; i < ShotBulletCount; ++i)
             {
-                // 랜덤한 각도로 회전하여 레이 방향 설정
-                Vector2 randomCircle = Random.insideUnitCircle * spreadRadius;
-                Vector3 spreadDirection = Camera.main.transform.forward +
-                                          transform.right * randomCircle.x +
-                                          transform.up * randomCircle.y;
+            Vector2 randomCircle = Random.insideUnitCircle * spreadRadius; // 스크린 기준 원 안의 랜덤 점
+            Vector2 screenPoint = new Vector2(Screen.width / 2f + randomCircle.x, Screen.height / 2f + randomCircle.y);
 
-                RaycastHit hit;
-                if (Physics.Raycast(bulletT.position, spreadDirection, out hit, ShotGunMaxDistance, 7))
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(screenPoint);
+
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, ShotGunMaxDistance, ~((1 << 7) | (1 << 9))))
                 {
+                Instantiate(bulletMarks, hit.point, Quaternion.LookRotation(hit.normal));
+                Debug.Log("히트된 물체 : " + hit.collider.name);
 
-                    //damage function
-                    if (hit.collider.CompareTag("Enemy"))
+
+                if (hit.collider.CompareTag("Enemy"))
                     {
                         hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
                     }
-                    DamageEvent?.Invoke(damage);
+
 
 
                 }

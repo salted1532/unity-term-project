@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class BoomArea : MonoBehaviour
 {
@@ -11,12 +12,19 @@ public class BoomArea : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject,0.4f);
-    }
 
+    }
+    private void OnEnable()
+    {
+        Debug.Log("ºÕ »ý¼º");  
+        Debug.Log(transform.position);
+        Destroy(gameObject, 1f);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        Debug.Log(other.gameObject.name);
+
+        if (other.CompareTag("Enemy"))
         other.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
 
     }

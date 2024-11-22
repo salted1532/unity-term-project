@@ -14,10 +14,13 @@ public class PlayerWeaponDefault : MonoBehaviour
 
     public float curReLodingTime;
 
-    public float defaultWeaponMaxDistance = 100f;
+    public float defaultWeaponMaxDistance = 500f;
     public float damage = 10f;
-    public UnityEvent<float> DamageEvent = new UnityEvent<float>();
+    public Transform PreFebBulletT;
+    public Transform bulletMarksT;
+
     public GameObject PreFebBullet;
+    public GameObject bulletMarks;
     public float CooldownTime = 0.35f;
 
     private void Awake()
@@ -26,31 +29,26 @@ public class PlayerWeaponDefault : MonoBehaviour
     }
     public void HitScan()
     {
+        Debug.Log("발사");
+        Instantiate(PreFebBullet, PreFebBulletT);
 
-        RaycastHit hit; 
-        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, defaultWeaponMaxDistance,7))
+        RaycastHit hit;
+        Debug.Log(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, defaultWeaponMaxDistance, ~((1 << 7) | (1 << 9))));
+        if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, defaultWeaponMaxDistance, ~((1 << 7) | (1 << 9))))
         {
                 Debug.Log("히트된 물체 : " + hit.collider.name);
+            Instantiate(bulletMarks, hit.point, Quaternion.LookRotation(hit.normal));
+
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.collider.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
             }
-            if (hit.collider != null)
-                {
-                //damage function
-                //DamageEvent?.Invoke(damage);
 
-                Instantiate(PreFebBullet);
+               
 
 
-                curBoulletCount -= 1;
-                if (curBoulletCount <= 0)
-                {
-                    curBoulletCount = MaxBulletCount;
 
-                }
 
-            }
         }
 
 

@@ -8,31 +8,32 @@ public class Plasma : MonoBehaviour
     Rigidbody rb;
 
     public GameObject BoomArea;
-
-
+    public GameObject prefabEffect;
+    Vector2 screenPoint;
+    Ray ray;
     public float defaultBulletSpeed;
-    public Transform cam;
-    Vector3 CamForward;
 
-    private void Awake()
+    public float speed = 10f; // 총알의 기본 속도
+
+
+    private Vector3 direction; // 총알의 이동 방향
+ 
+
+
+    private void OnEnable()
     {
-        rb = GetComponent<Rigidbody>();
+        direction = new Vector3(transform.forward.x, transform.forward.y, transform.forward.z);
 
     }
-    void Start()
-    {
-
-        CamForward = Camera.main.transform.forward;
-        transform.position = PlayerState.PlayerCurPos + Vector3.right;
-        transform.rotation = Quaternion.Euler(CamForward);
-    }
-
     // Update is called once per frame
     void Update()
     {
+        // 직진 이동
+        transform.position += direction.normalized * speed * Time.deltaTime;
 
-        rb.AddForce(CamForward * defaultBulletSpeed, ForceMode.Impulse);
-        if ((transform.position - PlayerState.PlayerCurPos).sqrMagnitude > 250f)
+
+  
+        if ((transform.position - PlayerState.PlayerCurPos).sqrMagnitude > 500f)
         {
             Debug.Log("범위를 벗어나 총알 삭제 성공!");
 
@@ -44,7 +45,7 @@ public class Plasma : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") && !other.CompareTag("Item"))
         {
             Debug.Log("물체에 닿아서 총알 삭제 성공!:  "+ other.name);  
 
@@ -57,10 +58,11 @@ public class Plasma : MonoBehaviour
     }
     void CreateBoomArea()
     {
-        Instantiate(BoomArea,transform);
+        Instantiate(BoomArea,transform.position,Quaternion.identity,null);
+        Instantiate(prefabEffect, transform.position, Quaternion.LookRotation(transform.position.normalized), null);
         Debug.Log("플라즈마 생성 성공!");
 
-        gameObject.SetActive(false);
+       Destroy( gameObject);
 
     }
 

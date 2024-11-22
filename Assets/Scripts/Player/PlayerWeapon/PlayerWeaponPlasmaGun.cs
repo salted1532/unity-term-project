@@ -16,12 +16,12 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
     public float curReLodingTime;
 
     public float ShotGunMaxDistance = 50f;
-
+    public Transform PlasmaT;
     public GameObject PreFebBullet;
     public float CooldownTime = 1.3f;
     public void CreatePlasma()
     {
-        Instantiate(PreFebBullet);
+        Instantiate(PreFebBullet, PlasmaT.position,Camera.main.transform.rotation ,null);
 
         curBoulletCount -= 1;
         if (curBoulletCount <= 0)
