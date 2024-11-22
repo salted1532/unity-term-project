@@ -34,6 +34,13 @@ public class SoundManager : Singleton<SoundManager>
 
     private List<TemporarySoundPlayer> mInstantiatedSounds;
 
+    private GameObject SoundDataObject;
+
+    void Awake()
+    {
+        SoundDataObject = GameObject.Find("SoundData");
+    }
+
     private void Start()
     {
         mClipsDictionary = new Dictionary<string, AudioClip>();
@@ -43,6 +50,10 @@ public class SoundManager : Singleton<SoundManager>
         }
 
         mInstantiatedSounds = new List<TemporarySoundPlayer>();
+
+        Debug.Log("ACTIVE");
+        Debug.Log(SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue());
+        InitVolumes(SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue(),SoundDataObject.GetComponent<SoundDataManager>().GetBGMValue(),SoundDataObject.GetComponent<SoundDataManager>().GetEffectValue());
     }
 
     /// <summary>
@@ -159,7 +170,7 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     //씬이 로드될 때 옵션 매니저에의해 모든 사운드 불륨을 저장된 옵션의 크기로 초기화시키는 함수.
-    public void InitVolumes(float bgm, float effect,float master)
+    public void InitVolumes(float master, float bgm, float effect)
     {
         SetVolume(SoundType.BGM, bgm);
         SetVolume(SoundType.EFFECT, effect);
@@ -173,6 +184,15 @@ public class SoundManager : Singleton<SoundManager>
             value = 0.001f;
         }
         mAudioMixer.SetFloat(type.ToString(), (Mathf.Log10(value) * 20)-10);
+        
+
+        if(SoundDataObject != null){
+            SoundDataObject.GetComponent<SoundDataManager>().SetSoundValue(type,value);
+        }
+        else if(SoundDataObject == null) 
+        {
+            Debug.Log("NO OBJECTDATA");
+        }
     }
 
     /// <summary>

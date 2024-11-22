@@ -45,6 +45,8 @@ namespace SlimUI.ModernMenu{
 		public GameObject sensitivityYSlider;
 		public GameObject sensitivitySlider; 
 		public GameObject mouseSmoothSlider;
+		
+		private GameObject SoundDataObject;
 
 		private float sliderValue = 0.0f;
 		private float sliderValueXSensitivity = 0.0f;
@@ -54,12 +56,20 @@ namespace SlimUI.ModernMenu{
 
 		private float sliderValueSmoothing = 0.0f;
 		
+		void Awake()
+		{
+			SoundDataObject = GameObject.Find("SoundData");
+		}
 
 		public void  Start (){
 			// check slider values
-			musicSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MusicVolume");
-			effectSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("SFXVolume");
-			masterSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MasterVolume");
+			musicSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetBGMValue();
+			effectSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetEffectValue();
+			masterSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue();
+
+			SoundManager.Instance.SetVolume(SoundType.BGM, musicSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.EFFECT, effectSlider.GetComponent<Slider>().value);
+			SoundManager.Instance.SetVolume(SoundType.MASTER, masterSlider.GetComponent<Slider>().value);
 
 			sensitivityXSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("XSensitivity");
 			sensitivityYSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("YSensitivity");

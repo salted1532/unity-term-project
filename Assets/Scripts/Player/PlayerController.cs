@@ -96,8 +96,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        SoundManager.Instance.SetVolume(SoundType.MASTER,1);
-        SoundManager.Instance.SetVolume(SoundType.EFFECT,1);
         originalPos = transform.position;
         LookAtCam();
         PlayerInventory.ReSetInventory();
