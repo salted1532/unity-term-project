@@ -363,7 +363,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsFallingForMove()
     {
-        if (!playerControl.isGrounded && VelocityY < -2)
+        if (!playerControl.isGrounded && VelocityY < -10)
         {
             return true;
         }
@@ -385,7 +385,7 @@ public class PlayerController : MonoBehaviour
         if (playerControl.isGrounded) return true;
         
         var ray = new Ray(this.transform.position + Vector3.up * 0.1f, Vector3.down);
-        var maxDistance = 3f;
+        var maxDistance = 4f;
 
         //Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * maxDistance, Color.red);
         return Physics.Raycast(ray, maxDistance);
