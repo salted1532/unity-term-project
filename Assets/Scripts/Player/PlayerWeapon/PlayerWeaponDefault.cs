@@ -50,7 +50,12 @@ public class PlayerWeaponDefault : MonoBehaviour
 
 
         }
+        curBoulletCount -= 1;
+        if (curBoulletCount <= 0)
+        {
+            curBoulletCount = MaxBulletCount;
 
+        }
 
     }
 

@@ -548,10 +548,10 @@ MonoBehaviour:
   curReLodingTime: 0
   defaultWeaponMaxDistance: 50
   damage: 10
-  DamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  PreFebBulletT: {fileID: 0}
+  bulletMarksT: {fileID: 0}
   PreFebBullet: {fileID: 6237113894052199299, guid: 986fa9d91bcf03449a8c18185937a0b4, type: 3}
+  bulletMarks: {fileID: 0}
   CooldownTime: 0.35
 --- !u!4 &211467006
 Transform:
@@ -587,10 +587,9 @@ MonoBehaviour:
   curReLodingTime: 0
   ShotGunMaxDistance: 50
   damage: 8
-  DamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
   PreFebBullet: {fileID: 6237113894052199299, guid: 986fa9d91bcf03449a8c18185937a0b4, type: 3}
+  bulletMarks: {fileID: 0}
+  bulletT: {fileID: 0}
   CooldownTime: 0.65
   spreadAngle: 10
 --- !u!114 &211467008
@@ -611,6 +610,7 @@ MonoBehaviour:
   maxReLodingTime: 3.8
   curReLodingTime: 0
   ShotGunMaxDistance: 50
+  PlasmaT: {fileID: 0}
   PreFebBullet: {fileID: 7917971155963506363, guid: 03c8648d08bcb494bb0e04913f38773e, type: 3}
   CooldownTime: 0.65
 --- !u!114 &211467009
@@ -632,9 +632,8 @@ MonoBehaviour:
   curReLodingTime: 0
   ShotGunMaxDistance: 50
   damage: 3.5
-  DamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  bulletT: {fileID: 0}
+  bulletMarks: {fileID: 0}
   PreFebBullet: {fileID: 6237113894052199299, guid: 986fa9d91bcf03449a8c18185937a0b4, type: 3}
   CooldownTime: 0.2
 --- !u!1 &359820438
@@ -934,6 +933,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97da33f506743140bba5d7a279179ed, type: 3}
+--- !u!1001 &487808976
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+      propertyPath: m_Name
+      value: Sci_Fi_Character_08
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
 --- !u!4 &593840336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a97da33f506743140bba5d7a279179ed, type: 3}
@@ -2548,11 +2604,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc1d6c20fcbe944c8a68a3c4a71897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeLookCamera: {fileID: 0}
   playerWeaponMgr: {fileID: 1655931406}
   playerScanner: {fileID: 843168252}
   MaxHP: 500
   playerControl: {fileID: 1438524036}
   cam: {fileID: 1088606903}
+  Aim: {fileID: 0}
+  Aim2: {fileID: 0}
   movement: {x: 0, y: 0, z: 0}
   deltaSpeed: 1.8
   MaxSpeed: 6
@@ -2564,7 +2623,10 @@ MonoBehaviour:
   dashSpeed: 24
   DoubleJumpLock: 0
   layerMask: 3
+  MaxSwapDelay: 0
   isground: 0
+  IsJumping: 0
+  isControllerActive: 0
   ChangePauseState:
     m_PersistentCalls:
       m_Calls: []
@@ -2891,6 +2953,10 @@ MonoBehaviour:
   ShotGun: {fileID: 211467007}
   RifleGun: {fileID: 211467009}
   PlasmaGun: {fileID: 211467008}
+  WeaponUIArr1: []
+  WeaponUIArr2: []
+  WeaponUIArr3: []
+  WeaponUIArr4: []
   DefaultGunObj: {fileID: 0}
   ShotGunObj: {fileID: 0}
   RifleGunObj: {fileID: 0}
@@ -2900,6 +2966,7 @@ MonoBehaviour:
   curBoulletCount: 0
   maxReLodingTime: 0
   curReLodingTime: 0
+  Player: {fileID: 0}
 --- !u!4 &1655931407
 Transform:
   m_ObjectHideFlags: 0
@@ -3293,6 +3360,7 @@ SceneRoots:
   - {fileID: 1625659593}
   - {fileID: 1098659691}
   - {fileID: 1303973077}
+  - {fileID: 487808976}
   - {fileID: 771538722}
   - {fileID: 774804801}
   - {fileID: 102479596}

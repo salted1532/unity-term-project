@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,12 +28,13 @@ public class PlayerWeaponMgr : MonoBehaviour
 
     public GameObject[][] WeaponObjArr;
 
+    public TMP_Text bulletText;
 
     public bool isReLoading;
 
     public int MaxBulletCount;
 
-    public int curBoulletCount;
+    public int curBulletCount;
 
     public float maxReLodingTime;
 
@@ -42,6 +44,14 @@ public class PlayerWeaponMgr : MonoBehaviour
 
     public GameObject Player;
 
+    private Color targetColor;
+    private Color currentColor;
+
+    public Color color1 = Color.yellow; // 첫 번째 색상
+    public Color color2 = Color.red;    // 두 번째 색상
+    public float colorChangeSpeed = 0.5f; // 색상 변경 속도
+    public float dotChangeInterval = 0.5f; // 점 개수 변경 간격
+    private Coroutine reloadCoroutine = null;
     private void Awake()
     {
         DefaultGunObj.SetActive(true);
@@ -51,7 +61,7 @@ public class PlayerWeaponMgr : MonoBehaviour
 
         MaxBulletCount = DefaultGun.MaxBulletCount;
         maxReLodingTime = DefaultGun.maxReLodingTime; 
-        curBoulletCount = DefaultGun.curBoulletCount;
+        curBulletCount = DefaultGun.curBoulletCount;
         curReLodingTime = DefaultGun.curReLodingTime;
         isReLoading = false;
     }
@@ -96,6 +106,8 @@ public class PlayerWeaponMgr : MonoBehaviour
             IsShoting = false;
 
         }
+        UpdateBulletText();
+        SmoothColorTransition();
         anim.SetBool("IsShot", IsShoting);
 
     }
@@ -150,13 +162,14 @@ public class PlayerWeaponMgr : MonoBehaviour
 
                     break;
             }
-            if (curBoulletCount <= 0)
+            curBulletCount--;
+
+            if (curBulletCount <= 0)
             {
                 isReLoading = true;
                 
 
             }
-            curBoulletCount--;
 
         }
 
@@ -166,7 +179,7 @@ public class PlayerWeaponMgr : MonoBehaviour
     {
         if (curReLodingTime > maxReLodingTime)
         {
-            curBoulletCount = MaxBulletCount;
+            curBulletCount = MaxBulletCount;
             isReLoading = false;
             curReLodingTime = 0;
             
@@ -196,7 +209,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             case 0:
                 MaxBulletCount = DefaultGun.MaxBulletCount;
                 maxReLodingTime = DefaultGun.maxReLodingTime;
-                curBoulletCount = DefaultGun.curBoulletCount;
+                curBulletCount = DefaultGun.curBoulletCount;
                 curReLodingTime = DefaultGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(DefaultGun.CooldownTime);
                 curCooldownTime = DefaultGun.CooldownTime - 0.115f;
@@ -206,7 +219,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             case 1:
                 MaxBulletCount = ShotGun.MaxBulletCount;
                 maxReLodingTime = ShotGun.maxReLodingTime;
-                curBoulletCount = ShotGun.curBoulletCount;
+                curBulletCount = ShotGun.curBoulletCount;
                 curReLodingTime = ShotGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(ShotGun.CooldownTime);
                 curCooldownTime = ShotGun.CooldownTime - 0.15f;
@@ -216,7 +229,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             case 2:
                 MaxBulletCount = RifleGun.MaxBulletCount;
                 maxReLodingTime = RifleGun.maxReLodingTime;
-                curBoulletCount = RifleGun.curBoulletCount;
+                curBulletCount = RifleGun.curBoulletCount;
                 curReLodingTime = RifleGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(RifleGun.CooldownTime);
                 curCooldownTime = RifleGun.CooldownTime - 0.3f;
@@ -226,7 +239,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             case 3:
                 MaxBulletCount = PlasmaGun.MaxBulletCount;
                 maxReLodingTime = PlasmaGun.maxReLodingTime;
-                curBoulletCount = PlasmaGun.curBoulletCount;
+                curBulletCount = PlasmaGun.curBoulletCount;
                 curReLodingTime = PlasmaGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(PlasmaGun.CooldownTime);
                 curCooldownTime = PlasmaGun.CooldownTime - 0.5f;
@@ -235,6 +248,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             default:
                 break;
         }
+
 
     }
    void SetCurWeaponObj(int WeaponNum)
@@ -276,4 +290,67 @@ public class PlayerWeaponMgr : MonoBehaviour
 
         }
     }
+
+    void UpdateBulletText()
+    {
+        if (isReLoading)
+        {
+            if(reloadCoroutine == null)
+            reloadCoroutine = StartCoroutine(ReloadingEffect());
+        }
+        else
+        {
+            if (reloadCoroutine != null)
+            {
+                StopCoroutine(reloadCoroutine);
+                reloadCoroutine = null;
+            }
+
+            string bulletColor = curBulletCount <= MaxBulletCount * 0.2f ? "FF4500" : "FFFFFF";
+            bulletText.text = $"<color=#{bulletColor}>{curBulletCount}</color> / <color=#00FF00>{MaxBulletCount}</color>";
+
+            targetColor = curBulletCount <= MaxBulletCount * 0.2f ? new Color(1f, 0.27f, 0f) : Color.white; // 주황색 또는 흰색
+        }
+    }
+
+    void SmoothColorTransition()
+    {
+        if (!isReLoading)
+        {
+            // 색상을 점진적으로 변경
+            currentColor = Color.Lerp(currentColor, targetColor, Time.deltaTime * 5f);
+            bulletText.color = currentColor;
+        }
+    }
+
+    public void StartReloading()
+    {
+        if (isReLoading) return;
+
+        isReLoading = true;
+        StartCoroutine(ReloadingEffect());
+    }
+
+    IEnumerator ReloadingEffect()
+    {
+        float colorTimer = 0;
+        int dotCount = 0;
+
+        while (isReLoading)
+        {
+            // 색상 변경 (Lerp로 천천히 전환)
+            colorTimer += Time.deltaTime * colorChangeSpeed;
+            bulletText.color = Color.Lerp(color1, color2, Mathf.PingPong(colorTimer, 1));
+
+            // 점 개수 변경
+            dotCount = (dotCount + 1) % 4; // 0, 1, 2, 3 반복
+            bulletText.text = "<i>Reloading" + new string('.', dotCount) + "</i>";
+            Debug.Log(bulletText.text);
+            yield return new WaitForSeconds(dotChangeInterval);
+        }
+
+        bulletText.text = ""; // 재장전 끝나면 텍스트 초기화
+    }
+
 }
+
