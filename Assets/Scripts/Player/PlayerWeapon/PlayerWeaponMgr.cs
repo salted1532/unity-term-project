@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Random = UnityEngine.Random;
 
 
 public class PlayerWeaponMgr : MonoBehaviour
@@ -47,11 +47,15 @@ public class PlayerWeaponMgr : MonoBehaviour
     private Color targetColor;
     private Color currentColor;
 
-    public Color color1 = Color.yellow; // Ã¹ ¹øÂ° »ö»ó
-    public Color color2 = Color.red;    // µÎ ¹øÂ° »ö»ó
-    public float colorChangeSpeed = 0.5f; // »ö»ó º¯°æ ¼Óµµ
-    public float dotChangeInterval = 0.5f; // Á¡ °³¼ö º¯°æ °£°Ý
+    public Color color1 = Color.yellow; // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½
+    public Color color2 = Color.red;    // ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½
+    public float colorChangeSpeed = 0.5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    public float dotChangeInterval = 0.5f; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private Coroutine reloadCoroutine = null;
+
+    private String GunFireSoundName;
+    private bool isGunSoundPlayed;
+
     private void Awake()
     {
         DefaultGunObj.SetActive(true);
@@ -64,6 +68,9 @@ public class PlayerWeaponMgr : MonoBehaviour
         curBulletCount = DefaultGun.curBoulletCount;
         curReLodingTime = DefaultGun.curReLodingTime;
         isReLoading = false;
+
+        GunFireSoundName = "pistol_reload1";
+        isGunSoundPlayed = false;
     }
     private void Start()
     {
@@ -104,7 +111,6 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             ReRoadGun();
             IsShoting = false;
-
         }
         UpdateBulletText();
         SmoothColorTransition();
@@ -123,7 +129,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             {
 
                 case 0:
-                    SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+                    SoundManager.Instance.PlaySound2D("pistol_fire2");
 
                     
                     DefaultGun.HitScan();
@@ -131,7 +137,9 @@ public class PlayerWeaponMgr : MonoBehaviour
 
                     break;
                 case 1:
-                    SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+                    int random = Random.Range(6,8);
+                    SoundManager.Instance.PlaySound2D("shotgun_fire" + random);
+                    Debug.Log("shotgun_fire" + random);
 
 
                    
@@ -166,9 +174,7 @@ public class PlayerWeaponMgr : MonoBehaviour
 
             if (curBulletCount <= 0)
             {
-                isReLoading = true;
-                
-
+                isReLoading = true;                
             }
 
         }
@@ -181,14 +187,30 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             curBulletCount = MaxBulletCount;
             isReLoading = false;
+            isGunSoundPlayed = false;
             curReLodingTime = 0;
             
+            SoundManager.Instance.StopLoopSound("shotgun_reload3");
+            if(ShotGunObj.activeSelf == true)
+            {
+                SoundManager.Instance.PlaySound2D("shotgun_cock");
+            }
         }
         else
         {
-            curReLodingTime += Time.deltaTime;
-            
-
+            if(isGunSoundPlayed == false)
+            {
+                if(GunFireSoundName == "shotgun_reload3")
+                {
+                    SoundManager.Instance.PlaySound2D(GunFireSoundName,0f,true);
+                }
+                else
+                {
+                    SoundManager.Instance.PlaySound2D(GunFireSoundName);
+                }
+                isGunSoundPlayed = true;
+            }
+            curReLodingTime += Time.deltaTime;           
         }
     }
     public void SetCurWeaponData()
@@ -213,6 +235,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = DefaultGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(DefaultGun.CooldownTime);
                 curCooldownTime = DefaultGun.CooldownTime - 0.115f;
+                GunFireSoundName = "pistol_reload1";
 
                 isReLoading = false;
                 break;
@@ -223,8 +246,10 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = ShotGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(ShotGun.CooldownTime);
                 curCooldownTime = ShotGun.CooldownTime - 0.15f;
-                isReLoading = false;
+                GunFireSoundName = "shotgun_reload3";
+                SoundManager.Instance.PlaySound2D("shotgun_cock");
 
+                isReLoading = false;
                 break;
             case 2:
                 MaxBulletCount = RifleGun.MaxBulletCount;
@@ -233,9 +258,10 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = RifleGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(RifleGun.CooldownTime);
                 curCooldownTime = RifleGun.CooldownTime - 0.3f;
+                GunFireSoundName = "shotgun_reload";
+
                 isReLoading = false;
                 break;
-
             case 3:
                 MaxBulletCount = PlasmaGun.MaxBulletCount;
                 maxReLodingTime = PlasmaGun.maxReLodingTime;
@@ -309,7 +335,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             string bulletColor = curBulletCount <= MaxBulletCount * 0.2f ? "FF4500" : "FFFFFF";
             bulletText.text = $"<color=#{bulletColor}>{curBulletCount}</color> / <color=#00FF00>{MaxBulletCount}</color>";
 
-            targetColor = curBulletCount <= MaxBulletCount * 0.2f ? new Color(1f, 0.27f, 0f) : Color.white; // ÁÖÈ²»ö ¶Ç´Â Èò»ö
+            targetColor = curBulletCount <= MaxBulletCount * 0.2f ? new Color(1f, 0.27f, 0f) : Color.white; // ï¿½ï¿½È²ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½
         }
     }
 
@@ -317,7 +343,7 @@ public class PlayerWeaponMgr : MonoBehaviour
     {
         if (!isReLoading)
         {
-            // »ö»óÀ» Á¡ÁøÀûÀ¸·Î º¯°æ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             currentColor = Color.Lerp(currentColor, targetColor, Time.deltaTime * 5f);
             bulletText.color = currentColor;
         }
@@ -338,18 +364,18 @@ public class PlayerWeaponMgr : MonoBehaviour
 
         while (isReLoading)
         {
-            // »ö»ó º¯°æ (Lerp·Î ÃµÃµÈ÷ ÀüÈ¯)
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Lerpï¿½ï¿½ ÃµÃµï¿½ï¿½ ï¿½ï¿½È¯)
             colorTimer += Time.deltaTime * colorChangeSpeed;
             bulletText.color = Color.Lerp(color1, color2, Mathf.PingPong(colorTimer, 1));
 
-            // Á¡ °³¼ö º¯°æ
-            dotCount = (dotCount + 1) % 4; // 0, 1, 2, 3 ¹Ýº¹
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            dotCount = (dotCount + 1) % 4; // 0, 1, 2, 3 ï¿½Ýºï¿½
             bulletText.text = "<i>Reloading" + new string('.', dotCount) + "</i>";
             Debug.Log(bulletText.text);
             yield return new WaitForSeconds(dotChangeInterval);
         }
 
-        bulletText.text = ""; // ÀçÀåÀü ³¡³ª¸é ÅØ½ºÆ® ÃÊ±âÈ­
+        bulletText.text = ""; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® ï¿½Ê±ï¿½È­
     }
 
 }
