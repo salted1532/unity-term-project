@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7491051629441600956}
   - component: {fileID: 7131946410382145331}
   - component: {fileID: 3077873981525165447}
+  - component: {fileID: 4581208413174052012}
   m_Layer: 0
   m_Name: BoomArea
   m_TagString: Untagged
@@ -70,3 +71,30 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   damage: 38
+--- !u!54 &4581208413174052012
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570938331329616830}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

@@ -25,7 +25,9 @@ public class BoomArea : MonoBehaviour
         Debug.Log(other.gameObject.name);
 
         if (other.CompareTag("Enemy"))
-        other.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+        {
+            other.GetComponent<EnemyHealth>().EnemyTakeDamage(damage);
+        }
 
     }
 }

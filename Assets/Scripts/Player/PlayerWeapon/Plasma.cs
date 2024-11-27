@@ -45,7 +45,7 @@ public class Plasma : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") && !other.CompareTag("Item"))
+        if (!other.CompareTag("Player") && !other.CompareTag("Item") && !other.CompareTag("Exception"))
         {
             Debug.Log("물체에 닿아서 총알 삭제 성공!:  "+ other.name);  
 

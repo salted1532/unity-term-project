@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 5697919704937815023}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Exception
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -754,4 +754,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Door1: {fileID: 2947979500076462510}
   Door2: {fileID: 5071347193811830346}
+  isOpening: 0
+  isClosing: 0
   RightAngle: 0

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Wall
   - bullet
+  - Exception
   layers:
   - Default
   - TransparentFX
