@@ -57,6 +57,11 @@ public class EnemyHealth : MonoBehaviour
     {
         Debug.Log("������ ����");
 
+        if(EnemyHp <= 0)
+        {
+            return;
+        }
+
         float TDamge = amount;
 
         if (TDamge > 0)
