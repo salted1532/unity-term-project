@@ -18,19 +18,19 @@ public class PlayerWeaponShotGun : MonoBehaviour
     public float curReLodingTime;
 
     public float ShotGunMaxDistance = 100f;
-    public float damage = 8f;
+    public float damage;
     public GameObject PreFebBullet;
     public GameObject bulletMarks;  
     public Transform bulletT;
     public float CooldownTime = 0.65f;
     int ShotBulletCount = 10;
-    float spreadRadius = PlayerState.PlayerIsZooming ? 300f : 450f;
+    float spreadRadius;
     public float spreadAngle = 10f;    // 분포 각도
     public void HitScanShotGun()
     {
         Debug.Log("발사");
         Instantiate(PreFebBullet, bulletT);
-
+        spreadRadius = PlayerState.PlayerIsZooming ? 200f : 150f;
         for (int i = 0; i < ShotBulletCount; ++i)
             {
             Vector2 randomCircle = Random.insideUnitCircle * spreadRadius; // 스크린 기준 원 안의 랜덤 점
@@ -38,7 +38,7 @@ public class PlayerWeaponShotGun : MonoBehaviour
 
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(screenPoint);
-
+            Debug.Log("산탄 값 : " + spreadRadius);
             if (Physics.Raycast(ray.origin, ray.direction, out hit, ShotGunMaxDistance, ~((1 << 7) | (1 << 9))))
                 {
                 Instantiate(bulletMarks, hit.point, Quaternion.LookRotation(hit.normal));
