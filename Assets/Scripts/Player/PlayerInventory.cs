@@ -73,18 +73,18 @@ public static class PlayerInventory
     public static bool SwapWeapon(float MouseScrollWheel)
     {
         
-        if (MouseScrollWheel > 0 && (choiceIndex < inventory.Count -1))
+        if (MouseScrollWheel > 0 /*&& (choiceIndex < inventory.Count -1)*/)
         {
             // 휠을 밀어 돌렸을 때의 처리 ↑
-            ++choiceIndex;
-        Debug.Log("돌리고 나서 인덱스:" + choiceIndex);
+            choiceIndex = (choiceIndex + 1) % inventory.Count;
+            Debug.Log("돌리고 나서 인덱스:" + choiceIndex);
             return true;
         }
 
-        else if (MouseScrollWheel < 0 && !(choiceIndex == 0))
-            {
-                // 휠을 당겨 올렸을 때의 처리 ↓
-                --choiceIndex;
+        else if (MouseScrollWheel < 0 /*&& !(choiceIndex == 0)*/)
+        {
+            // 휠을 당겨 올렸을 때의 처리 ↓
+            choiceIndex = ((choiceIndex - 1) < 0) ? (choiceIndex + inventory.Count -1): --choiceIndex;
             Debug.Log("돌리고 나서 인덱스:" + choiceIndex);
             return true;
 
