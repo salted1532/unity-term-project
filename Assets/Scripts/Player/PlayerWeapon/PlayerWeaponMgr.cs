@@ -195,7 +195,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             }
             else if(PlasmaGunObj.activeSelf == true)
             {
-                SoundManager.Instance.PlaySound2D("energy_bounce2",0f,false,SoundType.GUN,0.5f);
+                SoundManager.Instance.PlaySound2D("energy_bounce2",0f,false,SoundType.EFFECT,0.5f);
             }
         }
         else
@@ -218,6 +218,8 @@ public class PlayerWeaponMgr : MonoBehaviour
     public void SetCurWeaponData()
     {
         int[] arr = PlayerInventory.GetWeaponArray();
+        SoundManager.Instance.StopLoopSound("shotgun_reload3");
+        
         for (int i = 0; WeaponObjArr.Length > i; i++)
         {
             for (int j = 0; WeaponObjArr[0].Length > j; j++)

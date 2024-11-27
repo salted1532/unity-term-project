@@ -16,8 +16,9 @@ public class BoomArea : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log("ºÕ »ý¼º");  
+        Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");  
         Debug.Log(transform.position);
+        SoundManager.Instance.PlaySound3D("energy_sing_explosion2",gameObject, 0, 25, false, SoundType.GUN);
         Destroy(gameObject, 1f);
     }
     private void OnTriggerEnter(Collider other)

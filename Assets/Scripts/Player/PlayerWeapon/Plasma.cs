@@ -13,10 +13,10 @@ public class Plasma : MonoBehaviour
     Ray ray;
     public float defaultBulletSpeed;
 
-    public float speed = 10f; // ÃÑ¾ËÀÇ ±âº» ¼Óµµ
+    public float speed = 10f; // ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½âº» ï¿½Óµï¿½
 
 
-    private Vector3 direction; // ÃÑ¾ËÀÇ ÀÌµ¿ ¹æÇâ
+    private Vector3 direction; // ï¿½Ñ¾ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
  
 
 
@@ -28,14 +28,14 @@ public class Plasma : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Á÷Áø ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         transform.position += direction.normalized * speed * Time.deltaTime;
 
 
   
         if ((transform.position - PlayerState.PlayerCurPos).sqrMagnitude > 500f)
         {
-            Debug.Log("¹üÀ§¸¦ ¹þ¾î³ª ÃÑ¾Ë »èÁ¦ ¼º°ø!");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³ª ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 
             CreateBoomArea();
         }
@@ -47,7 +47,7 @@ public class Plasma : MonoBehaviour
     {
         if (!other.CompareTag("Player") && !other.CompareTag("Item") && !other.CompareTag("Exception"))
         {
-            Debug.Log("¹°Ã¼¿¡ ´ê¾Æ¼­ ÃÑ¾Ë »èÁ¦ ¼º°ø!:  "+ other.name);  
+            Debug.Log("ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!:  "+ other.name);  
 
 
                 CreateBoomArea();
@@ -60,10 +60,9 @@ public class Plasma : MonoBehaviour
     {
         Instantiate(BoomArea,transform.position,Quaternion.identity,null);
         Instantiate(prefabEffect, transform.position, Quaternion.LookRotation(transform.position.normalized), null);
-        Debug.Log("ÇÃ¶óÁî¸¶ »ý¼º ¼º°ø!");
+        Debug.Log("ï¿½Ã¶ï¿½ï¿½î¸¶ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 
-       Destroy( gameObject);
-
+        Destroy( gameObject);
     }
 
 }
