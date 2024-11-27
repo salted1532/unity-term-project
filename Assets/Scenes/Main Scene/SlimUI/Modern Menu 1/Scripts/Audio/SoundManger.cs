@@ -10,6 +10,7 @@ public enum SoundType
     EFFECT,
     MONSTER_SOUND,
     MASTER,
+    GUN,
 }
 
 public class SoundManager : Singleton<SoundManager>

@@ -11,7 +11,7 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
 
     public int curBoulletCount = 3;
 
-    public float maxReLodingTime = 3.8f;
+    public float maxReLodingTime = 3f;
 
     public float curReLodingTime;
 
@@ -29,7 +29,7 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
             curBoulletCount = MaxBulletCount;
 
         }
-        Debug.Log("ÇÃ¶óÁî¸¶ ÃÑ¾Ë ¹ß»ç ¼º°ø!");
+        Debug.Log("ï¿½Ã¶ï¿½ï¿½î¸¶ ï¿½Ñ¾ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 
     }
 

@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-9078762538478305666
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GUN
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: ba6efbd961853b541b3e1334e3935085
+  m_Children: []
+  m_Volume: 0816a352c93876e46809e4fd35086272
+  m_Pitch: e553bf2ebd3200e4f994421d59c1344b
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -9003441479594331726}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &-9003441479594331726
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 46cd38376209b334f9b66edf0e2171ea
+  m_EffectName: Attenuation
+  m_MixLevel: a74280da2eb1e904c9cd67a372805bfa
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-7128067719386893152
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -11,6 +44,7 @@ AudioMixerGroupController:
   m_GroupID: ec57122671a964043a6c2cb20ac3f338
   m_Children:
   - {fileID: 3867461965209804667}
+  - {fileID: -9078762538478305666}
   m_Volume: d650393a115f2574386cb94c010378cc
   m_Pitch: 365f40de8badcec4aa30cadde195fcd5
   m_Send: 00000000000000000000000000000000
@@ -48,6 +82,7 @@ AudioMixerController:
     - ec57122671a964043a6c2cb20ac3f338
     - bb4b494701b24f848a575f4107bd3f6b
     - 6af1af821846706418c47a32d654b31d
+    - ba6efbd961853b541b3e1334e3935085
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -96,6 +131,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: dfb12da801128ea4ea9862a67a6c9e98
   m_FloatValues:
+    0816a352c93876e46809e4fd35086272: -14.577514
     9a69ed25780f4254ea44d378db85b0ed: -18.292736
     a0b8e34581d9eee45bedc12150ef3adf: 1
     e1678437ffde1f44c9bedf6e981ac597: 1.2188228
