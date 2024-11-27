@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditorInternal.ReorderableList;
+
 public class PlayerWeaponShotGun : MonoBehaviour
 {
     public bool isReLoading;
