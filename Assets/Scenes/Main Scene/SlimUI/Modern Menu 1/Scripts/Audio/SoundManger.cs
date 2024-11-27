@@ -126,7 +126,7 @@ public class SoundManager : Singleton<SoundManager>
     /// </summary>
     /// <param name="clipName">오디오 클립 이름</param>
     /// <param name="type">오디오 유형(BGM, EFFECT 등.)</param>
-    public void PlaySound2D(string clipName, float delay = 0f, bool isLoop = false, SoundType type = SoundType.EFFECT)
+    public void PlaySound2D(string clipName, float delay = 0f, bool isLoop = false, SoundType type = SoundType.EFFECT, float pitch = 1)
     {
         GameObject old = GameObject.Find(clipName);
         if(old != null) {
@@ -140,7 +140,7 @@ public class SoundManager : Singleton<SoundManager>
         if (isLoop) { AddToList(soundPlayer); }
 
         soundPlayer.InitSound2D(GetClip(clipName));
-        soundPlayer.Play(mAudioMixer.FindMatchingGroups(type.ToString())[0], delay, isLoop);
+        soundPlayer.Play(mAudioMixer.FindMatchingGroups(type.ToString())[0], delay, isLoop, pitch);
     }
 
     /// <summary>
@@ -152,7 +152,7 @@ public class SoundManager : Singleton<SoundManager>
     /// <param name="attachToTarget"></param>
     /// <param name="minDistance"></param>
     /// <param name="maxDistance"></param>
-    public void PlaySound3D(string clipName, GameObject audioTarget, float minDistance = 0.0f, float maxDistance = 25.0f, bool isLoop = false, SoundType type = SoundType.EFFECT, float delay = 0f, bool attachToTarget = true)
+    public void PlaySound3D(string clipName, GameObject audioTarget, float minDistance = 0.0f, float maxDistance = 25.0f, bool isLoop = false, SoundType type = SoundType.EFFECT, float delay = 0f, bool attachToTarget = true, float pitch = 1)
     {
         GameObject obj = new GameObject("TemporarySoundPlayer 3D");
         obj.transform.localPosition = audioTarget.transform.position;
@@ -164,7 +164,7 @@ public class SoundManager : Singleton<SoundManager>
         if (isLoop) { AddToList(soundPlayer); }
 
         soundPlayer.InitSound3D(GetClip(clipName), minDistance, maxDistance);
-        soundPlayer.Play(mAudioMixer.FindMatchingGroups(type.ToString())[0], delay, isLoop);
+        soundPlayer.Play(mAudioMixer.FindMatchingGroups(type.ToString())[0], delay, isLoop, pitch);
     }
 
     //씬이 로드될 때 옵션 매니저에의해 모든 사운드 불륨을 저장된 옵션의 크기로 초기화시키는 함수.
@@ -181,7 +181,7 @@ public class SoundManager : Singleton<SoundManager>
         if(value <= 0){
             value = 0.001f;
         }
-        mAudioMixer.SetFloat(type.ToString(), (Mathf.Log10(value) * 20)-10);
+        mAudioMixer.SetFloat(type.ToString(), (Mathf.Log10(value) * 20)-5);
         
 
         if(SoundDataObject != null){

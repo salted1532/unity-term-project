@@ -20,13 +20,14 @@ public class TemporarySoundPlayer : MonoBehaviour
         mAudioSource = GetComponent<AudioSource>();
     }
 
-    public void Play(AudioMixerGroup audioMixer, float delay, bool isLoop)
+    public void Play(AudioMixerGroup audioMixer, float delay, bool isLoop,float pitch)
     {
         mAudioSource.outputAudioMixerGroup = audioMixer;
         mAudioSource.loop = isLoop;
+        mAudioSource.pitch = pitch;
         mAudioSource.Play();
 
-        if (!isLoop) { StartCoroutine(COR_DestroyWhenFinish(mAudioSource.clip.length)); }
+        if (!isLoop) { StartCoroutine(COR_DestroyWhenFinish(mAudioSource.clip.length,pitch)); }
     }
 
     public void InitSound2D(AudioClip clip)
@@ -43,9 +44,9 @@ public class TemporarySoundPlayer : MonoBehaviour
         mAudioSource.maxDistance = maxDistance;
     }
 
-    private IEnumerator COR_DestroyWhenFinish(float clipLength)
+    private IEnumerator COR_DestroyWhenFinish(float clipLength,float pitch)
     {
-        yield return new WaitForSeconds(clipLength);
+        yield return new WaitForSeconds(clipLength * (1/pitch));
 
         Destroy(gameObject);
     }

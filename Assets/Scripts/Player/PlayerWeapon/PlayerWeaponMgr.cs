@@ -53,7 +53,7 @@ public class PlayerWeaponMgr : MonoBehaviour
     public float dotChangeInterval = 0.5f; // �� ���� ���� ����
     private Coroutine reloadCoroutine = null;
 
-    private String GunFireSoundName;
+    private String GunReloadSound;
     private bool isGunSoundPlayed;
 
     private void Awake()
@@ -69,7 +69,7 @@ public class PlayerWeaponMgr : MonoBehaviour
         curReLodingTime = DefaultGun.curReLodingTime;
         isReLoading = false;
 
-        GunFireSoundName = "pistol_reload1";
+        GunReloadSound = "pistol_reload1";
         isGunSoundPlayed = false;
     }
     private void Start()
@@ -123,13 +123,12 @@ public class PlayerWeaponMgr : MonoBehaviour
 
         if (curCooldownTime > PlayerState.PlayerAttackMaxCooldownTime && !isReLoading)
         {
-
+            int random = Random.Range(1,3);
 
             switch (PlayerInventory.GetCurWeaponNum())
             {
-
                 case 0:
-                    SoundManager.Instance.PlaySound2D("pistol_fire2");
+                    SoundManager.Instance.PlaySound2D("pistol_fire" + random);
 
                     
                     DefaultGun.HitScan();
@@ -137,7 +136,6 @@ public class PlayerWeaponMgr : MonoBehaviour
 
                     break;
                 case 1:
-                    int random = Random.Range(6,8);
                     SoundManager.Instance.PlaySound2D("shotgun_fire" + random);
                     Debug.Log("shotgun_fire" + random);
 
@@ -149,7 +147,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                     break;
                     
                 case 2:
-                    SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
+                    SoundManager.Instance.PlaySound2D("smg1_fireburst1");
 
 
                    
@@ -200,13 +198,13 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             if(isGunSoundPlayed == false)
             {
-                if(GunFireSoundName == "shotgun_reload3")
+                if(GunReloadSound == "shotgun_reload3")
                 {
-                    SoundManager.Instance.PlaySound2D(GunFireSoundName,0f,true);
+                    SoundManager.Instance.PlaySound2D(GunReloadSound,0f,true);
                 }
                 else
                 {
-                    SoundManager.Instance.PlaySound2D(GunFireSoundName);
+                    SoundManager.Instance.PlaySound2D(GunReloadSound);
                 }
                 isGunSoundPlayed = true;
             }
@@ -235,7 +233,8 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = DefaultGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(DefaultGun.CooldownTime);
                 curCooldownTime = DefaultGun.CooldownTime - 0.115f;
-                GunFireSoundName = "pistol_reload1";
+                GunReloadSound = "pistol_reload1";
+                SoundManager.Instance.PlaySound2D("pistol_reload1");
 
                 isReLoading = false;
                 break;
@@ -246,7 +245,7 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = ShotGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(ShotGun.CooldownTime);
                 curCooldownTime = ShotGun.CooldownTime - 0.15f;
-                GunFireSoundName = "shotgun_reload3";
+                GunReloadSound = "shotgun_reload3";
                 SoundManager.Instance.PlaySound2D("shotgun_cock");
 
                 isReLoading = false;
@@ -258,7 +257,8 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = RifleGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(RifleGun.CooldownTime);
                 curCooldownTime = RifleGun.CooldownTime - 0.3f;
-                GunFireSoundName = "shotgun_reload";
+                GunReloadSound = "smg1_reload";
+                SoundManager.Instance.PlaySound2D("switch_burst");
 
                 isReLoading = false;
                 break;
@@ -269,6 +269,9 @@ public class PlayerWeaponMgr : MonoBehaviour
                 curReLodingTime = PlasmaGun.curReLodingTime;
                 PlayerState.SetMaxCooldownTIme(PlasmaGun.CooldownTime);
                 curCooldownTime = PlasmaGun.CooldownTime - 0.5f;
+                GunReloadSound = "smg1_reload";
+                SoundManager.Instance.PlaySound2D("energy_bounce2",0f,false,SoundType.EFFECT,0.5f);
+
                 isReLoading = false;
                 break;
             default:
