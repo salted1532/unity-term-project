@@ -86,7 +86,7 @@ public class StageControl : MonoBehaviour
 
     }
 
-    void StartNormalMusic()
+    public void StartNormalMusic()
     {
         fightmusic.StopAllSound();
         SoundManager.Instance.PlaySound2D("hl2_song2", 0f, true, SoundType.BGM);
@@ -96,7 +96,7 @@ public class StageControl : MonoBehaviour
     {
         if (stage == 1)
         {
-            StartNormalMusic();
+
         }
         if (stage == 2)
         {
@@ -104,7 +104,6 @@ public class StageControl : MonoBehaviour
             {
                 stage3EnemyObj[i].SetActive(true);
             }
-            StartNormalMusic();
         }
         if (stage == 3)
         {
@@ -112,11 +111,10 @@ public class StageControl : MonoBehaviour
             {
                 stage4EnemyObj[i].SetActive(true);
             }
-            StartNormalMusic();
         }
         if (stage == 4)
         {
-            StartNormalMusic();
+
         }
     }
 
@@ -132,18 +130,22 @@ public class StageControl : MonoBehaviour
             }
             Stage1 = true;
             SetNextStage(1);
+            StartNormalMusic();
         }
         if (Enemyleft[1] == 0 && Stage2 == false)
         {
             Stage2 = true;
+            StartNormalMusic();
         }
         if (Enemyleft[2] == 0 && Stage3 == false)
         {
             Stage3 = true;
+            StartNormalMusic();
         }
         if (Enemyleft[3] == 0 && Stage4 == false)
         {
             Stage4 = true;
+            StartNormalMusic();
         }
     }
 
