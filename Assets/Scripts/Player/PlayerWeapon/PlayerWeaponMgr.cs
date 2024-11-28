@@ -195,7 +195,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             }
             else if(PlasmaGunObj.activeSelf == true)
             {
-                SoundManager.Instance.PlaySound2D("energy_bounce2",0f,false,SoundType.EFFECT,0.5f);
+                SoundManager.Instance.PlaySound2D("energy_bounce2",0f,false,SoundType.GUN,0.5f);
             }
         }
         else

@@ -11,9 +11,12 @@ public class FightMusicControl : MonoBehaviour
     private StageControl stagecontrol;
     private FightMusicControl fightmusic;
 
-    public int stage = 1;
     public bool isFightStart = false;
     public bool isStopFightGameObject = false;
+
+    public int stage = 1;
+
+    public float slowDuration = 3f;
 
     void Start()
     {
@@ -29,6 +32,20 @@ public class FightMusicControl : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private IEnumerator SlowlyStopMusic()
+    {
+        AudioSource audioSource = GameObject.Find("hl1_song10").GetComponent<AudioSource>();
+        float startVolume = audioSource.volume;  
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / slowDuration;  
+            yield return null;  
+        }
+
+        SoundManager.Instance.StopLoopSound("hl1_song10");
     }
 
     public void Set_isFightStart(bool value)
@@ -49,7 +66,7 @@ public class FightMusicControl : MonoBehaviour
         }
         else if(SoundManager.Instance.IsSoundInLoop("hl1_song10") == true)
         {
-            SoundManager.Instance.StopLoopSound("hl1_song10");
+            StartCoroutine(SlowlyStopMusic());
         }
     }
 

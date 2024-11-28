@@ -89,7 +89,6 @@ public class StageControl : MonoBehaviour
     public void StartNormalMusic()
     {
         fightmusic.StopAllSound();
-        SoundManager.Instance.PlaySound2D("hl2_song2", 0f, true, SoundType.BGM);
     }
 
     public void SetNextStage(int stage)

@@ -107,8 +107,16 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            ChangePause();
+            if(isSettingScreen() == true)
+            {
+                GameObject.Find("PauseUI").GetComponent<ShowPauseUI>().DisableSettingScreen();
+            }
+            else
+            {
+                ChangePause();
+            }
         }
+
         if(isControllerActive == false)
         {
             return;
@@ -659,6 +667,20 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsIdle", (movement != Vector3.zero) ? false : true);
         anim.SetBool("IsRun", (movement == Vector3.zero) ? false : true);
 
+    }
+
+    public bool isSettingScreen()
+    {
+        GameObject SettingScreen = GameObject.Find("Canv_Options");
+
+        if(SettingScreen != null && SettingScreen.activeSelf == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void ChangePause()
