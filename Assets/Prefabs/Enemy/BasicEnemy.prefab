@@ -1544,6 +1544,8 @@ MonoBehaviour:
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
   BloodParticle: {fileID: 9036208454832375646, guid: c6d0d5af84eb2654099440e7441588c1, type: 3}
+  Hpitem: {fileID: 5943998365994917161, guid: 2599738181e860448b94b40eef97dca3, type: 3}
+  Spitem: {fileID: 5943998365994917161, guid: f04b729db7db77941ab8fec502c79fa5, type: 3}
 --- !u!1 &6714774075403206328
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,9 @@ public class EnemyHealth : MonoBehaviour
 
     public GameObject BloodParticle;
 
+    public GameObject Hpitem;
+    public GameObject Spitem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,33 +80,81 @@ public class EnemyHealth : MonoBehaviour
         //�׾����� Ȯ��
         if (EnemyHp <= 0)
         {
+            int itemrandom = Random.Range(0, 2);
+            Vector3 spawnpos = transform.position;
+            spawnpos.y += 1;
             if (WhatStageEnemy == 0)
             {
                 animator.SetTrigger("Dead");
+                if(itemrandom == 0)
+                {
+                    GameObject item = Instantiate(Hpitem, spawnpos, transform.rotation);
+                }
+                else if(itemrandom == 1)
+                {
+                    GameObject item = Instantiate(Spitem, spawnpos, transform.rotation);
+                }
+
                 Invoke(nameof(EnemyDead), 0.4f);
             }
             if (WhatStageEnemy == 1)
             {
                 stagecontrol.howEnemyleft(1);
                 animator.SetTrigger("Dead");
+
+                if (itemrandom == 0)
+                {
+                    GameObject item = Instantiate(Hpitem, spawnpos, transform.rotation);
+                }
+                else if (itemrandom == 1)
+                {
+                    GameObject item = Instantiate(Spitem, spawnpos, transform.rotation);
+                }
                 Invoke(nameof(EnemyDead), 0.4f);
             }
             if (WhatStageEnemy == 2)
             {
                 stagecontrol.howEnemyleft(2);
                 animator.SetTrigger("Dead");
+
+                if (itemrandom == 0)
+                {
+                    GameObject item = Instantiate(Hpitem, spawnpos, transform.rotation);
+                }
+                else if (itemrandom == 1)
+                {
+                    GameObject item = Instantiate(Spitem, spawnpos, transform.rotation);
+                }
                 Invoke(nameof(EnemyDead), 0.4f);
             }
             if (WhatStageEnemy == 3)
             {
                 stagecontrol.howEnemyleft(3);
                 animator.SetTrigger("Dead");
+
+                if (itemrandom == 0)
+                {
+                    GameObject item = Instantiate(Hpitem, spawnpos, transform.rotation);
+                }
+                else if (itemrandom == 1)
+                {
+                    GameObject item = Instantiate(Spitem, spawnpos, transform.rotation);
+                }
                 Invoke(nameof(EnemyDead), 0.4f);
             }
             if (WhatStageEnemy == 4)
             {
                 stagecontrol.howEnemyleft(4);
                 animator.SetTrigger("Dead");
+
+                if (itemrandom == 0)
+                {
+                    GameObject item = Instantiate(Hpitem, spawnpos, transform.rotation);
+                }
+                else if (itemrandom == 1)
+                {
+                    GameObject item = Instantiate(Spitem, spawnpos, transform.rotation);
+                }
                 Invoke(nameof(EnemyDead), 0.4f);
             }
             SoundManager.Instance.PlaySound3D("MON_FacelessOne_v2_death", gameObject, 0, 25, false, SoundType.MONSTER_SOUND);
