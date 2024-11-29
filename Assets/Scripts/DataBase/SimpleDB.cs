@@ -75,7 +75,7 @@ public class SimpleDB : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "CREATE TABLE IF NOT EXISTS userdata(id VARCHAR(20), review VARCHAR(30), cleartime INT(4), cleardate VARCHAR(20), rank INT);";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS userdata(id VARCHAR(20) PRIMARY KEY, review VARCHAR(500), cleartime INT, cleardate VARCHAR(20), rank INT);";
                 command.ExecuteNonQuery();
             }
             connection.Close();
@@ -324,6 +324,54 @@ public class SimpleDB : MonoBehaviour
                 else
                 {
                     command.CommandText = "SELECT * FROM userdata ORDER BY rank DESC;";
+                }
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    int i = 1;
+                    while (reader.Read())
+                    {
+                        Ranklist.text += reader["rank"] + " 등 " +
+                                         "\tID: " + reader["id"] +
+                                         "\tcleartime: " + reader["cleartime"] + "초" +
+                                         "\tReview: " + reader["review"] +
+                                         "\tDate: " + reader["cleardate"] + "\n";
+                        i++;
+                    }
+
+                    reader.Close();
+                }
+            }
+
+            connection.Close();
+        }
+
+        // 정렬 순서를 토글
+        isAscendingRankOrder = !isAscendingRankOrder;
+    }
+
+    public void ClearTimeSelect()
+    {
+        if (Rankpage != null)
+        {
+            Rankpage.SetActive(true);
+        }
+        Ranklist.text = "";
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                // 등수 정렬 순서를 토글하여 쿼리 설정
+                if (isAscendingRankOrder)
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY cleartime ASC;";
+                }
+                else
+                {
+                    command.CommandText = "SELECT * FROM userdata ORDER BY cleartime DESC;";
                 }
 
                 using (IDataReader reader = command.ExecuteReader())
