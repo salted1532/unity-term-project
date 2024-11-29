@@ -12,7 +12,6 @@ public class ShowPauseUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         SettingScreen.SetActive(false);
-        Debug.Log(isPause);
     }
 
     void Update()

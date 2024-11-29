@@ -11,6 +11,7 @@ public class GameOver : MonoBehaviour
     public GameObject MainMenuButton;
     public GameObject BlackScreen;
     public GameObject Player;
+    
 
     public CanvasGroup canvasGroup;
 
