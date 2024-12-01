@@ -20,7 +20,7 @@ public class DamageSystem : MonoBehaviour
 
     public void Start()
     {
-        Hpslider.maxValue = CurrentHp;
+        Hpslider.maxValue = CurrentHp; 
         Hpslider.value = CurrentHp;
         Spslider.maxValue = 100;
         Spslider.value = CurrentSp;

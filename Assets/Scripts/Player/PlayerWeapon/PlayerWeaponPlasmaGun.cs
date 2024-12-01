@@ -21,7 +21,7 @@ public class PlayerWeaponPlasmaGun : MonoBehaviour
     public float CooldownTime = 1.3f;
     public void CreatePlasma()
     {
-        Instantiate(PreFebBullet, PlasmaT.position,Camera.main.transform.rotation ,null);
+        Instantiate(PreFebBullet, PlasmaT.position + new Vector3(-0.12f,0,0),Camera.main.transform.rotation ,null); 
 
         curBoulletCount -= 1;
         if (curBoulletCount <= 0)

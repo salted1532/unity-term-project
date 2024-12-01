@@ -79,6 +79,8 @@ public class PlayerWeaponMgr : MonoBehaviour
         WeaponObjArr[1] = WeaponUIArr1;
         WeaponObjArr[2] = WeaponUIArr2;
         WeaponObjArr[3] = WeaponUIArr3;
+        anim.SetLayerWeight(2, 0f);
+
 
     }
     private void Update()
@@ -87,9 +89,13 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             return;
         }
+        if (IsShoting)
+        {
+            IsShoting = false;
+            
 
-        IsShoting = false;
-
+        }
+        
         if (Input.GetMouseButtonDown(0) && !PlayerState.PlayerIsDashing && PlayerInventory.GetCurWeaponNum() != 2)
         {
             Fire();
@@ -109,12 +115,21 @@ public class PlayerWeaponMgr : MonoBehaviour
         }
         if (isReLoading)
         {
+            if (anim.GetLayerWeight(2) < 0.1f)
+            {
+                anim.SetLayerWeight(2, 1f);
+                anim.SetTrigger("Reloading");
+
+            }
+
             ReRoadGun();
+
             IsShoting = false;
         }
         UpdateBulletText();
         SmoothColorTransition();
         anim.SetBool("IsShot", IsShoting);
+
 
     }
 
@@ -183,11 +198,14 @@ public class PlayerWeaponMgr : MonoBehaviour
     {
         if (curReLodingTime > maxReLodingTime)
         {
+
+
             curBulletCount = MaxBulletCount;
             isReLoading = false;
             isGunSoundPlayed = false;
             curReLodingTime = 0;
-            
+            anim.SetLayerWeight(2, 0f);
+
             SoundManager.Instance.StopLoopSound("shotgun_reload3");
             if(ShotGunObj.activeSelf == true)
             {
@@ -284,9 +302,10 @@ public class PlayerWeaponMgr : MonoBehaviour
                 break;
         }
 
+        anim.SetLayerWeight(2, 0f);
 
     }
-   void SetCurWeaponObj(int WeaponNum)
+    void SetCurWeaponObj(int WeaponNum)
     {
         switch (WeaponNum)
         {
@@ -337,6 +356,7 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             if (reloadCoroutine != null)
             {
+                Debug.Log("0으로 설정");
                 StopCoroutine(reloadCoroutine);
                 reloadCoroutine = null;
             }

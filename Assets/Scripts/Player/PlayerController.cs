@@ -664,8 +664,8 @@ public class PlayerController : MonoBehaviour
     void AnimPlay()
     {
 
-        anim.SetBool("IsIdle", (movement != Vector3.zero) ? false : true);
-        anim.SetBool("IsRun", (movement == Vector3.zero) ? false : true);
+        anim.SetInteger("z", (int)movement.z);
+        anim.SetInteger("x", (int)movement.x);
 
     }
 
