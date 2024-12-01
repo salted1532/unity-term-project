@@ -8,6 +8,8 @@ public class SoundDataManager : MonoBehaviour
     public static float BGM = 0.5f;
     public static float EFFECT = 0.5f;
 
+    public static float MOUSESENSITIVITY = 2f;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -37,6 +39,11 @@ public class SoundDataManager : MonoBehaviour
         }
     }
 
+    public void SetMouseValue(float value)
+    {
+        MOUSESENSITIVITY = value;
+    }
+
     public float GetMasterValue()
     {
         return MASTER;
@@ -50,5 +57,10 @@ public class SoundDataManager : MonoBehaviour
     public float GetEffectValue()
     {
         return EFFECT;
+    }
+
+    public float GetMouseValue()
+    {
+        return MOUSESENSITIVITY;
     }
 }

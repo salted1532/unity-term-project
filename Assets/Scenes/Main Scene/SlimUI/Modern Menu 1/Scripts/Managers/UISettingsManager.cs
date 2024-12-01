@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using Cinemachine;
 
 namespace SlimUI.ModernMenu{
 	public class UISettingsManager : MonoBehaviour {
@@ -47,12 +48,13 @@ namespace SlimUI.ModernMenu{
 		public GameObject mouseSmoothSlider;
 		
 		private GameObject SoundDataObject;
+		private CinemachineFreeLook  ThirdPersonCamera;
 
 		private float sliderValue = 0.0f;
 		private float sliderValueXSensitivity = 0.0f;
 		private float sliderValueYSensitivity = 0.0f;
 
-		private float sliderValueSensitivity = 0.0f;
+		private float sliderValueSensitivity = 2f;
 
 		private float sliderValueSmoothing = 0.0f;
 		
@@ -66,6 +68,7 @@ namespace SlimUI.ModernMenu{
 			musicSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetBGMValue();
 			effectSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetEffectValue();
 			masterSlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetMasterValue();
+			sensitivitySlider.GetComponent<Slider>().value = SoundDataObject.GetComponent<SoundDataManager>().GetMouseValue();
 
 			SoundManager.Instance.SetVolume(SoundType.BGM, musicSlider.GetComponent<Slider>().value);
 			SoundManager.Instance.SetVolume(SoundType.EFFECT, effectSlider.GetComponent<Slider>().value);
@@ -73,10 +76,9 @@ namespace SlimUI.ModernMenu{
 
 			sensitivityXSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("XSensitivity");
 			sensitivityYSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("YSensitivity");
-
-			sensitivitySlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("Sensitivity");
-
 			mouseSmoothSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("MouseSmoothing");
+
+			ThirdPersonCamera = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
 
 			// check full screen
 			if(Screen.fullScreen == true){
@@ -229,7 +231,11 @@ namespace SlimUI.ModernMenu{
 		}
 
 		public void SensitivitySlider (){
-			PlayerPrefs.SetFloat("Sensitivity", sliderValueSensitivity);
+			if(ThirdPersonCamera != null)
+			{
+				ThirdPersonCamera.m_XAxis.m_MaxSpeed = sensitivitySlider.GetComponent<Slider>().value;
+			}
+			SoundDataObject.GetComponent<SoundDataManager>().SetMouseValue(sensitivitySlider.GetComponent<Slider>().value);
 		}
 
 		public void SensitivitySmoothing (){
