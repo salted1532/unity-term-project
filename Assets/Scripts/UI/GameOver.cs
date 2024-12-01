@@ -19,6 +19,9 @@ public class GameOver : MonoBehaviour
     private float BloodAlpha = 1f;
     private float ButtonAlpha = 0f;
 
+    private float gameover_speed = 0.025f;
+    private float popup_delay = 0.5f;
+
     private bool isGameOver = false;
     private bool ShowButton = false;
 
@@ -35,25 +38,25 @@ public class GameOver : MonoBehaviour
         if(isGameOver == true)
         {
             time += Time.deltaTime;
-            if(time>0.01f)
+            if(time>gameover_speed)
             {
-                time = time - 0.01f;
-                BloodAlpha = BloodAlpha - 0.01f;
+                time = time - gameover_speed;
+                BloodAlpha = BloodAlpha - gameover_speed;
                 BloodImage.GetComponent<Image>().color = new Color(1, 1, 1, BloodAlpha);
                 if(BloodAlpha <= 0)
                 {
                     isGameOver = false;
-                    Invoke("ShowMainMenuButton",0.5f);
+                    Invoke("ShowMainMenuButton",popup_delay);
                 }
             }
         }
         if(ShowButton == true)
         {
             time = time + Time.deltaTime;
-            if(time>0.01f)
+            if(time>gameover_speed)
             {
-                time = time - 0.01f;
-                ButtonAlpha = ButtonAlpha + 0.01f;
+                time = time - gameover_speed;
+                ButtonAlpha = ButtonAlpha + gameover_speed;
                 SetCanvasAlpha(ButtonAlpha);
                 if(ButtonAlpha >= 1f)
                 {
@@ -99,6 +102,6 @@ public class GameOver : MonoBehaviour
         Player.GetComponent<PlayerController>().DisablePlayer();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Invoke("HideBloodImage",0.5f);
+        Invoke("HideBloodImage",popup_delay);
     }
 }
