@@ -243,9 +243,20 @@ namespace SlimUI.ModernMenu{
 
 		public void ExtrasMenu(){
 			playMenu.SetActive(false);
-			if(extrasMenu) extrasMenu.SetActive(true);
-			exitMenu.SetActive(false);
-		}
+			if(extrasMenu)
+			{
+                if (extrasMenu.activeSelf == false) // 현재 객체가 활성화된 상태인지 확인
+                {
+                    extrasMenu.SetActive(true); // 활성화
+                }
+                else if (extrasMenu.activeSelf == true) // 현재 객체가 활성화된 상태인지 확인
+                {
+                    extrasMenu.SetActive(false); // 비활성화
+                }
+            }
+
+            exitMenu.SetActive(false);
+        }
 
 		public void QuitGame(){
 			#if UNITY_EDITOR
