@@ -64,6 +64,8 @@ namespace SlimUI.ModernMenu{
         public GameObject lineGeneral;
 
 		public GameObject TitleObject;
+		public GameObject MainObject;
+		public GameObject SettingObject;
 
         [Header("LOADING SCREEN")]
 		[Tooltip("If this is true, the loaded scene won't load until receiving user input")]
@@ -83,6 +85,8 @@ namespace SlimUI.ModernMenu{
 			firstMenu.SetActive(true);
 			mainMenu.SetActive(true);
 			TitleObject.SetActive(true);
+			MainObject.SetActive(true);
+			SettingObject.SetActive(false);
 
 			SetThemeColors();
 		}
@@ -152,6 +156,20 @@ namespace SlimUI.ModernMenu{
 
 		public void Position1(){
 			CameraObject.SetFloat("Animate",0);
+		}
+
+		public void SettingOn()
+		{
+			MainObject.SetActive(false);
+			SettingObject.SetActive(true);
+			extrasMenu.SetActive(false);
+		}
+
+		public void SettingOff()
+		{
+			MainObject.SetActive(true);
+			SettingObject.SetActive(false);
+			extrasMenu.SetActive(false);
 		}
 
 		void DisablePanels(){
