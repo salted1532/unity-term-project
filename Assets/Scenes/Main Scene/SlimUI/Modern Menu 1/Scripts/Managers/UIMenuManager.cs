@@ -63,6 +63,8 @@ namespace SlimUI.ModernMenu{
         [Tooltip("Highlight Image for when GENERAL Sub-Tab is selected in KEY BINDINGS")]
         public GameObject lineGeneral;
 
+		public GameObject TitleObject;
+
         [Header("LOADING SCREEN")]
 		[Tooltip("If this is true, the loaded scene won't load until receiving user input")]
 		public bool waitForInput = true;
@@ -80,6 +82,7 @@ namespace SlimUI.ModernMenu{
 			if(extrasMenu) extrasMenu.SetActive(false);
 			firstMenu.SetActive(true);
 			mainMenu.SetActive(true);
+			TitleObject.SetActive(true);
 
 			SetThemeColors();
 		}
@@ -131,6 +134,7 @@ namespace SlimUI.ModernMenu{
 			if(extrasMenu) extrasMenu.SetActive(false);
 			exitMenu.SetActive(false);
 			mainMenu.SetActive(true);
+			TitleObject.SetActive(true);
 		}
 
 		public void LoadScene(){
@@ -248,10 +252,12 @@ namespace SlimUI.ModernMenu{
                 if (extrasMenu.activeSelf == false) // 현재 객체가 활성화된 상태인지 확인
                 {
                     extrasMenu.SetActive(true); // 활성화
+					TitleObject.SetActive(false);
                 }
                 else if (extrasMenu.activeSelf == true) // 현재 객체가 활성화된 상태인지 확인
                 {
                     extrasMenu.SetActive(false); // 비활성화
+					TitleObject.SetActive(true);
                 }
             }
 
