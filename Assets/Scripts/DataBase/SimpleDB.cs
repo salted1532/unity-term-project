@@ -84,6 +84,18 @@ public class SimpleDB : MonoBehaviour
 
     public void Adduserdata()
     {
+        // 입력값이 비어있거나 공백으로만 이루어진 경우 메서드 종료
+        if (string.IsNullOrWhiteSpace(idInput.text))
+        {
+            Debug.Log("ID 입력값이 비어있거나 공백입니다.");
+            clearTime = 0;
+
+            Time.timeScale = 1;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("Main Menu");
+        }
+
         string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
 
         using (var connection = new SqliteConnection(dbName))
