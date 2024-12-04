@@ -5,15 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using TMPro;
+
 public class GameOver : MonoBehaviour
 {
     public GameObject BloodImage;
     public GameObject MainMenuButton;
     public GameObject BlackScreen;
     public GameObject Player;
-    
+    public GameObject GameOverText;
 
     public CanvasGroup canvasGroup;
+    public TextMeshPro textMeshPro;
 
     private float time = 0f;
     private float BloodAlpha = 1f;
@@ -21,6 +24,8 @@ public class GameOver : MonoBehaviour
 
     private float gameover_speed = 0.025f;
     private float popup_delay = 0.5f;
+
+    private Color originalColor;
 
     private bool isGameOver = false;
     private bool ShowButton = false;
@@ -31,6 +36,9 @@ public class GameOver : MonoBehaviour
         
         SetCanvasInteractable(false);
         SetCanvasAlpha(ButtonAlpha);
+
+        originalColor = textMeshPro.color;
+        textMeshPro.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
     }
 
     void Update()
@@ -57,12 +65,16 @@ public class GameOver : MonoBehaviour
             {
                 time = time - gameover_speed;
                 ButtonAlpha = ButtonAlpha + gameover_speed;
+                textMeshPro.color = new Color(originalColor.r, originalColor.g, originalColor.b, ButtonAlpha);
+
                 SetCanvasAlpha(ButtonAlpha);
                 if(ButtonAlpha >= 1f)
                 {
                     ShowButton = false;
                     SetCanvasInteractable(true);
-                    Time.timeScale = 0;
+                    GameOverText.GetComponent<BlickTitle>().StartBlink();
+
+                    Time.timeScale = 1;
                 }
             }
         }

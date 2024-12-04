@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using TMPro;
 
 public class BlickTitle : MonoBehaviour
 {
     public TextMeshPro textMeshPro;
-    public float minInterval = 2f;
-    public float maxInterval = 5f;
-    public int minFlickers = 1;
-    public int maxFlickers = 3;
-    public float minAlpha = 0.3f;
-    public float maxAlpha = 0.8f;
-    public float flickerDuration = 0.1f;
+    public float minInterval = 0.5f; // 최소 간격
+    public float maxInterval = 1f; // 최대 간격
+    public int minFlickers = 2;      // 최소 깜빡임 횟수
+    public int maxFlickers = 5;      // 최대 깜빡임 횟수
+    public float minAlpha = 0.1f;    // 최소 투명도
+    public float maxAlpha = 1f;      // 최대 투명도
+    public float flickerDuration = 0.05f; // 깜빡임 지속 시간
+
+    public string currentSceneName;
+
+    public bool isGameOver;
 
     private Color originalColor;
     private Coroutine flickerCoroutine;
@@ -22,26 +29,50 @@ public class BlickTitle : MonoBehaviour
         if (textMeshPro == null)
         {
             Debug.LogError("TextMeshPro 컴포넌트를 연결하세요!");
+            enabled = false; // 스크립트 비활성화
             return;
         }
 
+        isGameOver = false;
+        currentSceneName = SceneManager.GetActiveScene().name;
         originalColor = textMeshPro.color; // 원래 색상 저장
+
+        if(currentSceneName == "SampleScene")
+        {
+            textMeshPro.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+        }
+    }
+
+    public void StartBlink()
+    {
+        flickerCoroutine = StartCoroutine(FlickerRoutine());
     }
 
     void OnEnable()
     {
-        // 오브젝트가 활성화될 때 코루틴 시작
-        flickerCoroutine = StartCoroutine(FlickerRoutine());
+        if(currentSceneName == "Main Menu")
+        {
+            StartBlink();
+        }
     }
 
     void OnDisable()
     {
-        // 오브젝트가 비활성화될 때 코루틴 중지
         if (flickerCoroutine != null)
         {
             StopCoroutine(flickerCoroutine);
             flickerCoroutine = null;
         }
+    }
+
+    public void GameOverStart_BlickTitle()
+    {
+        isGameOver = true;
+    }
+
+    public bool isGameOver_BlickTitle()
+    {
+        return isGameOver;
     }
 
     private IEnumerator FlickerRoutine()
@@ -63,3 +94,4 @@ public class BlickTitle : MonoBehaviour
         }
     }
 }
+

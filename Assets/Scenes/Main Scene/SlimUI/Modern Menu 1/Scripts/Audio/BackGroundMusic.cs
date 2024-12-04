@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class BackGroundMusic : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        //Invoke("StartBackGroundMusic",1);
+        Invoke("StartBackGroundMusic",1);
     }
 
     void StartBackGroundMusic()
