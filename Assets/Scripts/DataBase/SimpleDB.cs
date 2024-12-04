@@ -169,7 +169,7 @@ public class SimpleDB : MonoBehaviour
                 {
                     while (reader.Read())
                     {
-                        userlist.text += reader["rank"] + " 등 " + "\tID: " + reader["id"] + "\tcleartime: " + reader["cleartime"] + "초" + "\tReview: " + reader["review"] + "\tDate: " + reader["cleardate"] + "\n";
+                        userlist.text += reader["rank"] + " 등 " + " ID: " + reader["id"] + " cleartime: " + reader["cleartime"] + "초" + " Review: " + reader["review"] + " Date: " + reader["cleardate"] + "\n";
                     }
 
                     reader.Close();
@@ -216,7 +216,11 @@ public class SimpleDB : MonoBehaviour
                     int i = 1;
                     while (reader.Read())
                     {
-                        Ranklist.text += reader["rank"] + " 등 " + "\tID: " + reader["id"] + "\tcleartime: " + reader["cleartime"] + "초" + "\tReview: " + reader["review"] + "\tDate: " + reader["cleardate"] + "\n";
+                        Ranklist.text += reader["rank"] + " 등 " +
+                                          " 아이디: " + reader["id"] +
+                                          "\t클리어 시간: " + reader["cleartime"] + "초" +
+                                          "\t날짜: " + reader["cleardate"] + "\n" +
+                                          "리뷰: " + reader["review"] + "\n";
                         i++;
                     }
 
@@ -258,10 +262,10 @@ public class SimpleDB : MonoBehaviour
                     while (reader.Read())
                     {
                         Ranklist.text += reader["rank"] + " 등 " +
-                                            "\tID: " + reader["id"] +
-                                            "\tcleartime: " + reader["cleartime"] + "초" +
-                                            "\tReview: " + reader["review"] +
-                                            "\tDate: " + reader["cleardate"] + "\n";
+                                          " 아이디: " + reader["id"] +
+                                          "\t클리어 시간: " + reader["cleartime"] + "초" +
+                                          "\t날짜: " + reader["cleardate"] + "\n" +
+                                          "리뷰: " + reader["review"] + "\n";
                         i++;
                     }
 
@@ -296,7 +300,11 @@ public class SimpleDB : MonoBehaviour
                     while (reader.Read())
                     {
                         // Ranklist에 검색된 데이터 추가
-                        Ranklist.text += reader["rank"] + " 등 " + "\tID: " + reader["id"] + "\tcleartime: " + reader["cleartime"] + "초" + "\tReview: " + reader["review"] + "\tDate: " + reader["cleardate"] + "\n";
+                        Ranklist.text += reader["rank"] + " 등 " +
+                                          " 아이디: " + reader["id"] +
+                                          "\t클리어 시간: " + reader["cleartime"] + "초" +
+                                          "\t날짜: " + reader["cleardate"] + "\n" +
+                                          "리뷰: " + reader["review"] + "\n";
                         i++;
                     }
 
@@ -344,10 +352,10 @@ public class SimpleDB : MonoBehaviour
                     while (reader.Read())
                     {
                         Ranklist.text += reader["rank"] + " 등 " +
-                                         "\tID: " + reader["id"] +
-                                         "\tcleartime: " + reader["cleartime"] + "초" +
-                                         "\tReview: " + reader["review"] +
-                                         "\tDate: " + reader["cleardate"] + "\n";
+                                          " 아이디: " + reader["id"] +
+                                          "\t클리어 시간: " + reader["cleartime"] + "초" +
+                                          "\t날짜: " + reader["cleardate"] + "\n" +
+                                          "리뷰: " + reader["review"] + "\n";
                         i++;
                     }
 
@@ -392,10 +400,10 @@ public class SimpleDB : MonoBehaviour
                     while (reader.Read())
                     {
                         Ranklist.text += reader["rank"] + " 등 " +
-                                         "\tID: " + reader["id"] +
-                                         "\tcleartime: " + reader["cleartime"] + "초" +
-                                         "\tReview: " + reader["review"] +
-                                         "\tDate: " + reader["cleardate"] + "\n";
+                                          " 아이디: " + reader["id"] +
+                                          "\t클리어 시간: " + reader["cleartime"] + "초" +
+                                          "\t날짜: " + reader["cleardate"] + "\n" +
+                                          "리뷰: " + reader["review"] + "\n";
                         i++;
                     }
 
