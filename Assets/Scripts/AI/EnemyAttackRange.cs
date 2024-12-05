@@ -12,7 +12,10 @@ public class EnemyAttackRange : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
 
-            Ray ray = new Ray(transform.position, direction);
+            Vector3 transpos = transform.position;
+            transpos.y += 1;
+
+            Ray ray = new Ray(transpos, direction);
             RaycastHit hit;
 
             float distance = Vector3.Distance(transform.position, transform.parent.GetComponent<EnemyAI>().Player.transform.position);
@@ -21,6 +24,8 @@ public class EnemyAttackRange : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
+
+                Debug.Log(hit.collider);
                 if (hit.collider.CompareTag("Player"))
                 {
                     transform.parent.GetComponent<EnemyAI>().Attack();
