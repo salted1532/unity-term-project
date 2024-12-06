@@ -14,6 +14,7 @@ public class GameOver : MonoBehaviour
     public GameObject BlackScreen;
     public GameObject Player;
     public GameObject GameOverText;
+    public GameObject Inventory;
 
     public CanvasGroup canvasGroup;
     public TextMeshPro textMeshPro;
@@ -111,6 +112,7 @@ public class GameOver : MonoBehaviour
     public void GameOverEvent()
     {
         gameObject.SetActive(true);
+        Inventory.SetActive(false);
         Player.GetComponent<PlayerController>().DisablePlayer();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
