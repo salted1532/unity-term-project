@@ -30,7 +30,7 @@ public class DamageSystem : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Invoke("KillPlayer", 1f);
+        //Invoke("KillPlayer", 1f);
     }
 
     public void KillPlayer()
@@ -45,6 +45,7 @@ public class DamageSystem : MonoBehaviour
         Debug.Log("������ ����");
 
         float TDamge = amount;
+        int random = Random.Range(1,7);
 
         if (TDamge > 0)
         {
@@ -55,7 +56,7 @@ public class DamageSystem : MonoBehaviour
             else if((CurrentSp - TDamge) >= 0) {
                  CurrentSp -= TDamge;
             }
-
+            SoundManager.Instance.PlaySound2D("FX_Fire_Magic_Impact_Small_0" + random,0f,false,SoundType.GUN);
         }
         if (TDamge < 0)
         {
