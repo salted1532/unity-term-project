@@ -138,7 +138,7 @@ public class EnemyAI : MonoBehaviour
     {
         SoundManager.Instance.PlaySound3D("FireCast", gameObject);
         Vector3 direction = Player.transform.position - transform.position;
-        direction.y -= 2;  
+        direction.y -= 1;  
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1000f);
 

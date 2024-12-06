@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71375bdcc54fa3c49afaeef6632306a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHp: 200
+  EnemyHp: 1000
   EnemyHpslider: {fileID: 7747977452842955404}
   animator: {fileID: 5789488274580925042}
   WhatStageEnemy: 0
