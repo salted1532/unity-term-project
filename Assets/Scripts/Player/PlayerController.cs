@@ -429,7 +429,7 @@ public class PlayerController : MonoBehaviour
         if (playerControl.isGrounded && !startedJump)
         {
             gravity = MinGravity;
-            VelocityY = -gravity * Time.deltaTime;
+            VelocityY = 0;
         }
 
         //If the player is jumping (not falling) and they aren't holding the jump button, increase their gravity
@@ -655,7 +655,6 @@ public class PlayerController : MonoBehaviour
     }
     void DashEnd()
     {
-        Debug.Log("�뽬 ����");
 
         isDashing = false;
         PlayerState.PlayerIsDashing = false ;
