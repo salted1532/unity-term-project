@@ -15,7 +15,7 @@ public class PlayerWeaponDefault : MonoBehaviour
     public float curReLodingTime;
 
     public float defaultWeaponMaxDistance = 500f;
-    public float damage = 10f;
+    public float damage = 5f;
     public Transform PreFebBulletT;
     public Transform bulletMarksT;
 
