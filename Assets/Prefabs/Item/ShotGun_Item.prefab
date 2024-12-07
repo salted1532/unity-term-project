@@ -132,7 +132,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.07292062, y: 0.46495003, z: 0.14414734}
+  m_Size: {x: 0.18, y: 0.46495003, z: 0.27}
   m_Center: {x: -0.000000007450581, y: 0, z: 0.000000007450582}
 --- !u!114 &8903874288769689091
 MonoBehaviour:
@@ -149,4 +149,4 @@ MonoBehaviour:
   floatSpeed: 1
   floatAmplitude: 0.1
   rotationSpeed: 50
-  itemmanage: 2
+  itemmanage: 1

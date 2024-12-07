@@ -80,7 +80,7 @@ public class PlayerWeaponMgr : MonoBehaviour
         WeaponObjArr[2] = WeaponUIArr2;
         WeaponObjArr[3] = WeaponUIArr3;
         anim.SetLayerWeight(2, 0f);
-
+        SetCurWeaponData();
 
     }
     private void Update()
@@ -117,8 +117,8 @@ public class PlayerWeaponMgr : MonoBehaviour
         {
             if (anim.GetLayerWeight(2) < 0.1f)
             {
-                anim.SetLayerWeight(2, 1f);
-                anim.SetTrigger("Reloading");
+
+                Invoke("animTriggerReloading", 0.22f);
 
             }
 
@@ -131,6 +131,12 @@ public class PlayerWeaponMgr : MonoBehaviour
         anim.SetBool("IsShot", IsShoting);
 
 
+    }
+    void animTriggerReloading()
+    {
+        anim.SetLayerWeight(2, 1f);
+        anim.SetLayerWeight(1, 0f);
+        anim.SetTrigger("Reloading");
     }
 
     void Fire()
@@ -205,6 +211,7 @@ public class PlayerWeaponMgr : MonoBehaviour
             isGunSoundPlayed = false;
             curReLodingTime = 0;
             anim.SetLayerWeight(2, 0f);
+            anim.SetLayerWeight(1, 1f);
 
             SoundManager.Instance.StopLoopSound("shotgun_reload3");
             if(ShotGunObj.activeSelf == true)
