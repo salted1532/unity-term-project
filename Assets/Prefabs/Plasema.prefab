@@ -100,7 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomArea: {fileID: 570938331329616830, guid: 5e6da53582d889b4b8e9653942a00866, type: 3}
   prefabEffect: {fileID: 100006, guid: 7c442b9b6852b8a4f93306f3d154d471, type: 3}
-  defaultBulletSpeed: 2.7
   speed: 10
 --- !u!54 &5380441447760436408
 Rigidbody:

@@ -11,9 +11,8 @@ public class Plasma : MonoBehaviour
     public GameObject prefabEffect;
     Vector2 screenPoint;
     Ray ray;
-    public float defaultBulletSpeed;
 
-    public float speed = 10f; // �Ѿ��� �⺻ �ӵ�
+    public float speed = 28f; 
 
 
     private Vector3 direction; // �Ѿ��� �̵� ����
@@ -33,10 +32,8 @@ public class Plasma : MonoBehaviour
 
 
   
-        if ((transform.position - PlayerState.PlayerCurPos).sqrMagnitude > 500f)
+        if ((transform.position - PlayerState.PlayerCurPos).sqrMagnitude > 750f)
         {
-            Debug.Log("������ ��� �Ѿ� ���� ����!");
-
             CreateBoomArea();
         }
 
@@ -47,11 +44,7 @@ public class Plasma : MonoBehaviour
     {
         if (!other.CompareTag("Player") && !other.CompareTag("Item") && !other.CompareTag("Exception"))
         {
-            Debug.Log("��ü�� ��Ƽ� �Ѿ� ���� ����!:  "+ other.name);  
-
-
-                CreateBoomArea();
-
+            CreateBoomArea();
         }
 
 
@@ -60,7 +53,6 @@ public class Plasma : MonoBehaviour
     {
         Instantiate(BoomArea,transform.position,Quaternion.identity,null);
         Instantiate(prefabEffect, transform.position, Quaternion.LookRotation(transform.position.normalized), null);
-        Debug.Log("�ö�� ���� ����!");
 
         Destroy( gameObject);
     }
