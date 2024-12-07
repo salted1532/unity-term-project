@@ -153,8 +153,11 @@ public class PlayerController : MonoBehaviour
 
         AnimPlay();
 
-        //Debug.Log(playerControl.isGrounded);
-        
+        if (startedJump)
+        {
+            startedJump = false;
+        }
+
     }
     void RayTest()
     {
@@ -218,6 +221,7 @@ public class PlayerController : MonoBehaviour
 
     void ControlPlayer()
     {
+
         if ( isJumpingFirst &&  playerControl.isGrounded)
         {
             isJumpingFirst = false;
@@ -448,7 +452,7 @@ public class PlayerController : MonoBehaviour
         if (!playerControl.isGrounded)
         {
             VelocityY -= gravity * Time.deltaTime;
-            startedJump = false;
+            
         }
         if (startedJump)
         {
@@ -665,7 +669,9 @@ public class PlayerController : MonoBehaviour
 
         anim.SetInteger("z", (int)movement.z);
         anim.SetInteger("x", (int)movement.x);
-
+        anim.SetBool("jump up", startedJump);
+        anim.SetBool("jumping", IsJumping);
+        anim.SetBool("jump down", IsFalling());
     }
 
     public bool isSettingScreen()
