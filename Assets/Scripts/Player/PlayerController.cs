@@ -475,7 +475,6 @@ public class PlayerController : MonoBehaviour
     {
         if (playerControl.isGrounded)
         {
-            SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
             VelocityY = jumpForce;
             startedJump = true;
             isJumpingFirst = true;
@@ -489,7 +488,6 @@ public class PlayerController : MonoBehaviour
         if (isJumpingFirst)
         {
             Debug.Log("더블 점프!");
-            SoundManager.Instance.PlaySound2D("EFFECT_Click_Mechanical");
             VelocityY = jumpForce * 1.6f;
             startedJump = true;
             isJumpingFirst = false;
