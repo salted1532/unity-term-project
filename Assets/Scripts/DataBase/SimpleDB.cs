@@ -34,6 +34,8 @@ public class SimpleDB : MonoBehaviour
 
     private bool isTimerRunning = false; // 타이머 상태 확인 변수
 
+    public GameObject Player;
+
     void Start()
     {
         if (Rankpage != null)
@@ -63,6 +65,23 @@ public class SimpleDB : MonoBehaviour
             if (cleatimer != null)
             {
                 cleatimer.text = clearTime.ToString();
+            }
+        }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            if (Input.GetKey(KeyCode.L))
+            {
+                if (Input.GetKey(KeyCode.E))
+                {
+                    Debug.Log("승리!");
+                    Clearpage.SetActive(true);
+                    isClear = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    Player.GetComponent<PlayerController>().SetController(false);
+                    Time.timeScale = 0;
+                }
             }
         }
     }
@@ -427,10 +446,15 @@ public class SimpleDB : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Clearpage.SetActive(true);
-            isClear = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            if(Player != null)
+            {
+                Clearpage.SetActive(true);
+                isClear = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Player.GetComponent<PlayerController>().SetController(false);
+                Time.timeScale = 0;
+            }
         }
     }
 }
