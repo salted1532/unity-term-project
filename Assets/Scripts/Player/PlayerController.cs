@@ -671,7 +671,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         PlayerState.PlayerIsDashing = false ;
         DashCooltime = DashCooltime_max;
-        StartCoroutine(CoolTimeFunc());
+        DashCoolUI = StartCoroutine(CoolTimeFunc());
     }
 
     void AnimPlay()
