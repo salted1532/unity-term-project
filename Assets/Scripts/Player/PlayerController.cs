@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     float MaxSpeed = 6f;
 
     [SerializeField]
-    public float dashDuration = 0.5f;    
+    public float dashDuration = 0.4f;    
     [SerializeField]
     private float dashTimeRemaining;
     Vector3 dashDir;
@@ -735,7 +735,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 쿨타임 종료 후 처리
-        disable.fillAmount = 0;
+        disable.fillAmount = 1;
         timer.text = "shift";
         StopCoroutine(DashCoolUI);
         DashCoolUI = null;
