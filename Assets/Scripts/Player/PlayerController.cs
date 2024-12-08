@@ -5,6 +5,9 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
+using System.Collections;
+using System;
 
 
 public class PlayerController : MonoBehaviour
@@ -89,6 +92,12 @@ public class PlayerController : MonoBehaviour
 
     public UnityEvent ChangePauseState;
 
+
+    private float DashCooltime = 1.2f; // 현재 남은 시간
+    private float DashCooltime_max = 1.2f; // 최대 쿨타임
+    public TMP_Text timer; // 남은 시간을 표시할 텍스트
+    public Image disable; // 남은 시간을 표시할 이미지
+    Coroutine DashCoolUI;
     private void Awake()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -102,6 +111,8 @@ public class PlayerController : MonoBehaviour
         targetFOV = freeLookCamera.m_Lens.FieldOfView;
         isControllerActive = true;
         IsJumping = false;
+        DashCoolUI = StartCoroutine(CoolTimeFunc());
+
     }
     private void Update()
     {
@@ -141,7 +152,7 @@ public class PlayerController : MonoBehaviour
 
         
         SwapWeaponListener();
-        if (isDashing)
+        if (isDashing && DashCooltime < 0)
         {
             Dash();
         }
@@ -157,14 +168,13 @@ public class PlayerController : MonoBehaviour
         {
             startedJump = false;
         }
-
     }
     void RayTest()
     {
         for (int i = 0; i < RayTestArr.Length-1; ++i)
         {
             // 랜덤한 각도로 회전하여 레이 방향 설정
-            Vector2 randomCircle = Random.insideUnitCircle * 0.12f;
+            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * 0.12f;
             Vector3 spreadDirection = Camera.main.transform.forward +
                                       transform.right * randomCircle.x +
                                       transform.up * randomCircle.y;
@@ -175,7 +185,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
 
- 
+
 
     }
     private void LateUpdate()
@@ -660,6 +670,8 @@ public class PlayerController : MonoBehaviour
 
         isDashing = false;
         PlayerState.PlayerIsDashing = false ;
+        DashCooltime = DashCooltime_max;
+        StartCoroutine(CoolTimeFunc());
     }
 
     void AnimPlay()
@@ -704,6 +716,29 @@ public class PlayerController : MonoBehaviour
     public void DisablePlayer()
     {
         gameObject.SetActive(false);
+    }
+
+    IEnumerator CoolTimeFunc()
+    {
+        while (DashCooltime > 0f)
+        {
+            DashCooltime -= Time.fixedDeltaTime;
+
+            // 쿨타임 이미지 업데이트
+            disable.fillAmount = 1 - Mathf.Clamp01(DashCooltime / DashCooltime_max);
+
+            // 쿨타임 텍스트 업데이트
+            TimeSpan timeSpan = TimeSpan.FromSeconds(DashCooltime);
+            timer.text = string.Format("{0:D2}:{1:D3}", timeSpan.Seconds, timeSpan.Milliseconds);
+            Debug.Log("코루틴 실행중  " + timer.text);
+            yield return new WaitForFixedUpdate();
+        }
+
+        // 쿨타임 종료 후 처리
+        disable.fillAmount = 0;
+        timer.text = "shift";
+        StopCoroutine(DashCoolUI);
+        DashCoolUI = null;
     }
 }
 
