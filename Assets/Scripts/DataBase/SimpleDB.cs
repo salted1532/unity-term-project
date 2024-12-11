@@ -113,6 +113,7 @@ public class SimpleDB : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadScene("Main Menu");
+            return;
         }
 
         string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
@@ -122,7 +123,18 @@ public class SimpleDB : MonoBehaviour
             connection.Open();
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO userdata (id, review, cleartime, cleardate, rank) VALUES ('" + idInput.text + "', '" + reviewInput.text + "', '" + ((int)clearTime) + "', '" + currentDate + "', 0);";
+                // 기존 데이터가 있으면 업데이트, 없으면 삽입
+                command.CommandText =
+                    "INSERT INTO userdata (id, review, cleartime, cleardate, rank) " +
+                    "VALUES (@id, @review, @cleartime, @cleardate, @rank) " +
+                    "ON CONFLICT(id) DO UPDATE SET review = excluded.review, cleartime = excluded.cleartime, cleardate = excluded.cleardate, rank = excluded.rank;";
+
+                command.Parameters.AddWithValue("@id", idInput.text);
+                command.Parameters.AddWithValue("@review", reviewInput.text);
+                command.Parameters.AddWithValue("@cleartime", (int)clearTime);
+                command.Parameters.AddWithValue("@cleardate", currentDate);
+                command.Parameters.AddWithValue("@rank", 0);
+
                 command.ExecuteNonQuery();
             }
             connection.Close();
