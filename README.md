@@ -191,13 +191,3 @@
    git clone https://github.com/your-repo/protocol-escape.git
    ```
 2. Unity로 프로젝트를 열어 빌드합니다.
-
----
-
-## 라이선스
-본 프로젝트는 MIT 라이선스를 따릅니다. 자세한 내용은 [LICENSE](LICENSE)를 참고하세요.
-
----
-
-## 기여 방법
-기여를 원하신다면, [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요. 감사합니다!
