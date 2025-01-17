@@ -52,7 +52,7 @@
 - **특징**: 폐쇄적 구조, 수많은 적.
 - **적 유형**: 기본 외계 몬스터, 강화 외계 몬스터.
   
-![Image Alt Text](images/스테이지3이미지.PNG)
+![Image Alt Text](images/스테이지3 이미지.PNG)
 
 ---
 
