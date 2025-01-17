@@ -13,6 +13,8 @@
 
 # Protocol Escape
 
+![Image Alt Text](images/게임표지.PNG)
+
 ### 3인칭 기반 1인 슈팅 어드벤처 게임
 
 ---
