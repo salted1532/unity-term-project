@@ -66,7 +66,6 @@
 ![Image Alt Text](images/단순스테이지구성도.jpg)
 
 ![Image Alt Text](images/탑뷰맵사진.PNG)
-
 <실제 게임 속 맵사진>
 
 ---
