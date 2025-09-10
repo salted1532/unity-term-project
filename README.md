@@ -234,7 +234,7 @@
 | 클리어 날짜 (clear_date) | DATE          | 클리어 날짜와 시간         |
 | 등수 (rank)   | INT           | 랭킹 시스템을 통한 유저 등수 |
 
-![Image Alt Text](images/데이터 흐름도.png)
+![Image Alt Text](images/데이터흐름도.png)
 <데이터 흐름도>
 
 유저 데이터 처리 및 랭킹 기능
